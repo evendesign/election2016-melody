@@ -1,6 +1,11 @@
 .hero {
   height: 100vh;
   position: relative;
+  background-image: none, image-url("hero-img.png");
+  background-image: none, image-url("hero-img.svg");
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
 
   .hero-title {
     position: absolute;

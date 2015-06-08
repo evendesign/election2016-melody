@@ -18,6 +18,8 @@
       }
 
       img {
+        width: 100px;
+        height: 100px;
         @include trailer(.5);
         @include border-radius(50%);
       }

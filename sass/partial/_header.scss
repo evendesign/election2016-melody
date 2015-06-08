@@ -1,12 +1,15 @@
 $header-height             : 85px;
-$header-background         : rgba(255, 255, 255, .8);
 $search-input-height       : 36px;
 $search-button-background  : #6FCFAA;
 
 .header {
   width: 100%;
   height: $header-height;
-  background-color: $header-background;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, .8);
+  z-index: 1000;
 
   .header-inner {
     width: 100%;
@@ -78,7 +81,7 @@ $search-button-background  : #6FCFAA;
         @include border-right-radius($search-input-height/2);
 
         &:hover {
-          background: darken($search-button-background, 10%);
+          background: lighten($search-button-background, 10%);
         }
       }
     }

@@ -1,20 +1,24 @@
 .gray-container {
   background: #F3F4F5;
   float: right;
-  width: calc(100% - 280px);
+  width: calc(100% - 240px);
   padding: rhythm(2);
   @include border-top-radius(rhythm(.5));
   @include box-sizing(border-box);
 
   .side-title {
-    width: 260px;
-    height: 60px;
-    line-height: 60px;
-    text-align: center;
+    width: 240px;
+    height: 70px;
+    line-height: 70px;
+    font-size: 22px;
+    color: white;
+    text-align: right;
+    padding-right: rhythm(1.5);
     position: absolute;
     right: calc(100% + 48px);
     top: 0;
-    background: aquamarine;
-    @include border-left-radius(rhythm(.5));
+    background: #99DB76;
+    @include border-left-radius(35px);
+    @include box-sizing(border-box);
   }
 }
