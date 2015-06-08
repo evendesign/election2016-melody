@@ -1,0 +1,10 @@
+site-url: "http://localhost:3000"
+site-name: "台灣美樂地 TAIWAN MELODY"
+site-title: "台灣美樂地 TAIWAN MELODY"
+site-keywords: "台灣美樂地 TAIWAN MELODY"
+site-description: "台灣美樂地 TAIWAN MELODY"
+
+
+og-type: "website"
+og-image: "http://localhost:3000/fb.png"
+fb-admins: "123456"

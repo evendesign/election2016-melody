@@ -1,0 +1,85 @@
+.footer {
+  padding: rhythm(3) 0 rhythm(1);
+  background-color: #183840;
+  color: #ddd;
+  text-align: center;
+  overflow: hidden;
+  // background-image: radial-gradient(100% 100% at 100% 100% , #2B6F69 11%, #183840 79%);
+
+  .site-list {
+    margin: 0 auto;
+    padding: 0 rhythm(1);
+    max-width: 240px;
+  }
+
+  .site {
+    display: block;
+    @include box-sizing(border-box);
+    @include trailer(2);
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .site-thumb {
+    @include trailer(0.5);
+    padding-top: 100%;
+    width: 100%;
+    height: 0;
+    @include border-radius(20px);
+    background-color: rgba(black, 0.25);
+    img {
+      display: block;
+      @include trailer(0);
+    }
+  }
+
+  .site-title {
+    @include adjust-font-size-to(18px);
+    color: white;
+    font-weight: bold;
+  }
+
+  .site-subtitle {
+    @include adjust-font-size-to(15px);
+    color: #aaa;
+  }
+
+  .site_coming-soon {
+    @include opacity(0.5);
+  }
+
+  @include at-breakpoint($pad) {
+
+    padding: rhythm(4) 0 rhythm(2);
+
+    .footer-inner {
+      margin: 0 auto;
+      padding: 0 rhythm(2);
+      width: 85%;
+      max-width: 768px;
+    }
+
+    .site-list {
+      @include pie-clearfix;
+      max-width: 768px;
+      padding: 0;
+    }
+
+    .site {
+      @include box-sizing(border-box);
+      float: left;
+      padding: 0 12px;
+      width: 33.3333%;
+    }
+
+  }
+
+  @include at-breakpoint($desktop) {
+    .site {
+      padding: 0 24px;
+    }
+  }
+
+
+}

@@ -1,0 +1,22 @@
+.event-detail {
+  @include pie-clearfix;
+  @include leader(3);
+
+  .event-detail-title {
+    width: 160px;
+    float: left;
+  }
+
+  .event-detail-content {
+    width: calc(100% - 160px);
+    float: right;
+    @include trailer(2);
+    @include padding-trailer(2);
+    border-bottom: 1px solid #B9B9B9;
+
+    h4 {
+      font-weight: 900;
+    }
+  }
+
+}

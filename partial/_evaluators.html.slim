@@ -1,0 +1,10 @@
+.evaluators
+  .evaluators-title
+    h3 評審名單
+  .evaluators-content
+    ul.evaluators-list
+      - 14.times do |i|
+        li
+          img src="http://lorem.me/90x90/codeart?#{i}"
+          strong= zh_lorem_words(3)
+          p= zh_lorem_words(rand(5)+18)
