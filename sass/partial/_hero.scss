@@ -2,23 +2,11 @@
   height: 100vh;
   position: relative;
 
-  .hero-logo {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    // temp
-    height: 100px;
-    width: 300px;
-    line-height: 100px;
-    padding-left: 30px;
-  }
-
   .hero-title {
-    text-align: right;
     position: absolute;
-    color: #818181;
-    right: 60px;
-    bottom: 30px;
+    color: #564843;
+    right: 25%;
+    bottom: 50%;
+    @include adjust-font-size-to(22px, 1.25);
   }
 }

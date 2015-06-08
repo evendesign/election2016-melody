@@ -50,8 +50,8 @@ body {
 
 
 .content {
-  @include padding-trailer(1);
-  @include at-breakpoint($pad) {
-    @include padding-trailer(2);
-  }
+  // @include padding-trailer(1);
+  // @include at-breakpoint($pad) {
+  //   @include padding-trailer(2);
+  // }
 }

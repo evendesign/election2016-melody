@@ -1,15 +1,5 @@
 .evaluators {
-  @include pie-clearfix;
-
-  .evaluators-title {
-    width: 160px;
-    float: left;
-  }
-
-  .evaluators-content {
-    width: calc(100% - 160px);
-    float: right;
-  }
+  position: relative;
 
   .evaluators-list {
     list-style: none;
@@ -20,7 +10,7 @@
     @include trailer(.5);
 
     li {
-      @include isolate-grid(2, 10);
+      @include isolate-grid(2, 8);
       @include trailer(1);
 
       *{

@@ -1,5 +1,5 @@
 $header-height             : 85px;
-$header-background         : #434437;
+$header-background         : rgba(255, 255, 255, .8);
 $search-input-height       : 36px;
 $search-button-background  : #6FCFAA;
 
@@ -36,7 +36,7 @@ $search-button-background  : #6FCFAA;
       }
 
       a {
-        color: white;
+        color: #6C736E;
         font-weight: 900;
         @include adjust-font-size-to(18px, 1);
 
@@ -63,7 +63,7 @@ $search-button-background  : #6FCFAA;
 
       input[type=search] {
         width: 280px;
-        background-color: white;
+        background-color: #efefef;
         padding: 0 18px;
         @include border-left-radius($search-input-height/2);
       }
