@@ -785,7 +785,9 @@ body { background-color: #183840; }
 .event-detail:after { content: ""; display: table; clear: both; }
 .event-detail .event-detail-title { width: 160px; float: left; }
 .event-detail .event-detail-content { width: calc(100% - 160px); float: right; margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid #B9B9B9; }
-.event-detail .event-detail-content h4 { font-weight: 900; }
+.event-detail .event-detail-content h4 { font-weight: 900; margin-bottom: 6px; }
+.event-detail .event-detail-content p { padding-left: 30px; }
+.event-detail .event-detail-content .btn { margin-top: 18px; }
 
 .evaluators:after { content: ""; display: table; clear: both; }
 .evaluators .evaluators-title { width: 160px; float: left; }

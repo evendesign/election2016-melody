@@ -16,6 +16,15 @@
 
     h4 {
       font-weight: 900;
+      @include trailer(.25);
+    }
+
+    p {
+      padding-left: rhythm(1.25);
+    }
+
+    .btn {
+      @include leader(.75);
     }
   }
 
