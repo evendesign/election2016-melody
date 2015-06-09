@@ -1,32 +1,44 @@
 .evaluators {
   position: relative;
+}
 
-  .evaluators-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.evaluators-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 
-    @include pie-clearfix;
-    @include trailer(.5);
+  @include pie-clearfix;
+  @include trailer(.5);
 
+  li {
+    @include isolate-grid(2, 4);
+    @include trailer(1);
+
+    *{
+      display: block;
+    }
+
+    img {
+      width: 80px;
+      height: 80px;
+      max-width: 80px;
+      @include trailer(.5);
+      @include border-radius(50%);
+    }
+
+    p {
+      @include adjust-font-size-to(12px, 1);
+    }
+  }
+
+  @include at-breakpoint($desktop) {
     li {
       @include isolate-grid(2, 8);
-      @include trailer(1);
-
-      *{
-        display: block;
-      }
-
-      img {
-        width: 100px;
-        height: 100px;
-        @include trailer(.5);
-        @include border-radius(50%);
-      }
-
-      p {
-        @include adjust-font-size-to(12px, 1);
-      }
+    }
+    img {
+      width: 100px;
+      height: 100px;
+      max-width: 100px;
     }
   }
 

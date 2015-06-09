@@ -1,24 +1,39 @@
 .gray-container {
+  width: 100%;
   background: #F3F4F5;
-  float: right;
-  width: calc(100% - 240px);
   padding: rhythm(2);
   @include border-top-radius(rhythm(.5));
   @include box-sizing(border-box);
 
   .side-title {
+    position: absolute;
+    top: -70px;
+
     width: 240px;
     height: 70px;
     line-height: 70px;
-    font-size: 22px;
+    font-size: 20px;
     color: white;
-    text-align: right;
-    padding-right: rhythm(1.5);
-    position: absolute;
-    right: calc(100% + 48px);
-    top: 0;
-    background: #99DB76;
-    @include border-left-radius(35px);
-    @include box-sizing(border-box);
+
+
+    background-image: none, image-url("side-title-bg.png");
+    background-image: none, image-url("side-title-bg.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
   }
+
+  @include at-breakpoint($desktop) {
+    float: right;
+    width: calc(100% - 240px);
+
+    .side-title {
+      text-align: right;
+      padding-right: rhythm(1.5);
+      right: calc(100% + 48px);
+      top: 0;
+      @include border-left-radius(35px);
+      @include box-sizing(border-box);
+    }
+  }
+
 }

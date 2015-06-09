@@ -3,19 +3,24 @@ $search-input-height       : 36px;
 $search-button-background  : #6FCFAA;
 
 .header {
-  width: 100%;
-  height: $header-height;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: rgba(255, 255, 255, .8);
-  z-index: 1000;
+  display: none;
 
-  .header-inner {
+  @include at-breakpoint($pad) {
+    display: block;
     width: 100%;
-    max-width: 1060px;
     height: $header-height;
-    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, .8);
+    z-index: 1000;
+
+    .header-inner {
+      width: 100%;
+      max-width: 1060px;
+      height: $header-height;
+      margin: 0 auto;
+    }
 
     .header-logo {
       float: left;
@@ -85,5 +90,6 @@ $search-button-background  : #6FCFAA;
         }
       }
     }
+
   }
 }
