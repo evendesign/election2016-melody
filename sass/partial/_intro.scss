@@ -1,53 +1,88 @@
 .intro {
   position: relative;
   padding: rhythm(5) 0;
+  overflow: hidden;
   @include background(linear-gradient(#FFFFFF, #F5F5F5));
 
-  p {
-    width: 90%;
-    max-width: 550px;
-    margin: 0 auto;
+  .intro-content {
+    position: relative;
+    z-index: 10;
 
-    &:first-child {
-      @include trailer(1.5);
+    p {
+      width: 90%;
+      max-width: 550px;
+      margin: 0 auto;
+      text-align: center;
+
+      &:first-child {
+        @include trailer(1.5);
+      }
     }
   }
 
   [class^="intro-hr-"] {
     position: absolute;
     height: 8px;
-    width: 90%;
+    width: 100%;
     @include background(linear-gradient(left, #57C0C7, #E4E779));
+
+    @include at-breakpoint($desktop) {
+      width: 90%;
+    }
   }
 
   .intro-hr-top {
     right: 0;
     top: 0;
-    @include border-left-radius(4px);
+    @include at-breakpoint($desktop) {
+      @include border-left-radius(4px);
+    }
   }
 
   .intro-hr-bottom {
     bottom: 0;
     left: 0;
-    @include border-right-radius(4px);
+    display: none;
+    @include at-breakpoint($desktop) {
+      display: block;
+      @include border-right-radius(4px);
+    }
   }
 
+  @include at-breakpoint($desktop) {
+    .intro-content {
+      p {
+        text-align: left;
+      }
+    }
+  }
+}
 
-  [class^="intro-line-"],
-  [class^="intro-line-"]:before,
-  [class^="intro-line-"]:after {
+.intro-right-lines,
+.intro-left-lines {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  [class^="line-"],
+  [class^="line-"]:before,
+  [class^="line-"]:after {
     position: absolute;
     height: 16px;
     @include border-radius(8px);
   }
 
-  [class^="intro-line-"]:before,
-  [class^="intro-line-"]:after {
+  [class^="line-"]:before,
+  [class^="line-"]:after {
     content: "";
     display: block;
   }
+}
 
-  .intro-line-right-1 {
+.intro-right-lines {
+  display: none;
+
+  .line-1 {
     width: 87px;
     background: #F4F4F4;
     right: 170px;
@@ -60,7 +95,7 @@
     }
   }
 
-  .intro-line-right-2 {
+  .line-2 {
     width: 34px;
     background: #F4F4F4;
     right: 433px;
@@ -79,7 +114,7 @@
     }
   }
 
-  .intro-line-right-3 {
+  .line-3 {
     width: 87px;
     background: #F4F4F4;
     right: 170px;
@@ -92,16 +127,26 @@
     }
   }
 
-  .intro-line-right-4 {
+  .line-4 {
     width: 203px;
     background: #E6E6E6;
     right: 147px;
     top: 217px;
   }
 
-  .intro-line-left-1 {
+  @include at-breakpoint($desktop) {
+    display: block;
+    top: 0;
+  }
+}
+
+.intro-left-lines {
+  bottom: -90px;
+  left: -30px;
+
+  .line-1 {
     width: 93px;
-    background: #E6E6E6;
+    background: none;
     left: 231px;
     bottom: 179px;
 
@@ -116,9 +161,13 @@
       width: 23px;
       right: 110px;
     }
+
+    @include at-breakpoint($desktop) {
+      background: #E6E6E6;
+    }
   }
 
-  .intro-line-left-2 {
+  .line-2 {
     width: 70px;
     background: #FFFFFF;
     left: 307px;
@@ -137,7 +186,7 @@
     }
   }
 
-  .intro-line-left-3 {
+  .line-3 {
     width: 186px;
     background: #FFFFFF;
     left: 237px;
@@ -150,4 +199,8 @@
     }
   }
 
+  @include at-breakpoint($desktop) {
+    top: 0;
+    bottom: 0;
+  }
 }

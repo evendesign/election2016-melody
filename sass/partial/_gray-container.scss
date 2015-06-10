@@ -1,57 +1,75 @@
 .gray-container {
   width: 100%;
-  // background: #F3F4F5;
-  padding: rhythm(2);
   @include border-top-radius(rhythm(.5));
   @include box-sizing(border-box);
 
   .side-title {
-    position: absolute;
-    top: -70px;
-
-    width: 200px;
-    height: 52px;
-    line-height: 52px;
-    font-size: 20px;
-    color: white;
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+    font-size: 22px;
     font-weight: 900;
+    color: white;
+    @include trailer(1);
 
-    @include background(linear-gradient(right, #E7E879, #50B584));
+    @include border-radius(35px);
+    @include background(linear-gradient(45deg, #00BC82 40%, #C3E470 100%));
+
+    .color-mountain {
+      position: absolute;
+      left: 30px;
+      top: -24px;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 32px 62px 32px;
+      border-color: transparent transparent #e6e879 transparent;
+
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 16px;
+        top: 16px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 17px 34px 17px;
+        border-color: transparent transparent #e6e879 transparent;
+      }
+    }
   }
 
   @include at-breakpoint($desktop) {
     float: right;
     width: calc(100% - 240px);
+    padding: rhythm(2);
 
     .side-title {
+      width: 200px;
+      height: 52px;
+      line-height: 52px;
       text-align: right;
+      font-size: 20px;
       padding-right: rhythm(.5);
+      position: absolute;
       right: calc(100% + 48px);
       top: 0;
-      @include border-left-radius(35px);
+      @include border-left-radius(26px);
+      @include border-right-radius(0);
       @include box-sizing(border-box);
 
+
       .color-mountain {
-        position: absolute;
         left: 15px;
         top: -32px;
-        width: 0;
-        height: 0;
-        border-style: solid;
         border-width: 0 28px 56px 28px;
-        border-color: transparent transparent #e6e879 transparent;
 
         &:after {
-          content: "";
-          display: block;
-          position: absolute;
           left: 17px;
           top: 23px;
-          width: 0;
-          height: 0;
-          border-style: solid;
           border-width: 0 13px 26px 13px;
-          border-color: transparent transparent #e6e879 transparent;
         }
       }
 

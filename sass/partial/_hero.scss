@@ -1,107 +1,172 @@
+$line-1-bottom: 13%;
+$line-2-bottom: 23%;
+$line-3-bottom: 32%;
+$line-4-bottom: 41%;
+$line-5-bottom: 52%;
+$line-6-bottom: 61%;
+$line-7-bottom: 69%;
+$line-8-bottom: 76%;
+$dot-1-bottom: 18%;
+$dot-2-bottom: 48%;
+
 .hero {
-  height: 100vh;
+  height: 515px;
   position: relative;
   overflow: hidden;
 
-  .gray-ball-1 {
+  .hero-title {
+    @include replace-text-with-svg(title);
     position: absolute;
-    bottom: -32%;
-    right: 12%;
-    width: 630px;
-    height: 630px;
+    bottom: 80px;
+    right: 35px;
+    z-index: 500;
+  }
+
+  @include at-breakpoint($desktop) {
+    height: 600px;
+
+    .hero-title {
+      bottom: 120px;
+      right: 378px;
+    }
+  }
+}
+
+.gray-balls {
+
+  .ball-1 {
+    position: absolute;
+    bottom: -160px;
+    right: -70px;
+    width: 400px;
+    height: 400px;
     @include background(linear-gradient(-45deg, #E2E2E2 0%, #FFFFFF 90%));
     @include border-radius(50%);
+    @include transition(width 1s ease, height 1s ease);
   }
 
-  .gray-ball-2 {
+  .ball-2 {
     position: absolute;
-    top: -12%;
-    right: 80%;
-    width: 383px;
-    height: 383px;
+    top: -40px;
+    left: -40px;
+    width: 180px;
+    height: 180px;
     @include background(linear-gradient(45deg, #E7E7E7 0%, #FFFFFF 80%));
     @include border-radius(50%);
+    @include transition(width 1s ease, height 1s ease);
   }
 
-  [class^="color-dot-"] {
+  @include at-breakpoint($desktop) {
+    .ball-1 {
+      bottom: -180px;
+      right: 270px;
+      width: 630px;
+      height: 630px;
+      @include transition(width 1s ease, height 1s ease);
+    }
+
+    .ball-2 {
+      top: -40px;
+      left: -70px;
+      width: 383px;
+      height: 383px;
+      @include transition(width 1s ease, height 1s ease);
+    }
+  }
+}
+
+.color-dots {
+
+  [class^="dot-"] {
     position: absolute;
     @include border-radius(50%);
   }
 
-  .color-dot-1 {
-    bottom: 10%;
-    right: 74%;
+  .dot-1 {
+    bottom: $dot-1-bottom;
+    right: 1008px;
     background: #EAEC6E;
     width: 24px;
     height: 24px;
   }
 
-  .color-dot-2 {
-    bottom: 36%;
-    right: 82%;
+  .dot-2 {
+    bottom: $dot-2-bottom;
+    right: 1119px;
     background: #57C0C7;
     width: 28px;
     height: 28px;
   }
+}
 
-  [class^="color-line-"],
-  [class^="color-line-"]:before,
-  [class^="color-line-"]:after {
+.color-lines {
+  position: absolute;
+  right: -370px;
+  top: 0;
+  width: 100%;
+  height: 100%;
+
+  @include at-breakpoint($desktop) {
+    right: 0;
+  }
+
+  [class^="line-"],
+  [class^="line-"]:before,
+  [class^="line-"]:after {
     position: absolute;
     height: 12px;
     @include border-radius(6px);
-    min-width: 16px;
   }
 
-  [class^="color-line-"]:before,
-  [class^="color-line-"]:after {
+  [class^="line-"]:before,
+  [class^="line-"]:after {
     content: "";
     display: block;
   }
 
-  .color-line-1 {
-    bottom: 7%;
+  .line-1 {
+    bottom: $line-1-bottom;
     background: #57C0C7;
-    width: 11%;
-    right: 86%;
+    width: 150px;
+    right: 1170px;
 
     &:before {
       background: #E7E879;
-      width: 11%;
-      left: 109%;
+      width: 16px;
+      left: calc(100% + 15px);
     }
 
     &:after {
       background: #57C0C7;
-      width: 68%;
-      left: 174%;
+      width: 102px;
+      left: calc(100% + 112px);
     }
   }
 
-  .color-line-2-1 {
-    bottom: 15%;
+  .line-2-1 {
+    bottom: $line-2-bottom;
     background: #4AA6AC;
-    width: 5%;
-    right: 79%;
+    width: 68px;
+    right: 1068px;
 
     &:before {
       background: #E7E879;
-      width: 52%;
-      left: 77%;
+      width: 35px;
+      left: 52px;
     }
 
     &:after {
       background: #81BF63;
-      width: 45%;
-      right: 180%;
+      width: 30px;
+      right: calc(100% + 56px);
     }
   }
 
-  .color-line-2-2 {
-    bottom: 15%;
+  .line-2-2 {
+    bottom: $line-2-bottom;
     background: #57C0C7;
-    width: 1%;
-    right: 68.6%;
+    width: 14px;
+    right: 935px;
 
     &:before {
       background: #81BF63;
@@ -110,89 +175,89 @@
     }
   }
 
-  .color-line-2-3 {
-    bottom: 15%;
+  .line-2-3 {
+    bottom: $line-2-bottom;
     background: #50B584;
-    width: 5%;
-    right: 59%;
+    width: 68px;
+    right: 807px;
 
     &:before {
       background: #81BF63;
-      width: 53%;
-      right: 70%;
+      width: 36px;
+      right: 34px;
     }
   }
 
-  .color-line-3-1 {
-    bottom: 23%;
+  .line-3-1 {
+    bottom: $line-3-bottom;
     background: #50B584;
-    width: 12%;
-    right: 74%;
+    width: 163px;
+    right: 850px;
 
     &:before {
       background: #81BF63;
-      width: 41%;
-      left: 60%;
+      width: 67px;
+      left: 155px;
     }
   }
 
-  .color-line-3-2 {
-    bottom: 23%;
+  .line-3-2 {
+    bottom: $line-3-bottom;
     background: #57C0C7;
-    width: 7%;
-    right: 63%;
+    width: 95px;
+    right: 1009px;
 
     &:before {
       background: #50B584;
-      width: 131%;
-      left: 160%;
+      width: 125px;
+      left: 56px;
     }
   }
 
-  .color-line-4-1 {
-    bottom: 31%;
+  .line-4-1 {
+    bottom: $line-4-bottom;
     background: #81BF63;
-    width: 6%;
-    right: 88%;
+    width: 82px;
+    right: 1200px;
 
     &:before {
       background: #50B584;
-      width: 104%;
-      left: 43%;
+      width: 85px;
+      left: 38px;
     }
   }
 
-  .color-line-4-2 {
-    bottom: 31%;
+  .line-4-2 {
+    bottom: $line-4-bottom;
     background: #81BF63;
-    width: 17%;
-    right: 60%;
+    width: 232px;
+    right: 817px;
 
     &:before {
       background: #E7E879;
-      width: 16%;
-      left: 19%;
+      width: 37px;
+      left: 46px;
     }
 
     &:after {
       background: #4AA6AC;
-      width: 54%;
-      left: 86%;
+      width: 125px;
+      left: 204px;
     }
   }
 
-  .color-line-4-3 {
-    bottom: 31%;
+  .line-4-3 {
+    bottom: $line-4-bottom;
     background: #81BF63;
-    width: 3%;
-    right: 49%;
+    width: 41px;
+    right: 669px;
   }
 
-  .color-line-5-1 {
-    bottom: 39%;
+  .line-5-1 {
+    bottom: $line-5-bottom;
     background: #E7E879;
-    width: 16%;
-    right: 48%;
+    width: 218px;
+    right: 654px;
 
     &:before {
       @include border-radius(0px);
@@ -207,37 +272,37 @@
     }
   }
 
-  .color-line-5-2 {
-    bottom: 39%;
+  .line-5-2 {
+    bottom: $line-5-bottom;
     background: #7ECFAF;
-    width: 10%;
-    right: 34%;
+    width: 136px;
+    right: 463px;
 
     &:before {
       background: #EAEC6E;
-      width: 44%;
-      left: 75%;
+      width: 60px;
+      left: 106px;
     }
   }
 
-  .color-line-6-1 {
-    bottom: 47%;
+  .line-6-1 {
+    bottom: $line-6-bottom;
     background: #EAEC6E;
-    width: 4%;
-    right: 56%;
+    width: 54px;
+    right: 763px;
 
     &:before {
       background: #79C75F;
-      width: 275%;
-      left: 55%;
+      width: 150px;
+      left: 32px;
     }
   }
 
-  .color-line-6-2 {
-    bottom: 47%;
+  .line-6-2 {
+    bottom: $line-6-bottom;
     background: #50B584;
-    width: 10%;
-    right: 21%;
+    width: 136px;
+    right: 286px;
 
     &:before {
       @include border-radius(0px);
@@ -253,35 +318,35 @@
 
     &:after {
       background: #EAEC6E;
-      width: 48%;
-      right: 137%;
+      width: 65px;
+      right: 188px;
     }
   }
 
-  .color-line-7-1 {
-    bottom: 56%;
+  .line-7-1 {
+    bottom: $line-7-bottom;
     background: #EAEC6E;
-    width: 2%;
-    right: 69%;
+    width: 27px;
+    right: 942px;
 
     &:before {
       background: #EAEC6E;
-      width: 234%;
-      left: 868%;
+      width: 64px;
+      left: 236px;
     }
 
     &:after {
       background: #7ECFAF;
-      width: 690%;
-      left: 216%;
+      width: 188px;
+      left: 60px;
     }
   }
 
-  .color-line-7-2 {
-    bottom: 56%;
+  .line-7-2 {
+    bottom: $line-7-bottom;
     background: #38BC6D;
-    width: 14%;
-    right: 29%;
+    width: 190px;
+    right: 397px;
 
     &:before {
       @include border-radius(0px);
@@ -303,54 +368,53 @@
       min-width: 0;
       height: 0;
       border-style: solid;
-      border-width: 0 22px 48px 22px;
+      border-width: 0 26px 48px 26px;
       border-color: transparent transparent #EAEC6E transparent;
     }
   }
 
-  .color-line-7-3 {
-    bottom: 56%;
+  .line-7-3 {
+    bottom: $line-7-bottom;
     background: #79C75F;
-    width: 3%;
-    right: 44.5%;
+    width: 41px;
+    right: 606px;
 
     &:before {
       background: #E7E879;
-      width: 160%;
-      left: 470%;
+      width: 65px;
+      left: 192px;
     }
 
     &:after {
       background: #81BF63;
-      width: 400%;
-      left: 745%;
+      width: 203px;
+      left: 375px;
     }
   }
 
-  .color-line-8-1 {
-    bottom: 62%;
+  .line-8-1 {
+    bottom: $line-8-bottom;
     background: #EAEC6E;
-    width: 5%;
-    right: 55%;
+    width: 68px;
+    right: 750px;
 
     &:before {
       background: #28BE87;
-      width: 182%;
-      left: 202%;
+      width: 124px;
+      left: 138px;
     }
 
     &:after {
       background: #50B584;
-      width: 25%;
-      left: 515%;
+      width: 17px;
+      left: 350px;
     }
   }
 
-  .color-line-8-2 {
-    bottom: 62%;
+  .line-8-2 {
+    bottom: $line-8-bottom;
     background: #88C8AB;
-    width: 5%;
-    right: 26%;
+    width: 68px;
+    right: 355px;
   }
-
 }

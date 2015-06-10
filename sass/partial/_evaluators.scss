@@ -11,19 +11,14 @@
   @include trailer(.5);
 
   li {
-    @include isolate-grid(2, 4);
-    @include trailer(1);
+    @include trailer(.5);
 
     *{
       display: block;
     }
 
     img {
-      width: 80px;
-      height: 80px;
-      max-width: 80px;
-      @include trailer(.5);
-      @include border-radius(50%);
+      display: none;
     }
 
     p {
@@ -34,11 +29,16 @@
   @include at-breakpoint($desktop) {
     li {
       @include isolate-grid(2, 8);
-    }
-    img {
-      width: 100px;
-      height: 100px;
-      max-width: 100px;
+      @include trailer(1);
+
+      img {
+        display: inherit;
+        width: 100px;
+        height: 100px;
+        max-width: 100px;
+        @include trailer(.5);
+        @include border-radius(50%);
+      }
     }
   }
 

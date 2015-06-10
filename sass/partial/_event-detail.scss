@@ -2,20 +2,24 @@
   position: relative;
 
   @include trailer(2);
-  @include padding-trailer(2);
-  border-bottom: 1px solid #B9B9B9;
 
   h4 {
     font-weight: 900;
+    @include adjust-font-size-to(18px, 1.25);
     @include trailer(.25);
-  }
-
-  p {
-    padding-left: rhythm(1.25);
   }
 
   .btn {
     @include leader(.75);
+  }
+
+  @include at-breakpoint($desktop) {
+    @include padding-trailer(2);
+    border-bottom: 1px solid #B9B9B9;
+
+    p {
+      padding-left: rhythm(1.25);
+    }
   }
 
 }
