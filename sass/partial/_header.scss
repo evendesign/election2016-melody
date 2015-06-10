@@ -6,7 +6,8 @@ $search-button-background  : #6FCFAA;
   display: none;
 
   @include at-breakpoint($pad) {
-    display: block;
+    display: none;
+    // display: block;
     width: 100%;
     height: $header-height;
     position: fixed;

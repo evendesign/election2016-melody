@@ -1,6 +1,6 @@
 .gray-container {
   width: 100%;
-  background: #F3F4F5;
+  // background: #F3F4F5;
   padding: rhythm(2);
   @include border-top-radius(rhythm(.5));
   @include box-sizing(border-box);
@@ -9,17 +9,14 @@
     position: absolute;
     top: -70px;
 
-    width: 240px;
-    height: 70px;
-    line-height: 70px;
+    width: 200px;
+    height: 52px;
+    line-height: 52px;
     font-size: 20px;
     color: white;
+    font-weight: 900;
 
-
-    background-image: none, image-url("side-title-bg.png");
-    background-image: none, image-url("side-title-bg.svg");
-    background-size: contain;
-    background-repeat: no-repeat;
+    @include background(linear-gradient(right, #E7E879, #50B584));
   }
 
   @include at-breakpoint($desktop) {
@@ -28,11 +25,84 @@
 
     .side-title {
       text-align: right;
-      padding-right: rhythm(1.5);
+      padding-right: rhythm(.5);
       right: calc(100% + 48px);
       top: 0;
       @include border-left-radius(35px);
       @include box-sizing(border-box);
+
+      .color-mountain {
+        position: absolute;
+        left: 15px;
+        top: -32px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 28px 56px 28px;
+        border-color: transparent transparent #e6e879 transparent;
+
+        &:after {
+          content: "";
+          display: block;
+          position: absolute;
+          left: 17px;
+          top: 23px;
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 0 13px 26px 13px;
+          border-color: transparent transparent #e6e879 transparent;
+        }
+      }
+
+      .color-bars {
+        position: absolute;
+        top: calc(100% + 15px);
+        right: 24px;
+        width: 70px;
+        height: 10px;
+        background-color: #81BF63;
+        @include border-radius(5px);
+
+        &:before {
+          content: "";
+          display: block;
+          position: absolute;
+          width: 62px;
+          height: 10px;
+          right: -24px;
+          top: calc(100% + 8px);
+          background-color: #E7E879;
+          @include border-left-radius(5px);
+
+          &:after {
+            content: "123";
+          }
+        }
+
+        &:after {
+          content: "";
+          display: block;
+          position: absolute;
+          width: 72px;
+          height: 10px;
+          right: 24px;
+          top: calc(100% + 25px);
+          background-color: #50B584;
+          @include border-radius(5px);
+        }
+      }
+
+      .color-dot {
+        position: absolute;
+        top: calc(100% + 33px);
+        right: 72px;
+        width: 13px;
+        height: 10px;
+        background-color: #88C8AB;
+        @include border-radius(5px);
+      }
+
     }
   }
 
