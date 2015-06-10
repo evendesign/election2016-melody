@@ -1,18 +1,356 @@
 .hero {
   height: 100vh;
   position: relative;
-  background-image: none, image-url("hero-img.png");
-  background-image: none, image-url("hero-img.svg");
-  background-position: top center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  overflow: hidden;
 
-  .hero-title {
+  .gray-ball-1 {
     position: absolute;
-    color: #564843;
-    right: 25%;
-    bottom: 50%;
-    @include adjust-font-size-to(22px, 1.25);
+    bottom: -32%;
+    right: 12%;
+    width: 630px;
+    height: 630px;
+    @include background(linear-gradient(-45deg, #E2E2E2 0%, #FFFFFF 90%));
+    @include border-radius(50%);
+  }
+
+  .gray-ball-2 {
+    position: absolute;
+    top: -12%;
+    right: 80%;
+    width: 383px;
+    height: 383px;
+    @include background(linear-gradient(45deg, #E7E7E7 0%, #FFFFFF 80%));
+    @include border-radius(50%);
+  }
+
+  [class^="color-dot-"] {
+    position: absolute;
+    @include border-radius(50%);
+  }
+
+  .color-dot-1 {
+    bottom: 10%;
+    right: 74%;
+    background: #EAEC6E;
+    width: 24px;
+    height: 24px;
+  }
+
+  .color-dot-2 {
+    bottom: 36%;
+    right: 82%;
+    background: #57C0C7;
+    width: 28px;
+    height: 28px;
+  }
+
+  [class^="color-line-"],
+  [class^="color-line-"]:before,
+  [class^="color-line-"]:after {
+    position: absolute;
+    height: 12px;
+    @include border-radius(6px);
+    min-width: 16px;
+  }
+
+  [class^="color-line-"]:before,
+  [class^="color-line-"]:after {
+    content: "";
+    display: block;
+  }
+
+  .color-line-1 {
+    bottom: 7%;
+    background: #57C0C7;
+    width: 11%;
+    right: 86%;
+
+    &:before {
+      background: #E7E879;
+      width: 11%;
+      left: 109%;
+    }
+
+    &:after {
+      background: #57C0C7;
+      width: 68%;
+      left: 174%;
+    }
+  }
+
+  .color-line-2-1 {
+    bottom: 15%;
+    background: #4AA6AC;
+    width: 5%;
+    right: 79%;
+
+    &:before {
+      background: #E7E879;
+      width: 52%;
+      left: 77%;
+    }
+
+    &:after {
+      background: #81BF63;
+      width: 45%;
+      right: 180%;
+    }
+  }
+
+  .color-line-2-2 {
+    bottom: 15%;
+    background: #57C0C7;
+    width: 1%;
+    right: 68.6%;
+
+    &:before {
+      background: #81BF63;
+      width: 39px;
+      right: 28px;
+    }
+  }
+
+  .color-line-2-3 {
+    bottom: 15%;
+    background: #50B584;
+    width: 5%;
+    right: 59%;
+
+    &:before {
+      background: #81BF63;
+      width: 53%;
+      right: 70%;
+    }
+  }
+
+  .color-line-3-1 {
+    bottom: 23%;
+    background: #50B584;
+    width: 12%;
+    right: 74%;
+
+    &:before {
+      background: #81BF63;
+      width: 41%;
+      left: 60%;
+    }
+  }
+
+  .color-line-3-2 {
+    bottom: 23%;
+    background: #57C0C7;
+    width: 7%;
+    right: 63%;
+
+    &:before {
+      background: #50B584;
+      width: 131%;
+      left: 160%;
+    }
+  }
+
+  .color-line-4-1 {
+    bottom: 31%;
+    background: #81BF63;
+    width: 6%;
+    right: 88%;
+
+    &:before {
+      background: #50B584;
+      width: 104%;
+      left: 43%;
+    }
+  }
+
+  .color-line-4-2 {
+    bottom: 31%;
+    background: #81BF63;
+    width: 17%;
+    right: 60%;
+
+    &:before {
+      background: #E7E879;
+      width: 16%;
+      left: 19%;
+    }
+
+    &:after {
+      background: #4AA6AC;
+      width: 54%;
+      left: 86%;
+    }
+  }
+
+  .color-line-4-3 {
+    bottom: 31%;
+    background: #81BF63;
+    width: 3%;
+    right: 49%;
+  }
+
+  .color-line-5-1 {
+    bottom: 39%;
+    background: #E7E879;
+    width: 16%;
+    right: 48%;
+
+    &:before {
+      @include border-radius(0px);
+      bottom: 12px;
+      left: 22%;
+      width: 0;
+      min-width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 38px 28px 38px;
+      border-color: transparent transparent #79C75F transparent;
+    }
+  }
+
+  .color-line-5-2 {
+    bottom: 39%;
+    background: #7ECFAF;
+    width: 10%;
+    right: 34%;
+
+    &:before {
+      background: #EAEC6E;
+      width: 44%;
+      left: 75%;
+    }
+  }
+
+  .color-line-6-1 {
+    bottom: 47%;
+    background: #EAEC6E;
+    width: 4%;
+    right: 56%;
+
+    &:before {
+      background: #79C75F;
+      width: 275%;
+      left: 55%;
+    }
+  }
+
+  .color-line-6-2 {
+    bottom: 47%;
+    background: #50B584;
+    width: 10%;
+    right: 21%;
+
+    &:before {
+      @include border-radius(0px);
+      bottom: 12px;
+      left: 32%;
+      width: 0;
+      min-width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 22px 28px 22px;
+      border-color: transparent transparent #88C8AB transparent;
+    }
+
+    &:after {
+      background: #EAEC6E;
+      width: 48%;
+      right: 137%;
+    }
+  }
+
+  .color-line-7-1 {
+    bottom: 56%;
+    background: #EAEC6E;
+    width: 2%;
+    right: 69%;
+
+    &:before {
+      background: #EAEC6E;
+      width: 234%;
+      left: 868%;
+    }
+
+    &:after {
+      background: #7ECFAF;
+      width: 690%;
+      left: 216%;
+    }
+  }
+
+  .color-line-7-2 {
+    bottom: 56%;
+    background: #38BC6D;
+    width: 14%;
+    right: 29%;
+
+    &:before {
+      @include border-radius(0px);
+      bottom: 12px;
+      left: 12%;
+      width: 0;
+      min-width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 54px 98px 54px;
+      border-color: transparent transparent #EAEC6E transparent;
+    }
+
+    &:after {
+      @include border-radius(0px);
+      bottom: 12px;
+      left: 63%;
+      width: 0;
+      min-width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 22px 48px 22px;
+      border-color: transparent transparent #EAEC6E transparent;
+    }
+  }
+
+  .color-line-7-3 {
+    bottom: 56%;
+    background: #79C75F;
+    width: 3%;
+    right: 44.5%;
+
+    &:before {
+      background: #E7E879;
+      width: 160%;
+      left: 470%;
+    }
+
+    &:after {
+      background: #81BF63;
+      width: 400%;
+      left: 745%;
+    }
+  }
+
+  .color-line-8-1 {
+    bottom: 62%;
+    background: #EAEC6E;
+    width: 5%;
+    right: 55%;
+
+    &:before {
+      background: #28BE87;
+      width: 182%;
+      left: 202%;
+    }
+
+    &:after {
+      background: #50B584;
+      width: 25%;
+      left: 515%;
+    }
+  }
+
+  .color-line-8-2 {
+    bottom: 62%;
+    background: #88C8AB;
+    width: 5%;
+    right: 26%;
   }
 
 }
