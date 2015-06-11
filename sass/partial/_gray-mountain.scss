@@ -55,6 +55,8 @@
       border-style: solid;
       border-width: 0 90px 160px 90px;
       border-color: transparent transparent #F2F3F4 transparent;
+      @include transform-origin(50% 100%);
+      @include animation('growup 3s');
     }
 
     &:after {
@@ -67,6 +69,8 @@
       border-style: solid;
       border-width: 0 40px 85px 40px;
       border-color: transparent transparent #F2F3F4 transparent;
+      @include transform-origin(50% 100%);
+      @include animation('growup 3s');
     }
   }
 

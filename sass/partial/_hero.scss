@@ -302,6 +302,9 @@ $dot-2-bottom: 48%;
       border-style: solid;
       border-width: 0 38px 28px 38px;
       border-color: transparent transparent #79C75F transparent;
+
+      @include transform-origin(50% 100%);
+      @include animation('growup 2.5s');
     }
   }
 
@@ -347,6 +350,9 @@ $dot-2-bottom: 48%;
       border-style: solid;
       border-width: 0 22px 28px 22px;
       border-color: transparent transparent #88C8AB transparent;
+
+      @include transform-origin(50% 100%);
+      @include animation('growup 3s');
     }
 
     &:after {
@@ -391,6 +397,9 @@ $dot-2-bottom: 48%;
       border-style: solid;
       border-width: 0 54px 98px 54px;
       border-color: transparent transparent #EAEC6E transparent;
+
+      @include transform-origin(50% 100%);
+      @include animation('growup 3s');
     }
 
     &:after {
@@ -403,6 +412,9 @@ $dot-2-bottom: 48%;
       border-style: solid;
       border-width: 0 26px 48px 26px;
       border-color: transparent transparent #EAEC6E transparent;
+
+      @include transform-origin(50% 100%);
+      @include animation('growup 3s');
     }
   }
 

@@ -11,9 +11,13 @@
   }
 }
 
-@mixin animation-delay($second) {
-  -webkit-animation-delay: #{$second};
-  animation-delay: #{$second};
+@mixin transform-origin($str...) {
+  -webkit-animation: #{$str};
+  -webkit-transform-origin: #{$str};
+  -moz-transform-origin: #{$str};
+  -o-transform-origin: #{$str};
+  -ms-transform-origin: #{$str};
+  transform-origin: #{$str};
 }
 
 @mixin animation($str) {
@@ -31,6 +35,18 @@
   }
   100% {
     @include transform(scale(1,1) translateX(0%));
+  }
+}
+
+@include keyframes(growup) {
+  0% {
+    @include transform(scale(1,0));
+  }
+  40% {
+    @include transform(scale(1,0));
+  }
+  100% {
+    @include transform(scale(1,1));
   }
 }
 
