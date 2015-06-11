@@ -14,7 +14,7 @@ $dot-2-bottom: 48%;
   height: 515px;
   position: relative;
   overflow-y: hidden;
-  max-width: 1920px;
+  max-width: 1960px;
   margin: 0 auto;
 
   .hero-title-container {
@@ -75,32 +75,12 @@ $dot-2-bottom: 48%;
     @include animation('fadein 3s');
   }
 
-  .ball-2 {
-    position: absolute;
-    top: -40px;
-    left: -40px;
-    width: 180px;
-    height: 180px;
-    @include background(linear-gradient(45deg, #E7E7E7 0%, #FFFFFF 80%));
-    @include border-radius(50%);
-    @include transition(width 1s ease, height 1s ease);
-    @include animation('fadein 3s');
-  }
-
   @include at-breakpoint($desktop) {
     .ball-1 {
       bottom: -180px;
       right: 10%;
       width: 630px;
       height: 630px;
-      @include transition(width 1s ease, height 1s ease);
-    }
-
-    .ball-2 {
-      top: -40px;
-      left: -10%;
-      width: 383px;
-      height: 383px;
       @include transition(width 1s ease, height 1s ease);
     }
   }

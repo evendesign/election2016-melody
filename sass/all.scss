@@ -11,7 +11,6 @@
 @import "component/slick";
 @import "component/card";
 @import "component/member";
-@import "component/grid"; // guideline 專用
 @import "component/page-header";
 @import "component/block";
 @import "component/animation";
@@ -19,11 +18,9 @@
 
 
 // ==== partial ====
-@import "partial/guideline-header"; // guideline 專用
 @import "partial/site-info";
 @import "partial/footer";
 @import "partial/scale-content";
-@import "partial/demo-block"; // guideline 專用
 
 // melody
 @import "partial/header";
@@ -32,6 +29,7 @@
 @import "partial/gray-container";
 @import "partial/event-detail";
 @import "partial/evaluators";
+@import "partial/gray-balls";
 
 // ==== page ====
 
