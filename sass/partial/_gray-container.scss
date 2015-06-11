@@ -11,6 +11,7 @@
     font-size: 22px;
     font-weight: 900;
     color: white;
+    @include leader(1.25);
     @include trailer(1);
 
     @include border-radius(35px);
@@ -18,8 +19,8 @@
 
     .color-mountain {
       position: absolute;
-      left: 30px;
-      top: -24px;
+      left: 18px;
+      top: -32px;
       width: 0;
       height: 0;
       border-style: solid;

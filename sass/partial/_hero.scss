@@ -1,13 +1,68 @@
 $line-1-bottom: 13%;
 $line-2-bottom: 23%;
 $line-3-bottom: 32%;
-$line-4-bottom: 41%;
+$line-4-bottom: 42%;
 $line-5-bottom: 52%;
 $line-6-bottom: 61%;
-$line-7-bottom: 69%;
-$line-8-bottom: 76%;
+$line-7-bottom: 71%;
+$line-8-bottom: 78%;
 $dot-1-bottom: 18%;
 $dot-2-bottom: 48%;
+
+// line bar stretch animation
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes $animation-name {
+    @content;
+  }
+  @-moz-keyframes $animation-name {
+    @content;
+  }
+  @keyframes $animation-name {
+    @content;
+  }
+}
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+}
+
+@include keyframes(stretch) {
+  0% {
+    @include transform(scale(0,1));
+  }
+  10% {
+    @include transform(scale(0,1));
+  }
+  100% {
+    @include transform(scale(1,1));
+  }
+}
+
+@include keyframes(boom) {
+  0% {
+    @include transform(scale(0,0));
+  }
+  50% {
+    @include transform(scale(0,0));
+  }
+  100% {
+    @include transform(scale(1,1));
+  }
+}
+
+@include keyframes(fadein) {
+  0% {
+    @include opacity(0);
+  }
+  30% {
+    @include opacity(0);
+  }
+  100% {
+    @include opacity(1);
+  }
+}
+
+
 
 .hero {
   height: 515px;
@@ -20,13 +75,14 @@ $dot-2-bottom: 48%;
     bottom: 80px;
     right: 35px;
     z-index: 500;
+    @include animation('fadein 3s');
   }
 
   @include at-breakpoint($desktop) {
     height: 600px;
 
     .hero-title {
-      bottom: 120px;
+      bottom: 127px;
       right: 378px;
     }
   }
@@ -43,6 +99,7 @@ $dot-2-bottom: 48%;
     @include background(linear-gradient(-45deg, #E2E2E2 0%, #FFFFFF 90%));
     @include border-radius(50%);
     @include transition(width 1s ease, height 1s ease);
+    @include animation('fadein 3s');
   }
 
   .ball-2 {
@@ -54,12 +111,13 @@ $dot-2-bottom: 48%;
     @include background(linear-gradient(45deg, #E7E7E7 0%, #FFFFFF 80%));
     @include border-radius(50%);
     @include transition(width 1s ease, height 1s ease);
+    @include animation('fadein 3s');
   }
 
   @include at-breakpoint($desktop) {
     .ball-1 {
       bottom: -180px;
-      right: 270px;
+      right: 10%;
       width: 630px;
       height: 630px;
       @include transition(width 1s ease, height 1s ease);
@@ -67,7 +125,7 @@ $dot-2-bottom: 48%;
 
     .ball-2 {
       top: -40px;
-      left: -70px;
+      left: -10%;
       width: 383px;
       height: 383px;
       @include transition(width 1s ease, height 1s ease);
@@ -80,6 +138,7 @@ $dot-2-bottom: 48%;
   [class^="dot-"] {
     position: absolute;
     @include border-radius(50%);
+    @include animation('boom 1s');
   }
 
   .dot-1 {
@@ -116,6 +175,7 @@ $dot-2-bottom: 48%;
     position: absolute;
     height: 12px;
     @include border-radius(6px);
+    @include animation('stretch 2.5s');
   }
 
   [class^="line-"]:before,
@@ -191,13 +251,13 @@ $dot-2-bottom: 48%;
   .line-3-1 {
     bottom: $line-3-bottom;
     background: #50B584;
-    width: 163px;
-    right: 850px;
+    width: 125px;
+    right: 1035px;
 
     &:before {
       background: #81BF63;
       width: 67px;
-      left: 155px;
+      left: 95px;
     }
   }
 
@@ -205,12 +265,12 @@ $dot-2-bottom: 48%;
     bottom: $line-3-bottom;
     background: #57C0C7;
     width: 95px;
-    right: 1009px;
+    right: 865px;
 
     &:before {
       background: #50B584;
       width: 125px;
-      left: 56px;
+      left: 155px;
     }
   }
 
@@ -346,7 +406,7 @@ $dot-2-bottom: 48%;
     bottom: $line-7-bottom;
     background: #38BC6D;
     width: 190px;
-    right: 397px;
+    right: 357px;
 
     &:before {
       @include border-radius(0px);
@@ -377,12 +437,12 @@ $dot-2-bottom: 48%;
     bottom: $line-7-bottom;
     background: #79C75F;
     width: 41px;
-    right: 606px;
+    right: 586px;
 
     &:before {
       background: #E7E879;
       width: 65px;
-      left: 192px;
+      left: 232px;
     }
 
     &:after {
@@ -396,7 +456,7 @@ $dot-2-bottom: 48%;
     bottom: $line-8-bottom;
     background: #EAEC6E;
     width: 68px;
-    right: 750px;
+    right: 705px;
 
     &:before {
       background: #28BE87;
@@ -415,6 +475,6 @@ $dot-2-bottom: 48%;
     bottom: $line-8-bottom;
     background: #88C8AB;
     width: 68px;
-    right: 355px;
+    right: 285px;
   }
 }

@@ -13,8 +13,9 @@
   li {
     @include trailer(.5);
 
-    *{
-      display: block;
+    h4 {
+      @include adjust-font-size-to(18px, 1);
+      @include trailer(.25);
     }
 
     img {
@@ -22,7 +23,7 @@
     }
 
     p {
-      @include adjust-font-size-to(12px, 1);
+      @include adjust-font-size-to(14px, 1);
     }
   }
 
@@ -31,8 +32,12 @@
       @include isolate-grid(2, 8);
       @include trailer(1);
 
+      h4 {
+        @include adjust-font-size-to(16px, 1);
+      }
+
       img {
-        display: inherit;
+        display: block;
         width: 100px;
         height: 100px;
         max-width: 100px;
