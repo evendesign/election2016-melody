@@ -76,6 +76,7 @@ body {
 
   @include at-breakpoint($desktop) {
 
+    @include padding-trailer(3);
 
     &:before {
       content: "";
