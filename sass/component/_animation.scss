@@ -11,14 +11,14 @@
   }
 }
 
-@mixin transform-origin($str...) {
-  -webkit-animation: #{$str};
-  -webkit-transform-origin: #{$str};
-  -moz-transform-origin: #{$str};
-  -o-transform-origin: #{$str};
-  -ms-transform-origin: #{$str};
-  transform-origin: #{$str};
-}
+// @mixin transform-origin($str...) {
+//   -webkit-animation: #{$str};
+//   -webkit-transform-origin: #{$str};
+//   -moz-transform-origin: #{$str};
+//   -o-transform-origin: #{$str};
+//   -ms-transform-origin: #{$str};
+//   transform-origin: #{$str};
+// }
 
 @mixin animation($str) {
   -webkit-animation: #{$str};
