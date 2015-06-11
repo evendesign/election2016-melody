@@ -2,6 +2,7 @@
   width: 100%;
   @include border-top-radius(rhythm(.5));
   @include box-sizing(border-box);
+  @include animation('fadein 5s');
 
   .side-title {
     width: 100%;
@@ -13,7 +14,6 @@
     color: white;
     @include leader(1.25);
     @include trailer(1);
-
     @include border-radius(35px);
     @include background(linear-gradient(45deg, #00BC82 40%, #C3E470 100%));
 

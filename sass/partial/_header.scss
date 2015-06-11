@@ -25,7 +25,7 @@ $search-button-background  : #6FCFAA;
 
     .header-logo {
       float: left;
-      @include replace-text-with-dimensions("logo.png");
+      // @include replace-text-with-dimensions("logo.png");
       background-position: center center;
       height: 100%;
     }

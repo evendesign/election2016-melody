@@ -1,0 +1,59 @@
+// line bar stretch animation
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes $animation-name {
+    @content;
+  }
+  @-moz-keyframes $animation-name {
+    @content;
+  }
+  @keyframes $animation-name {
+    @content;
+  }
+}
+
+@mixin animation-delay($second) {
+  -webkit-animation-delay: #{$second};
+  animation-delay: #{$second};
+}
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+}
+
+@include keyframes(stretch) {
+  0% {
+    @include opacity(0);
+    @include transform(scale(0,1) translateX(-80%));
+  }
+  10% {
+    @include opacity(1);
+    @include transform(scale(0,1) translateX(-80%));
+  }
+  100% {
+    @include transform(scale(1,1) translateX(0%));
+  }
+}
+
+@include keyframes(boom) {
+  0% {
+    @include transform(scale(0,0));
+  }
+  70% {
+    @include transform(scale(0,0));
+  }
+  100% {
+    @include transform(scale(1,1));
+  }
+}
+
+@include keyframes(fadein) {
+  0% {
+    @include opacity(0);
+  }
+  30% {
+    @include opacity(0);
+  }
+  100% {
+    @include opacity(1);
+  }
+}

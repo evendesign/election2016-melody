@@ -9,60 +9,6 @@ $line-8-bottom: 78%;
 $dot-1-bottom: 18%;
 $dot-2-bottom: 48%;
 
-// line bar stretch animation
-@mixin keyframes($animation-name) {
-  @-webkit-keyframes $animation-name {
-    @content;
-  }
-  @-moz-keyframes $animation-name {
-    @content;
-  }
-  @keyframes $animation-name {
-    @content;
-  }
-}
-
-@mixin animation($str) {
-  -webkit-animation: #{$str};
-}
-
-@include keyframes(stretch) {
-  0% {
-    @include transform(scale(0,1));
-  }
-  10% {
-    @include transform(scale(0,1));
-  }
-  100% {
-    @include transform(scale(1,1));
-  }
-}
-
-@include keyframes(boom) {
-  0% {
-    @include transform(scale(0,0));
-  }
-  50% {
-    @include transform(scale(0,0));
-  }
-  100% {
-    @include transform(scale(1,1));
-  }
-}
-
-@include keyframes(fadein) {
-  0% {
-    @include opacity(0);
-  }
-  30% {
-    @include opacity(0);
-  }
-  100% {
-    @include opacity(1);
-  }
-}
-
-
 
 .hero {
   height: 515px;
@@ -138,7 +84,7 @@ $dot-2-bottom: 48%;
   [class^="dot-"] {
     position: absolute;
     @include border-radius(50%);
-    @include animation('boom 1s');
+    @include animation('boom 2s');
   }
 
   .dot-1 {
