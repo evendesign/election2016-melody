@@ -58,12 +58,24 @@ body {
   background: #F5F5F5;
   position: relative;
 
+  // &:before {
+  //   content: "";
+  //   background: #F5F5F5;
+  //   position: absolute;
+  //   top: -30px;
+  //   left: 0;
+  //   height: 30px;
+  //   width: 100%;
+  //   display: block;
+  // }
+
   .container {
     position: relative;
     z-index: 10;
   }
 
-  @include at-breakpoint($pad) {
+  @include at-breakpoint($desktop) {
+
 
     &:before {
       content: "";

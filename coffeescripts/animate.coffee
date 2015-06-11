@@ -41,6 +41,7 @@ $ ->
     dance('.gray-balls', (percent - 50)*-.2)
     dance('.intro-right-lines', (percent - 50)*.3)
     dance('.intro-left-lines', (percent - 50)*-.3)
+    dance('.gray-mountain', (percent - 50)*-.3)
 
 
 
