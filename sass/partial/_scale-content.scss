@@ -9,7 +9,7 @@
     }
 
     .page-inner {
-      @include transform-origin(center, bottom);
+      @include transform-origin(center bottom);
       @include transition(transform 0.5s, border-radius 0.25s);
       @include box-shadow(0px 0px 50px rgba(black, 0.5));
     }
