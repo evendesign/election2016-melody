@@ -24,12 +24,24 @@ $dot-2-bottom: 48%;
     @include animation('fadein 3s');
   }
 
+  .share-button {
+    position: absolute;
+    bottom: 40px;
+    right: 160px;
+    z-index: 500;
+    @include animation('fadein 3s');
+  }
+
   @include at-breakpoint($desktop) {
     height: 600px;
 
     .hero-title {
       bottom: 127px;
       right: 378px;
+    }
+    .share-button {
+      bottom: 87px;
+      right: 503px;
     }
   }
 }
