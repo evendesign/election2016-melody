@@ -1,4 +1,5 @@
 .event-detail {
+  @include pie-clearfix;
   position: relative;
 
   @include trailer(2);
@@ -19,6 +20,14 @@
 
     p {
       padding-left: rhythm(1.25);
+    }
+  }
+  @include at-breakpoint($wide-screen) {
+    .col {
+      @include box-sizing(border-box);
+      float: left;
+      width: 50%;
+      padding: 0 24px;
     }
   }
 
