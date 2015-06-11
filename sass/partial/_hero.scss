@@ -13,7 +13,9 @@ $dot-2-bottom: 48%;
 .hero {
   height: 515px;
   position: relative;
-  overflow: hidden;
+  overflow-y: hidden;
+  max-width: 1920px;
+  margin: 0 auto;
 
   .hero-title-container {
     position: absolute;
