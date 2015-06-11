@@ -8,7 +8,7 @@
   .intro-content {
     position: relative;
     z-index: 10;
-    @include animation('fadein 5s');
+    @include animation('fadein 3s');
 
     p {
       width: 90%;
@@ -27,7 +27,7 @@
     height: 8px;
     width: 100%;
     @include background(linear-gradient(left, #57C0C7, #E4E779));
-    @include animation('fadein 3s');
+    @include animation('fadein 2s');
 
     @include at-breakpoint($desktop) {
       width: 90%;
