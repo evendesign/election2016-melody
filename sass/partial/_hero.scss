@@ -15,6 +15,14 @@ $dot-2-bottom: 48%;
   position: relative;
   overflow: hidden;
 
+  .hero-title-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+
   .hero-title {
     @include replace-text-with-svg(title);
     position: absolute;
@@ -35,6 +43,11 @@ $dot-2-bottom: 48%;
 }
 
 .gray-balls {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 
   .ball-1 {
     position: absolute;
@@ -80,6 +93,11 @@ $dot-2-bottom: 48%;
 }
 
 .color-dots {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 
   [class^="dot-"] {
     position: absolute;
@@ -110,6 +128,17 @@ $dot-2-bottom: 48%;
   top: 0;
   width: 100%;
   height: 100%;
+
+  .layer-1,
+  .layer-2,
+  .layer-3,
+  .layer-4 {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
 
   @include at-breakpoint($desktop) {
     right: 0;

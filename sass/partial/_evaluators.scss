@@ -29,7 +29,7 @@
 
   @include at-breakpoint($desktop) {
     li {
-      @include isolate-grid(2, 8);
+      @include isolate-grid(4, 12);
       @include trailer(1);
 
       h4 {
