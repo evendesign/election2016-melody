@@ -1,5 +1,6 @@
 .evaluators {
   position: relative;
+  @include trailer(5);
 }
 
 .evaluators-list {
@@ -12,43 +13,60 @@
 
   li {
     @include trailer(.5);
+    clear: both;
+    margin-top: 20px;
+    min-height: 5em;
 
     h4 {
       @include adjust-font-size-to(18px, 1);
       @include trailer(.25);
+      font-weight: bold;
     }
 
     img {
-      display: none;
+      display: block;
+      float: left;
+      clear: left;
+      width: 60px;
+      height: 60px;
+      max-width: 100px;
+      @include trailer(.5);
+      @include border-radius(50%);
+      margin-right: 10px;
+      position: relative;
+      // top: -10px;
     }
 
     p {
-      @include adjust-font-size-to(14px, 1);
+      @include adjust-font-size-to(13px, 3/4);
     }
   }
 
   @include at-breakpoint($desktop) {
     li {
       @include isolate-grid(4, 12);
-      @include trailer(1);
+      @include trailer(0);
 
       h4 {
         @include adjust-font-size-to(16px, 1);
       }
 
       img {
+        float: none;
+        margin-right: 0;
         display: block;
         width: 100px;
         height: 100px;
         max-width: 100px;
         @include trailer(.5);
         @include border-radius(50%);
+        left: -3px;
       }
     }
   }
   @include at-breakpoint($wide-screen) {
     li {
-      @include isolate-grid(2, 14);
+      @include isolate-grid(3, 15);
     }
   }
 
