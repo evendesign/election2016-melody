@@ -55,46 +55,54 @@ body {
 }
 
 .content {
-  background: #F5F5F5;
+  background: #FFFFFF;
   position: relative;
 
-  // &:before {
-  //   content: "";
-  //   background: #F5F5F5;
-  //   position: absolute;
-  //   top: -30px;
-  //   left: 0;
-  //   height: 30px;
-  //   width: 100%;
-  //   display: block;
-  // }
+  &.home {
+    background: #F5F5F5;
+  }
 
   .container {
     position: relative;
     z-index: 10;
   }
 
+  &.list .container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
   @include at-breakpoint($desktop) {
 
     @include padding-trailer(3);
 
-    &:before {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      border-style: solid;
-      border-width: 60vh 60vw;
-      border-color: transparent transparent white white;
+    &.home {
+      &:before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        border-style: solid;
+        border-width: 60vh 60vw;
+        border-color: transparent transparent white white;
+      }
+
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: -30vh;
+        right: -30vw;
+        border-style: solid;
+        border-width: 60vh 60vw;
+        border-color: transparent white white transparent;
+      }
     }
 
-    &:after {
-      content: "";
-      position: absolute;
-      bottom: -30vh;
-      right: -30vw;
-      border-style: solid;
-      border-width: 60vh 60vw;
-      border-color: transparent white white transparent;
+    &.list {
+      .container {
+        padding-right: rhythm(1);
+        padding-left: rhythm(1);
+      }
     }
   }
+
 }

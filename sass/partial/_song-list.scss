@@ -1,0 +1,227 @@
+.song-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  @include leader(.5);
+  @include trailer(3);
+
+  .song-item {
+    position: relative;
+    @include trailer(1);
+
+    .song-content {
+      background: #F5F5F5;
+      padding: 10px 30px 30px 30px;
+      position: relative;
+    }
+
+    .song-number {
+      @include adjust-font-size-to(50px, 1.75);
+      font-weight: 200;
+      color: #ABABAB;
+      text-decoration: none;
+
+      &:hover {
+        color: #50B584;
+      }
+    }
+
+    .song-info {
+      text-decoration: none;
+
+      * {
+        font-weight: 300;
+      }
+
+      .song-name {
+        color: #5C5C5C;
+        @include adjust-font-size-to(22px, 1);
+        padding-top: rhythm(.75);
+        margin-bottom: 8px;
+      }
+
+      .song-artist {
+        color: #ABABAB;
+        @include adjust-font-size-to(14px, 1);
+      }
+
+      &:hover * {
+        color: #50B584;
+      }
+    }
+
+    .song-player {
+      width: 100%;
+      text-align: center;
+      padding: rhythm(1.5) 0;
+
+      .play-button {
+        border: none;
+        width: 72px;
+        height: 72px;
+        background: none;
+        outline: none;
+        background-image: none, image-url("/images/play-butto.png");
+        background-image: none, image-url("/images/play-button.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+      .song-wave {
+        display: none;
+      }
+    }
+
+    .tool-buttons {
+      text-align: center;
+
+      * {
+        height: 50px;
+        line-height: 50px;
+        display: inline-block;
+        border: none;
+        outline: none;
+        padding: 0;
+        margin: 0;
+        margin-right: 5px;
+        background: none;
+        text-align: center;
+        color: white;
+        vertical-align: top;
+        @include adjust-font-size-to(18px, 1);
+        @include border-radius(6px);
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      .vote-button {
+        width: 170px;
+        background-color: #68C75B;
+
+        &.done {
+          background-color: #EAEAEA;
+          color: #A2A8B3;
+        }
+      }
+
+      .fb-share {
+        width: 90px;
+        background-color: #71CDAA;
+      }
+    }
+
+    .vote-count {
+      color: #939393;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      padding: 30px;
+      @include adjust-font-size-to(14px, 1);
+    }
+  }
+
+  @include at-breakpoint($desktop) {
+    @include leader(1.5);
+    @include trailer(3);
+
+    .song-item {
+      height: 190px;
+      padding-left: 6px;
+
+      .song-content {
+        background: none;
+      }
+
+      &:before,
+      &:after {
+        content: "";
+        display: block;
+        width: 6px;
+        @include border-radius(3px);
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+
+      &:before {
+        height: 100%;
+        background-color: #E4EE6A;
+      }
+
+      &:after {
+        height: 40%;
+        background-color: #00BC82;
+      }
+
+      .song-number {
+        @include adjust-font-size-to(65px, 1.75);
+        position: absolute;
+        top: 0;
+        left: 30px;
+      }
+
+      .song-info {
+        position: absolute;
+        top: 0;
+        left: 160px;
+
+        .song-name {
+          padding-top: 0;
+          @include adjust-font-size-to(32px, 1);
+          margin-bottom: 10px;
+        }
+
+        .song-artist {
+          @include adjust-font-size-to(18px, 1);
+        }
+      }
+
+      .song-player {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 0;
+
+        .play-button {
+          margin: 24px 25px 24px 52px;
+          float: left;
+        }
+
+        .song-wave {
+          width: 100%;
+          height: 120px;
+          display: block;
+
+          .waveform {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: calc(100% - 160px);
+            height: 100%;
+          }
+        }
+      }
+
+      .tool-buttons {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        * {
+          margin-right: rhythm(.75);
+        }
+      }
+
+      .vote-count {
+        top: 0;
+        right: 290px;
+        padding: 0;
+      }
+    }
+  }
+
+}

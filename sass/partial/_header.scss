@@ -1,33 +1,84 @@
-$header-height             : 85px;
+$header-mobile-height      : 75px;
+$header-desktop-height     : 80px;
 $search-input-height       : 36px;
 $search-button-background  : #6FCFAA;
 
 .header {
-  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $header-mobile-height;
+  background-color: white;
+  z-index: 1000;
 
-  @include at-breakpoint($pad) {
-    display: none;
-    // display: block;
+  .header-inner {
     width: 100%;
-    height: $header-height;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: rgba(255, 255, 255, .8);
-    z-index: 1000;
+    max-width: 1060px;
+    height: $header-mobile-height;
+    margin: 0 auto;
+    position: relative;
+  }
 
-    .header-inner {
-      width: 100%;
-      max-width: 1060px;
-      height: $header-height;
-      margin: 0 auto;
+  .header-logo {
+    float: left;
+    @include replace-text-with-svg("logo");
+    background-position: center center;
+    height: 100%;
+  }
+
+  .header-nav {
+    &.on {
+      display: block;
     }
 
-    .header-logo {
-      float: left;
-      // @include replace-text-with-dimensions("logo.png");
-      background-position: center center;
-      height: 100%;
+    &.off {
+      display: none;
+    }
+  }
+
+  .header-search {
+    position: relative;
+
+    * {
+      display: inline-block;
+      vertical-align: middle;
+      height: $search-input-height;
+      border: none;
+      margin: ($header-desktop-height - $search-input-height)*.5 0;
+      @include box-sizing(border-box);
+      outline: none;
+    }
+
+    input[type=search] {
+      width: 280px;
+      background-color: #efefef;
+      padding: 0 18px;
+      @include border-left-radius($search-input-height/2);
+    }
+
+    .submit {
+      background: $search-button-background;
+      width: 75px;
+      padding: 0 3px 0 0;
+      color: white;
+      font-weight: 900;
+      @include box-sizing(border-box);
+      @include border-right-radius($search-input-height/2);
+
+      &:hover {
+        background: lighten($search-button-background, 10%);
+      }
+    }
+  }
+
+
+  @include at-breakpoint($desktop) {
+    background-color: #F9F9F9;
+    height: $header-desktop-height;
+
+    .header-inner {
+      height: $header-desktop-height;
     }
 
     .header-nav {
@@ -37,10 +88,18 @@ $search-button-background  : #6FCFAA;
       padding: 0;
       margin: 0;
 
+      &.on {
+        display: block;
+      }
+
+      &.off {
+        display: block;
+      }
+
       li {
         display: inline-block;
-        height: $header-height;
-        line-height: $header-height;
+        height: $header-desktop-height;
+        line-height: $header-desktop-height;
         padding-left: rhythm(3);
       }
 
@@ -56,41 +115,16 @@ $search-button-background  : #6FCFAA;
     }
 
     .header-search {
-      position: relative;
-      float: right;
-      height: $header-height;
+      height: $header-desktop-height;
+      position: absolute;
+      right: 0;
+      top: 0;
 
-      * {
-        display: inline-block;
-        vertical-align: middle;
-        height: $search-input-height;
-        border: none;
-        margin: ($header-height - $search-input-height)*.5 0;
-        @include box-sizing(border-box);
-        outline: none;
-      }
-
-      input[type=search] {
-        width: 280px;
-        background-color: #efefef;
-        padding: 0 18px;
-        @include border-left-radius($search-input-height/2);
-      }
-
-      .submit {
-        background: $search-button-background;
-        width: 75px;
-        padding: 0 3px 0 0;
-        color: white;
-        font-weight: 900;
-        @include box-sizing(border-box);
-        @include border-right-radius($search-input-height/2);
-
-        &:hover {
-          background: lighten($search-button-background, 10%);
-        }
+      form {
+        display: block;
+        margin: 0;
       }
     }
-
   }
+
 }
