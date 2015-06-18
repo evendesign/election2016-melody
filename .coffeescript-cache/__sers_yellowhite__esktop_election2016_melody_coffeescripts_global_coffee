@@ -1,0 +1,1 @@
+{"mtime":1434654487,"js":"var DEBUG, xx;\n\nDEBUG = true;\n\nxx = function(x) {\n  return DEBUG && console.log(x);\n};\n\n$(function() {});\n"}

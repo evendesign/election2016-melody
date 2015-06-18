@@ -1,16 +1,11 @@
 #################################
 # Settings
 #################################
-DEBUG = true
-# DEBUG = false
 maxWidth = $(window).width()
 
 #################################
 # Function
 #################################
-xx = (x) ->
-  DEBUG && console.log x
-
 dance = (elment, distance) ->
   $(elment).css({
     "-webkit-transform":"translateX("+distance+"px)"

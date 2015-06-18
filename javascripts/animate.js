@@ -1,12 +1,6 @@
-var DEBUG, dance, maxWidth, xx;
-
-DEBUG = true;
+var dance, maxWidth;
 
 maxWidth = $(window).width();
-
-xx = function(x) {
-  return DEBUG && console.log(x);
-};
 
 dance = function(elment, distance) {
   return $(elment).css({
