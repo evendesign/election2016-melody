@@ -101,7 +101,12 @@
         width: 170px;
         background-color: #68C75B;
 
-        &.done {
+        &:hover {
+          background-color: #70A656;
+        }
+
+        &.done,
+        &.done:hover {
           background-color: #EAEAEA;
           color: #A2A8B3;
         }
@@ -110,6 +115,10 @@
       .fb-share {
         width: 90px;
         background-color: #71CDAA;
+
+        &:hover {
+          background-color: #50B584;
+        }
       }
     }
 
