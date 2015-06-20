@@ -1,0 +1,19 @@
+.next-song {
+  text-align: center;
+  margin: rhythm(2) auto;
+
+  .btn {
+    width: 100%;
+    @include border-radius(0px);
+    @include box-sizing(border-box);
+    @include adjust-font-size-to(18px, 1);
+    padding: 10px 22px;
+  }
+
+  @include at-breakpoint($desktop) {
+    .btn {
+      width: 300px;
+      @include border-radius(3px);
+    }
+  }
+}

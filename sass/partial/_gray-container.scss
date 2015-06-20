@@ -15,7 +15,7 @@
     @include leader(1.25);
     @include trailer(1);
     @include border-radius(35px);
-    @include background(linear-gradient(45deg, #50B584 40%, #ADD47D 100%));
+    @include background(linear-gradient(45deg, #00BC82 0%, #93D877 100%));
 
     .color-mountain {
       position: absolute;
@@ -40,6 +40,64 @@
         border-color: transparent transparent #e6e879 transparent;
       }
     }
+
+    .color-ring {
+      position: absolute;
+      left: 14px;
+      top: 10px;
+      width: 50px;
+      height: 50px;
+      background: white;
+      @include border-radius(100%);
+
+      .ring-balls {
+        width: 6px;
+        height: 6px;
+        @include border-radius(100%);
+        background: #E2E976;
+        position: absolute;
+        top: 0;
+        left: 15px;
+
+        &:before {
+          content: "";
+          display: block;
+          position: absolute;
+          left: 15px;
+          top: 15px;
+          width: 6px;
+          height: 6px;
+          @include border-radius(100%);
+          background: #E2E976;
+        }
+      }
+
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 26px;
+        height: 26px;
+        border: 6px solid transparent;
+        border-top-color: #E2E976;
+        @include border-radius(50%);
+        @include rotate(45deg);
+      }
+
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 8px;
+        top: 8px;
+        width: 34px;
+        height: 34px;
+        background: #00BC82;
+        @include border-radius(50%);
+      }
+    }
   }
 
   @include at-breakpoint($desktop) {
@@ -60,7 +118,11 @@
       @include border-left-radius(26px);
       @include border-right-radius(0);
       @include box-sizing(border-box);
+      @include leader(0);
 
+      .home & {
+        @include leader(1);
+      }
 
       .color-mountain {
         left: 15px;
@@ -71,6 +133,21 @@
           left: 17px;
           top: 23px;
           border-width: 0 13px 26px 13px;
+        }
+      }
+
+
+      .color-ring {
+        left: 12px;
+        top: 8px;
+        width: 36px;
+        height: 36px;
+
+        &:after {
+          left: 7px;
+          top: 7px;
+          width: 22px;
+          height: 22px;
         }
       }
 

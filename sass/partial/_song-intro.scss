@@ -1,0 +1,27 @@
+.song-intro {
+  position: relative;
+  @include trailer(1.5);
+
+  .song-title {
+    font-weight: 900;
+    @include adjust-font-size-to(26px, 1.25);
+    @include trailer(.25);
+    text-align: center;
+  }
+
+  .song-artist {
+    color: #A4A4A4;
+    text-align: center;
+  }
+
+  @include at-breakpoint($desktop) {
+    @include padding-trailer(1.5);
+    border-bottom: 1px solid #B9B9B9;
+
+    .song-title,
+    .song-artist {
+      text-align: left;
+    }
+  }
+
+}
