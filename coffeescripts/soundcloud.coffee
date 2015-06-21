@@ -15,73 +15,20 @@ padLeft = (str, length) ->
     str
   else
     padLeft '0' + str, length
-getUrlVars = ->
-  vars = []
-  hash = undefined
-  hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&')
-  i = 0
-  while i < hashes.length
-    hash = hashes[i].split('=')
-    vars.push hash[0]
-    vars[hash[0]] = hash[1]
-    i++
-  vars
+nl2br = (str, is_xhtml) ->
+  breakTag = if is_xhtml or typeof is_xhtml == 'undefined' then '<br ' + '/>' else '<br>'
+  (str + '').replace /([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2'
 
 
 #################################
 # Html pattern
 #################################
-$songItem = (item) ->
-  '<li class="song-item">
-    <div class="song-content">
-      <a class="song-number" href="/song?id='+item.id+'">'+padLeft(item.id,3)+'</a><a class="song-info" href="#">
-        <div class="song-title">'+item.desc+'</div>
-        <div class="song-artist">'+item.author_name+'</div>
-      </a>
-      <div class="vote-count">票數：'+item.vote_count+'</div>
-    </div>
-    <div class="song-player">
-      <button class="play-button"></button>
-      <div class="song-wave">
-        <div class="waveform-preview"></div>
-        <div class="waveform"></div>
-      </div>
-    </div>
-    <div class="song-tool-buttons">
-      <button class="vote-button" type="button">投他一票</button>
-      <button class="fb-share">分享</button>
-    </div>
-  </li>'
 
 
 #################################
 # Document events
 #################################
 $ ->
-  vars = getUrlVars()
-  if $('.song-list').length > 0
-    $.getJSON 'http://api.staging.iing.tw/soundclouds.json?token=8888', (r) ->
-      i = 0
-      for item in r
-        if i < 10
-          $('.song-list').append $songItem(item)
-
-          waveform = new Waveform(
-            container: $('.waveform-preview').last().get(0)
-            innerColor: '#F0F0F0'
-            data: demoWaveform()
-          )
-          i++
-  else if typeof vars.id isnt 'undefined' and parseInt(vars.id) > 0
-    # id = parseInt(vars.id)
-    # $.getJSON 'http://api.staging.iing.tw/soundclouds/'+id+'.json?token=8888', (r) ->
-    #   xx r
-
-    waveform = new Waveform(
-      container: $('.waveform-preview').last().get(0)
-      innerColor: '#F0F0F0'
-      data: demoWaveform()
-    )
 
   $('body').delegate '.play-button', 'click', ->
     _this = $(this)

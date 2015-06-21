@@ -1,4 +1,4 @@
-var $songItem, demoWaveform, getUrlVars, padLeft;
+var demoWaveform, nl2br, padLeft;
 
 SC.initialize({
   client_id: 'd2f7da453051d648ae2f3e9ffbd4f69b'
@@ -19,78 +19,14 @@ padLeft = function(str, length) {
   }
 };
 
-getUrlVars = function() {
-  var hash, hashes, i, vars;
+nl2br = function(str, is_xhtml) {
+  var breakTag;
 
-  vars = [];
-  hash = void 0;
-  hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-  i = 0;
-  while (i < hashes.length) {
-    hash = hashes[i].split('=');
-    vars.push(hash[0]);
-    vars[hash[0]] = hash[1];
-    i++;
-  }
-  return vars;
-};
-
-$songItem = function(item) {
-  return '<li class="song-item">\
-    <div class="song-content">\
-      <a class="song-number" href="/song?id=' + item.id + '">' + padLeft(item.id, 3) + '</a><a class="song-info" href="#">\
-        <div class="song-title">' + item.desc + '</div>\
-        <div class="song-artist">' + item.author_name + '</div>\
-      </a>\
-      <div class="vote-count">票數：' + item.vote_count + '</div>\
-    </div>\
-    <div class="song-player">\
-      <button class="play-button"></button>\
-      <div class="song-wave">\
-        <div class="waveform-preview"></div>\
-        <div class="waveform"></div>\
-      </div>\
-    </div>\
-    <div class="song-tool-buttons">\
-      <button class="vote-button" type="button">投他一票</button>\
-      <button class="fb-share">分享</button>\
-    </div>\
-  </li>';
+  breakTag = is_xhtml || typeof is_xhtml === 'undefined' ? '<br ' + '/>' : '<br>';
+  return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 };
 
 $(function() {
-  var vars, waveform;
-
-  vars = getUrlVars();
-  if ($('.song-list').length > 0) {
-    $.getJSON('http://api.staging.iing.tw/soundclouds.json?token=8888', function(r) {
-      var i, item, waveform, _i, _len, _results;
-
-      i = 0;
-      _results = [];
-      for (_i = 0, _len = r.length; _i < _len; _i++) {
-        item = r[_i];
-        if (i < 10) {
-          $('.song-list').append($songItem(item));
-          waveform = new Waveform({
-            container: $('.waveform-preview').last().get(0),
-            innerColor: '#F0F0F0',
-            data: demoWaveform()
-          });
-          _results.push(i++);
-        } else {
-          _results.push(void 0);
-        }
-      }
-      return _results;
-    });
-  } else if (typeof vars.id !== 'undefined' && parseInt(vars.id) > 0) {
-    waveform = new Waveform({
-      container: $('.waveform-preview').last().get(0),
-      innerColor: '#F0F0F0',
-      data: demoWaveform()
-    });
-  }
   return $('body').delegate('.play-button', 'click', function() {
     var _parent, _this;
 
@@ -98,7 +34,7 @@ $(function() {
     _parent = _this.parents('.song-player');
     if (_parent.find('.waveform').find('canvas').length < 1) {
       return SC.get('/tracks/294', function(track) {
-        var ctx, gradient, sound;
+        var ctx, gradient, sound, waveform;
 
         sound = void 0;
         waveform = new Waveform({

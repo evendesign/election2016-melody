@@ -5,6 +5,7 @@ html lang="zh-TW"
     = render "/layout_siteinfo"
     = render "/layout_og"
   body
+    = render "/layout_fbapi.erb"
     .page
       .page-inner
         = render "/partial/header"
@@ -13,5 +14,6 @@ html lang="zh-TW"
     = render "/partial/footer"
 
     = render "/layout_foot"
+    = javascript_include_tag "song"
     = render "/layout_livereload"
     = render "/layout_ga.erb"

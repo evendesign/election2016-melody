@@ -142,16 +142,17 @@
       line-height: 1;
       margin-right: rhythm(1);
       position: absolute;
-      bottom: 28px;
+      bottom: 30px;
       left: 0;
       color: #5C5C5C;
     }
 
     .song-title {
       @include adjust-font-size-to(32px,1);
+      line-height: 1;
       padding-left: 120px;
       position: absolute;
-      bottom: 42px;
+      bottom: 30px;
       left: 0;
     }
 
