@@ -1,4 +1,4 @@
-var demoWaveform, nl2br, padLeft;
+var demoWaveform, nl2br, padLeft, vote;
 
 SC.initialize({
   client_id: 'd2f7da453051d648ae2f3e9ffbd4f69b'
@@ -26,7 +26,47 @@ nl2br = function(str, is_xhtml) {
   return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 };
 
+vote = function(facebook_token, soundcloud_id) {
+  return $.ajax({
+    type: 'post',
+    dataType: 'json',
+    cache: false,
+    data: {
+      facebook_token: facebook_token,
+      soundcloud_id: soundcloud_id
+    },
+    url: 'http://api.staging.iing.tw/vote_check.json',
+    success: function(response) {
+      return xx(response);
+    }
+  });
+};
+
 $(function() {
+  $('body').delegate('.vote-button', 'click', function() {
+    var soundcloud_id;
+
+    soundcloud_id = $(this).data('id');
+    return FB.getLoginStatus(function(response) {
+      var facebook_token;
+
+      if (response.status === 'connected') {
+        facebook_token = response.authResponse.accessToken;
+        return vote(facebook_token, soundcloud_id);
+      } else {
+        return FB.login((function(response) {
+          if (response.status === 'connected') {
+            facebook_token = response.authResponse.accessToken;
+            return vote(facebook_token, soundcloud_id);
+          } else {
+            return xx('Login failed');
+          }
+        }), {
+          return_scopes: true
+        });
+      }
+    });
+  });
   return $('body').delegate('.play-button', 'click', function() {
     var _parent, _this;
 

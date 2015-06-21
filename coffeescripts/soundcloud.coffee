@@ -18,6 +18,17 @@ padLeft = (str, length) ->
 nl2br = (str, is_xhtml) ->
   breakTag = if is_xhtml or typeof is_xhtml == 'undefined' then '<br ' + '/>' else '<br>'
   (str + '').replace /([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2'
+vote = (facebook_token,soundcloud_id)->
+  $.ajax
+    type: 'post'
+    dataType: 'json'
+    cache: false
+    data:
+      facebook_token: facebook_token
+      soundcloud_id: soundcloud_id
+    url: 'http://api.staging.iing.tw/vote_check.json'
+    success: (response) ->
+      xx response
 
 
 #################################
@@ -29,6 +40,23 @@ nl2br = (str, is_xhtml) ->
 # Document events
 #################################
 $ ->
+
+  $('body').delegate '.vote-button', 'click', ->
+    soundcloud_id = $(this).data('id')
+    FB.getLoginStatus (response) ->
+      if response.status is 'connected'
+        facebook_token = response.authResponse.accessToken
+        vote(facebook_token,soundcloud_id)
+      else
+        FB.login ((response) ->
+          if response.status is 'connected'
+            facebook_token = response.authResponse.accessToken
+            vote(facebook_token,soundcloud_id)
+          else
+            xx 'Login failed'
+        ),
+          return_scopes: true
+
 
   $('body').delegate '.play-button', 'click', ->
     _this = $(this)

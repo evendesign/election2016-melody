@@ -5,5 +5,13 @@
   "global", \
   "animate", \
   "waveform", \
-  "soundcloud", \
-  "all"
+  "soundcloud"
+
+
+- if $pagename == "list"
+  = javascript_include_tag "list"
+
+- if $pagename == "song"
+  = javascript_include_tag "song"
+
+= javascript_include_tag "all"
