@@ -29,7 +29,7 @@
   text-align: center;
   padding: rhythm(1.5) 0;
 
-  .play-button {
+  %ctrl-button {
     position: relative;
     z-index: 100;
     border: none;
@@ -37,11 +37,32 @@
     height: 72px;
     background: none;
     outline: none;
-    background-image: none, image-url("/images/play-butto.png");
-    background-image: none, image-url("/images/play-button.svg");
     background-repeat: no-repeat;
     background-size: contain;
   }
+  .play-button {
+    @extend %ctrl-button;
+    background-image: image-url("/images/play-button.png");
+    background-image: none, image-url("/images/play-button.svg");
+  }
+  .pause-button {
+    @extend %ctrl-button;
+    background-image: image-url("/images/pause-button.png");
+    background-image: none, image-url("/images/pause-button.svg");
+  }
+  .stop-button {
+    @extend %ctrl-button;
+    background-image: image-url("/images/stop-button.png");
+    background-image: none, image-url("/images/stop-button.svg");
+  }
+  .loading {
+    @extend %ctrl-button;
+    width: 50px;
+    height: 50px;
+    padding: 11px;
+    background-image: image-url("/images/loading.gif");
+  }
+
 
   .song-wave {
     display: none;
@@ -53,12 +74,11 @@
 
   @include at-breakpoint($desktop) {
     width: 100%;
-    max-width: 980px;
     text-align: center;
     padding: 0;
     margin: 0 auto;
 
-    .play-button {
+    %ctrl-button {
       margin: 24px 0 24px 0;
       float: left;
     }
@@ -90,7 +110,7 @@
       bottom: 0;
       left: 0;
 
-      .play-button {
+      %ctrl-button {
         margin: 24px 25px 24px 52px;
       }
 
