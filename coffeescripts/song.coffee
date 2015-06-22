@@ -24,8 +24,8 @@ getUrlVars = ->
 #################################
 $ ->
   url = window.location.href
+  if url.slice(-1) is '/' then url = url.substring(0, url.length - 1)
   song_no = url.split("/").pop()
-  xx song_no
   if typeof song_no isnt 'undefined' and parseInt(song_no) > 0
     id = parseInt(song_no)
 
@@ -45,7 +45,7 @@ $ ->
       $('.fb-share').attr('data-href','https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/'+item.id)
 
       if item.official_url
-        $('.song-intro .song-artist').prepend '<a class="official-link" href="'+item.official_url+'">Official Link</a>'
+        $('.song-intro .song-artist').prepend '<a class="official-link" targe="_blank" href="'+item.official_url+'">Official Link</a>'
 
       if item.waveform is null
         SC.get '/tracks/'+item.track_id, (track) ->
@@ -68,5 +68,3 @@ $ ->
           data: songWaveform
         )
       createWaveform(item.id,item.track_id,songWaveform,'.song-player')
-  # else
-  #   window.location = '/songs'

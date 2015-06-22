@@ -20,8 +20,10 @@ $(function() {
   var id, song_no, url;
 
   url = window.location.href;
+  if (url.slice(-1) === '/') {
+    url = url.substring(0, url.length - 1);
+  }
   song_no = url.split("/").pop();
-  xx(song_no);
   if (typeof song_no !== 'undefined' && parseInt(song_no) > 0) {
     id = parseInt(song_no);
     return $.getJSON('http://api.iing.tw/soundclouds/' + id + '.json?token=8888', function(item) {
@@ -40,7 +42,7 @@ $(function() {
       $('.next-song a').attr('href', '/song/' + item.next_song_id);
       $('.fb-share').attr('data-href', 'https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/' + item.id);
       if (item.official_url) {
-        $('.song-intro .song-artist').prepend('<a class="official-link" href="' + item.official_url + '">Official Link</a>');
+        $('.song-intro .song-artist').prepend('<a class="official-link" targe="_blank" href="' + item.official_url + '">Official Link</a>');
       }
       if (item.waveform === null) {
         SC.get('/tracks/' + item.track_id, function(track) {
