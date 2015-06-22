@@ -21,13 +21,18 @@ $search-button-background  : #6FCFAA;
   }
 
   .header-logo {
-    float: left;
+    display: block;
     @include replace-text-with-svg("logo");
     background-position: center center;
     height: 100%;
   }
 
   .header-nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    @include background(linear-gradient(25deg, rgb(80, 181, 132), rgb(152, 205, 127), rgb(231, 232, 121)));
+
     &.on {
       display: block;
     }
@@ -35,24 +40,42 @@ $search-button-background  : #6FCFAA;
     &.off {
       display: none;
     }
+
+    li {
+      margin: 0 12px;
+    }
+
+    li + li {
+      border-top: 1px solid white;
+    }
+
+    a {
+      display: block;
+      line-height: 64px;
+      text-align: center;
+      font-weight: bold;
+      color: white;
+      &:hover { text-decoration: none; }
+    }
   }
 
   .header-search {
     position: relative;
+    padding: 21px 0;
 
     * {
       display: inline-block;
-      vertical-align: middle;
       height: $search-input-height;
       border: none;
-      margin: ($header-desktop-height - $search-input-height)*.5 0;
       @include box-sizing(border-box);
       outline: none;
     }
 
+    form { width: 100%; }
+
     input[type=search] {
-      width: 280px;
       background-color: #efefef;
+      width: calc(100% - 75px);
       padding: 0 18px;
       @include border-left-radius($search-input-height/2);
     }
@@ -79,6 +102,9 @@ $search-button-background  : #6FCFAA;
 
     .header-inner {
       height: $header-desktop-height;
+      .header-logo {
+        float: left;
+      }
     }
 
     .header-nav {
@@ -87,6 +113,7 @@ $search-button-background  : #6FCFAA;
       list-style: none;
       padding: 0;
       margin: 0;
+      background: transparent;
 
       &.on {
         display: block;
@@ -101,16 +128,16 @@ $search-button-background  : #6FCFAA;
         height: $header-desktop-height;
         line-height: $header-desktop-height;
         padding-left: rhythm(3);
+        &.active a {
+          color: #54B584;
+        }
       }
 
       a {
         color: #6C736E;
         font-weight: 900;
         @include adjust-font-size-to(18px, 1);
-
-        &:hover {
-          text-decoration: none;
-        }
+        line-height: $header-desktop-height;
       }
     }
 
@@ -119,10 +146,15 @@ $search-button-background  : #6FCFAA;
       position: absolute;
       right: 0;
       top: 0;
+      margin: 0;
+      padding: 0;
 
       form {
         display: block;
-        margin: 0;
+      }
+
+      input[type=search] {
+        width: 280px;
       }
     }
   }
