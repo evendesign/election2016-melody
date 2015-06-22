@@ -1,6 +1,7 @@
 .song-player-container {
   position: relative;
   height: 200px;
+  @include animation('fadein 5s');
 
   &:after {
     content: "";

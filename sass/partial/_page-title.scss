@@ -4,6 +4,7 @@
   position: relative;
   margin-top: $header-mobile-height;
   padding-bottom: 20px;
+  @include animation('fadein 5s');
 
   &:after {
     content: "";

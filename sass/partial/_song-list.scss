@@ -6,6 +6,7 @@
   padding: 0;
   @include leader(.5);
   @include trailer(3);
+  @include animation('fadein 5s');
 
   .song-item {
     position: relative;
