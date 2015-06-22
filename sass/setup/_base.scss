@@ -82,6 +82,7 @@ p {
   @include leader(0);
   @include trailer(1);
   @include adjust-font-size-to(16px);
+  line-height: 28px;
 }
 
 
