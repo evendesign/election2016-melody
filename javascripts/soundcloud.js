@@ -1,4 +1,4 @@
-var nl2br, padLeft, vote, voteCheck, waveformStringToArray;
+var nl2br, padLeft, syncWaveform, vote, voteCheck, waveformStringToArray;
 
 SC.initialize({
   client_id: 'd2f7da453051d648ae2f3e9ffbd4f69b'
@@ -55,6 +55,23 @@ vote = function(facebook_token, soundcloud_id) {
       soundcloud_id: soundcloud_id
     },
     url: 'http://api.staging.iing.tw/vote.json',
+    success: function(response) {
+      return xx(response);
+    }
+  });
+};
+
+syncWaveform = function(id, token, data) {
+  return $.ajax({
+    type: 'post',
+    dataType: 'json',
+    cache: false,
+    data: {
+      id: id,
+      token: token,
+      data: data.toString()
+    },
+    url: 'http://api.staging.iing.tw/sync_waveform.json',
     success: function(response) {
       return xx(response);
     }
@@ -119,10 +136,11 @@ $(function() {
         return SC.stream(track.uri, {
           whileloading: waveform.redraw,
           whileplaying: waveform.redraw,
-          volume: 100,
-          autoPlay: true
+          volume: 100
         }, function(s) {
-          return sound = s;
+          sound = s;
+          xx('play');
+          return sound.play();
         });
       });
     }

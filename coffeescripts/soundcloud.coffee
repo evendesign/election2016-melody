@@ -49,6 +49,20 @@ vote = (facebook_token,soundcloud_id)->
     success: (response) ->
       xx response
 
+syncWaveform = (id,token,data) ->
+  $.ajax
+    type: 'post'
+    dataType: 'json'
+    cache: false
+    data:
+      id: id
+      token: token
+      data: data.toString()
+    url: 'http://api.staging.iing.tw/sync_waveform.json'
+    success: (response) ->
+      xx response
+
+
 #################################
 # Html pattern
 #################################
@@ -106,6 +120,8 @@ $ ->
           whileloading: waveform.redraw
           whileplaying: waveform.redraw
           volume: 100
-          autoPlay: true
+          # autoPlay: true
         }, (s) ->
           sound = s
+          xx 'play'
+          sound.play()

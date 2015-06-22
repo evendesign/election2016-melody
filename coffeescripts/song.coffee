@@ -26,22 +26,37 @@ $ ->
   vars = getUrlVars()
   if typeof vars.no isnt 'undefined' and parseInt(vars.no) > 0
     id = parseInt(vars.no)
-    $.getJSON 'http://api.staging.iing.tw/soundclouds/'+id+'.json?token=8888', (r) ->
-      $('.song-title').text r.title
-      $('.song-artist').text r.author_name
-      $('.song-number').text padLeft(r.id,3)
-      $('.vote-count span').text r.vote_count
-      $('.song-lyric p').html nl2br(r.lyrics)
-      $('.song-intro p').html nl2br(r.desc)
-      $('.song-waveform-value').val r.waveform
-      $('.vote-button').attr('data-id',r.id)
-      $('.play-button').attr('data-trackid',r.track_id)
+    $.getJSON 'http://api.staging.iing.tw/soundclouds/'+id+'.json?token=8888', (item) ->
+      xx item
+      $('.song-title').text item.title
+      $('.song-artist').text item.author_name
+      $('.song-number').text padLeft(item.id,3)
+      $('.vote-count span').text item.vote_count
+      $('.song-lyric p').html nl2br(item.lyrics)
+      $('.song-intro p').html nl2br(item.desc)
+      $('.song-waveform-value').val item.waveform
+      $('.vote-button').attr('data-id',item.id)
+      $('.play-button').attr('data-trackid',item.track_id)
 
-      songWaveform = waveformStringToArray r.waveform
-      waveform = new Waveform(
-        container: $('.waveform-preview').last().get(0)
-        innerColor: '#F0F0F0'
-        data: songWaveform
-      )
+      if item.waveform is null
+        SC.get '/tracks/'+item.track_id, (track) ->
+          xx track
+          xx track.waveform_url
+          $.getJSON 'http://waveformjs.org/w?callback=?', { url: track.waveform_url }, (d) ->
+            xx d
+            syncWaveform(item.id,item.token,d)
+            songWaveform = d
+            waveform = new Waveform(
+              container: $('.waveform-preview').last().get(0)
+              innerColor: '#F0F0F0'
+              data: songWaveform
+            )
+      else
+        songWaveform = waveformStringToArray item.waveform
+        waveform = new Waveform(
+          container: $('.waveform-preview').last().get(0)
+          innerColor: '#F0F0F0'
+          data: songWaveform
+        )
   else
     window.location = '/list'

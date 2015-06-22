@@ -1,10 +1,10 @@
-var $songItem, appendList, songFilter, syncWaveform;
+var $songItem, appendList, songFilter;
 
 window.list = [];
 
 window.pageNumber = 0;
 
-window.perPage = 1;
+window.perPage = 10;
 
 appendList = function(page) {
   var array, end, item, songWaveform, start, waveform, _i, _len;
@@ -26,40 +26,28 @@ appendList = function(page) {
         return $.getJSON('http://waveformjs.org/w?callback=?', {
           url: track.waveform_url
         }, function(d) {
-          var songWaveform;
+          var songWaveform, waveform;
 
           xx(d);
           syncWaveform(item.id, item.token, d);
-          return songWaveform = d;
+          songWaveform = d;
+          return waveform = new Waveform({
+            container: $('.waveform-preview').last().get(0),
+            innerColor: '#F0F0F0',
+            data: songWaveform
+          });
         });
       });
     } else {
       songWaveform = waveformStringToArray(item.waveform);
+      waveform = new Waveform({
+        container: $('.waveform-preview').last().get(0),
+        innerColor: '#F0F0F0',
+        data: songWaveform
+      });
     }
-    waveform = new Waveform({
-      container: $('.waveform-preview').last().get(0),
-      innerColor: '#F0F0F0',
-      data: songWaveform
-    });
   }
   return window.pageNumber++;
-};
-
-syncWaveform = function(id, token, data) {
-  return $.ajax({
-    type: 'post',
-    dataType: 'json',
-    cache: false,
-    data: {
-      id: id,
-      token: token,
-      data: data.toString()
-    },
-    url: 'http://api.staging.iing.tw/sync_waveform.json',
-    success: function(response) {
-      return xx(response);
-    }
-  });
 };
 
 songFilter = function(filter) {
