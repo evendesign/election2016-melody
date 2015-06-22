@@ -6,7 +6,7 @@
   padding: 0;
   @include leader(.5);
   @include trailer(3);
-  @include animation('fadein 5s');
+  // @include animation('fadein 5s');
 
   .song-item {
     position: relative;
@@ -17,9 +17,16 @@
     }
 
     .song-content {
-      background: #F5F5F5;
-      padding: 10px 30px 30px 30px;
+      // background: #F5F5F5;
+      @include background(linear-gradient(0deg, #FFFFFF 0%, #F5F5F5 100%));
+      padding: 20px 30px 30px 30px;
       position: relative;
+
+      a:hover {
+        * {
+          color: #50B584;
+        }
+      }
     }
 
     .song-number {
@@ -27,10 +34,6 @@
       font-weight: 400;
       color: #ABABAB;
       text-decoration: none;
-
-      &:hover {
-        color: #50B584;
-      }
     }
 
     .song-info {
@@ -50,10 +53,6 @@
       .song-artist {
         color: #ABABAB;
         @include adjust-font-size-to(14px, 1);
-      }
-
-      &:hover * {
-        color: #50B584;
       }
     }
 

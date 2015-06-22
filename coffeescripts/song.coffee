@@ -26,8 +26,8 @@ $ ->
   vars = getUrlVars()
   if typeof vars.no isnt 'undefined' and parseInt(vars.no) > 0
     id = parseInt(vars.no)
+
     $.getJSON 'http://api.iing.tw/soundclouds/'+id+'.json?token=8888', (item) ->
-      xx item
 
       $('.song-title').text item.title
       $('.song-artist').text item.author_name
@@ -64,5 +64,6 @@ $ ->
           innerColor: '#F0F0F0'
           data: songWaveform
         )
-  else
-    window.location = '/list'
+      createWaveform(item.id,item.track_id,songWaveform,'.song-player')
+  # else
+  #   window.location = '/songs'

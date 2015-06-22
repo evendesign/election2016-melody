@@ -4,7 +4,7 @@
   position: relative;
   margin-top: $header-mobile-height;
   padding-bottom: 20px;
-  @include animation('fadein 5s');
+  // @include animation('fadein 5s');
 
   &:after {
     content: "";
@@ -101,7 +101,8 @@
 }
 
 .page-title-song-content {
-  background: #F5F5F5;
+  // background: #F5F5F5;
+  @include background(linear-gradient(90deg, #FFFFFF 0%, #F5F5F5 100%));
   padding: 10px 30px 30px 30px;
   position: relative;
 

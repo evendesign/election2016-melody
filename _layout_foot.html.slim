@@ -4,15 +4,17 @@
   "/vender/slick.min.js", \
   "global", \
   "animate", \
-  "waveform", \
   "soundcloud"
 
 
 - if $pagename == "list"
   = javascript_include_tag \
+    "waveform", \
     "list"
 
 - if $pagename == "song"
-  = javascript_include_tag "song"
+  = javascript_include_tag \
+    "waveform", \
+    "song"
 
 = javascript_include_tag "all"

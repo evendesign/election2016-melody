@@ -25,7 +25,6 @@ $(function() {
     return $.getJSON('http://api.iing.tw/soundclouds/' + id + '.json?token=8888', function(item) {
       var songWaveform, waveform;
 
-      xx(item);
       $('.song-title').text(item.title);
       $('.song-artist').text(item.author_name);
       $('.song-number').text(padLeft(item.id, 3));
@@ -41,7 +40,7 @@ $(function() {
         $('.song-artist').prepend('<a class="official-link" href="' + item.official_url + '">Official Link</a>');
       }
       if (item.waveform === null) {
-        return SC.get('/tracks/' + item.track_id, function(track) {
+        SC.get('/tracks/' + item.track_id, function(track) {
           xx(track);
           xx(track.waveform_url);
           return $.getJSON('http://waveformjs.org/w?callback=?', {
@@ -61,14 +60,13 @@ $(function() {
         });
       } else {
         songWaveform = waveformStringToArray(item.waveform);
-        return waveform = new Waveform({
+        waveform = new Waveform({
           container: $('.waveform-preview').last().get(0),
           innerColor: '#F0F0F0',
           data: songWaveform
         });
       }
+      return createWaveform(item.id, item.track_id, songWaveform, '.song-player');
     });
-  } else {
-    return window.location = '/list';
   }
 });

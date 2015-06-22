@@ -49,6 +49,37 @@ waveformStringToArray = (str) ->
 #     success: (response) ->
 #       xx response
 
+createWaveform = (id,track_id,waveform,selector) ->
+  SC.get '/tracks/'+track_id, (track) ->
+    sound = undefined
+    waveform = new Waveform(
+      container: $(selector+' .waveform').get(0)
+      innerColor: '#F0F0F0'
+      data: waveform
+    )
+    ctx = waveform.context
+    gradient = ctx.createLinearGradient(0, 0, 0, waveform.height)
+    gradient.addColorStop 0.0, '#E4E779'
+    gradient.addColorStop 1.0, '#57C0C7'
+
+    waveform.innerColor = (x) ->
+      if sound and x < sound.position / sound.durationEstimate
+        gradient
+      else if sound and x < sound.bytesLoaded / sound.bytesTotal
+        '#D1D1D1'
+      else
+        '#F0F0F0'
+
+    SC.stream '/tracks/'+track_id, {
+      whileloading: waveform.redraw
+      whileplaying: waveform.redraw
+      volume: 100
+      useHTML5Audio: true
+      preferFlash: false
+    }, (s) ->
+      $(selector+' .play-button').attr('data-sid',s.sID)
+      sound = s
+
 syncWaveform = (id,token,data) ->
   $.ajax
     type: 'post'
@@ -93,59 +124,22 @@ $ ->
   $('body').delegate '.play-button', 'click', ->
     if soundManager isnt undefined
       soundManager.pauseAll()
-      # $('.waveform').find('canvas').remove()
       $('.pause-button').addClass 'play-button'
       $('.play-button').removeClass 'pause-button'
 
     _this = $(this)
-    _parent = _this.parents('.song-player')
-    _waveform = waveformStringToArray(_parent.find('.song-waveform-value').val())
-    _trackid = _this.data('trackid')
     _this.addClass 'loading'
+    sid = _this.data 'sid'
 
-    if _parent.find('.waveform').find('canvas').length < 1
-      SC.get '/tracks/'+_trackid, (track) ->
-        sound = undefined
-        waveform = new Waveform(
-          container: _parent.find('.waveform').get(0)
-          innerColor: '#F0F0F0'
-          data: _waveform
-        )
-        ctx = waveform.context
-        gradient = ctx.createLinearGradient(0, 0, 0, waveform.height)
-        gradient.addColorStop 0.0, '#E4E779'
-        gradient.addColorStop 1.0, '#57C0C7'
-
-        waveform.innerColor = (x) ->
-          if sound and x < sound.position / sound.durationEstimate
-            gradient
-          else if sound and x < sound.bytesLoaded / sound.bytesTotal
-            '#D1D1D1'
-          else
-            '#F0F0F0'
-
-        SC.stream '/tracks/'+_trackid, {
-          whileloading: waveform.redraw
-          whileplaying: waveform.redraw
-          volume: 100
-        }, (s) ->
-          _this.attr('data-sid',s.sID)
-          sound = s
-          sound.play()
-          _this.removeClass 'loading'
-          _this.removeClass 'play-button'
-          _this.addClass 'pause-button'
-    else
-      sid = _this.data 'sid'
-      soundManager.play(sid)
-      _this.removeClass 'loading'
-      _this.removeClass 'play-button'
-      _this.addClass 'pause-button'
+    soundManager.play sid,
+      onplay: ->
+        _this.removeClass 'loading'
+        _this.removeClass 'play-button'
+        _this.addClass 'pause-button'
 
 
   $('body').delegate '.pause-button', 'click', ->
     soundManager.pauseAll()
-    # $('.waveform').find('canvas').remove()
     $(this).removeClass 'pause-button'
     $(this).addClass 'play-button'
 

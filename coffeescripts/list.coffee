@@ -5,7 +5,6 @@ window.list = []
 window.pageNumber = 0
 window.perPage = 50
 
-
 #################################
 # Function
 #################################
@@ -36,7 +35,7 @@ appendList = (page) ->
         innerColor: '#F0F0F0'
         data: songWaveform
       )
-
+    createWaveform(item.id,item.track_id,songWaveform,'.song-item-'+item.id)
   window.pageNumber++
 
 songFilter = (filter) ->
@@ -48,7 +47,7 @@ songFilter = (filter) ->
 # Html pattern
 #################################
 $songItem = (item) ->
-  '<li class="song-item">
+  '<li class="song-item song-item-'+item.id+'">
     <div class="song-string">' +
       item.id +
       item.title +
@@ -56,10 +55,12 @@ $songItem = (item) ->
       item.author_name + '
     </div>
     <div class="song-content">
-      <a class="song-number" href="/song/?no='+item.id+'">'+padLeft(item.id,3)+'</a>
-      <a class="song-info" href="/song/?no='+item.id+'">
-        <div class="song-title">'+item.title+'</div>
-        <div class="song-artist">'+item.author_name+'</div>
+      <a href="/song/?no='+item.id+'">
+        <div class="song-number">'+padLeft(item.id,3)+'</div>
+        <div class="song-info">
+          <div class="song-title">'+item.title+'</div>
+          <div class="song-artist">'+item.author_name+'</div>
+        </div>
       </a>
       <!--<div class="vote-count">票數：'+item.vote_count+'</div>-->
     </div>
