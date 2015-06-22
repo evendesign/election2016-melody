@@ -23,11 +23,14 @@ getUrlVars = ->
 # Document events
 #################################
 $ ->
-  vars = getUrlVars()
-  if typeof vars.no isnt 'undefined' and parseInt(vars.no) > 0
-    id = parseInt(vars.no)
+  url = window.location.href
+  song_no = url.split("/").pop()
+  xx song_no
+  if typeof song_no isnt 'undefined' and parseInt(song_no) > 0
+    id = parseInt(song_no)
 
     $.getJSON 'http://api.iing.tw/soundclouds/'+id+'.json?token=8888', (item) ->
+      xx item
 
       $('.song-title').text item.title
       $('.song-artist').text item.author_name
@@ -38,7 +41,7 @@ $ ->
       $('.song-waveform-value').val item.waveform
       $('.vote-button').attr('data-id',item.id)
       $('.play-button').attr('data-trackid',item.track_id)
-      $('.next-song a').attr('href',item.random_url)
+      $('.next-song a').attr('href','/song/'+item.next_song_id)
       $('.fb-share').attr('data-href','https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/'+item.id)
 
       if item.official_url

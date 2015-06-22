@@ -57,7 +57,7 @@ $songItem = function(item) {
     <div class="song-string">' + padLeft(item.id, 3) + ',' + item.id + ',' + item.title + ',' + item.desc + ',' + item.author_name + '\
     </div>\
     <div class="song-content">\
-      <a href="/song/?no=' + item.id + '">\
+      <a href="/song/' + item.id + '">\
         <div class="song-number">' + padLeft(item.id, 3) + '</div>\
         <div class="song-info">\
           <div class="song-title">' + item.title + '</div>\
