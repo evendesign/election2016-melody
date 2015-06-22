@@ -103,8 +103,12 @@
 .page-title-song-content {
   // background: #F5F5F5;
   @include background(linear-gradient(90deg, #FFFFFF 0%, #F5F5F5 100%));
-  padding: 20px 30px 30px 30px;
+  padding: 30px;
   position: relative;
+
+  * {
+    text-align: center;
+  }
 
   .song-number {
     @include adjust-font-size-to(50px, 1.75);
@@ -115,7 +119,7 @@
   .song-title {
     font-weight: 900;
     color: #5C5C5C;
-    @include adjust-font-size-to(22px, 1);
+    @include adjust-font-size-to(26px, 1);
     padding-top: rhythm(.75);
     margin-bottom: 8px;
   }
