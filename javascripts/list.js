@@ -61,7 +61,7 @@ $songItem = function(item) {
         <div class="song-title">' + item.title + '</div>\
         <div class="song-artist">' + item.author_name + '</div>\
       </a>\
-      <div class="vote-count">票數：' + item.vote_count + '</div>\
+      <!--<div class="vote-count">票數：' + item.vote_count + '</div>-->\
     </div>\
     <div class="song-player">\
       <button class="play-button" data-trackid="' + item.track_id + '" data-sid=""></button>\
@@ -72,7 +72,7 @@ $songItem = function(item) {
       </div>\
     </div>\
     <div class="song-tool-buttons">\
-      <button class="vote-button" type="button" data-id="' + item.id + '">投他一票</button>\
+      <!--<button class="vote-button" type="button" data-id="' + item.id + '">投他一票</button>-->\
       <button class="fb-share">分享</button>\
     </div>\
   </li>';

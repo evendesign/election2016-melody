@@ -35,6 +35,7 @@ $(function() {
       $('.song-waveform-value').val(item.waveform);
       $('.vote-button').attr('data-id', item.id);
       $('.play-button').attr('data-trackid', item.track_id);
+      $('.next-song a').attr('href', item.random_url);
       if (item.waveform === null) {
         return SC.get('/tracks/' + item.track_id, function(track) {
           xx(track);
