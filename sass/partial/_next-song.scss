@@ -1,3 +1,7 @@
+.go-to-list {
+  position: relative;
+  z-index: 10;
+}
 .next-song, .go-to-list {
   text-align: center;
   margin: rhythm(2) auto;
