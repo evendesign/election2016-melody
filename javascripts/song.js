@@ -36,6 +36,7 @@ $(function() {
       $('.vote-button').attr('data-id', item.id);
       $('.play-button').attr('data-trackid', item.track_id);
       $('.next-song a').attr('href', item.random_url);
+      $('.fb-share').attr('data-href', 'https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/' + item.id);
       if (item.official_url) {
         $('.song-artist').prepend('<a class="official-link" href="' + item.official_url + '">Official Link</a>');
       }

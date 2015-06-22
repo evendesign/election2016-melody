@@ -149,3 +149,7 @@ $ ->
     $(this).removeClass 'pause-button'
     $(this).addClass 'play-button'
 
+
+  $('body').delegate '.fb-share', 'click', ->
+    href = $(this).data('href')
+    window.open(href)

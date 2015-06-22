@@ -73,7 +73,7 @@ $songItem = function(item) {
     </div>\
     <div class="song-tool-buttons">\
       <!--<button class="vote-button" type="button" data-id="' + item.id + '">投他一票</button>-->\
-      <button class="fb-share">分享</button>\
+      <button class="fb-share" type="button" data-href="https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/' + item.id + '">分享</button>\
     </div>\
   </li>';
 };

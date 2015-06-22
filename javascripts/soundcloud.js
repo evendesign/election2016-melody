@@ -100,9 +100,15 @@ $(function() {
       return _this.addClass('pause-button');
     }
   });
-  return $('body').delegate('.pause-button', 'click', function() {
+  $('body').delegate('.pause-button', 'click', function() {
     soundManager.pauseAll();
     $(this).removeClass('pause-button');
     return $(this).addClass('play-button');
+  });
+  return $('body').delegate('.fb-share', 'click', function() {
+    var href;
+
+    href = $(this).data('href');
+    return window.open(href);
   });
 });
