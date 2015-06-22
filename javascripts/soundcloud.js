@@ -103,13 +103,14 @@ $(function() {
       }
     });
   });
-  return $('body').delegate('.play-button', 'click', function() {
+  $('body').delegate('.play-button', 'click', function() {
     var _parent, _this, _trackid, _waveform;
 
     _this = $(this);
     _parent = _this.parents('.song-player');
     _waveform = waveformStringToArray(_parent.find('.song-waveform-value').val());
     _trackid = _this.data('trackid');
+    _this.addClass('loading');
     if (_parent.find('.waveform').find('canvas').length < 1) {
       return SC.get('/tracks/' + _trackid, function(track) {
         var ctx, gradient, sound, waveform;
@@ -133,16 +134,23 @@ $(function() {
             return '#F0F0F0';
           }
         };
-        return SC.stream(track.uri, {
+        return SC.stream('/tracks/' + _trackid, {
           whileloading: waveform.redraw,
           whileplaying: waveform.redraw,
           volume: 100
         }, function(s) {
           sound = s;
-          xx('play');
-          return sound.play();
+          sound.play();
+          _this.removeClass('loading');
+          _this.removeClass('play-button');
+          return _this.addClass('stop-button');
         });
       });
     }
+  });
+  return $('body').delegate('.stop-button', 'click', function() {
+    sound.stop();
+    _this.removeClass('stop-button');
+    return _this.addClass('play-button');
   });
 });

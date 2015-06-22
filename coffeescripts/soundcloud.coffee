@@ -95,6 +95,7 @@ $ ->
     _parent = _this.parents('.song-player')
     _waveform = waveformStringToArray(_parent.find('.song-waveform-value').val())
     _trackid = _this.data('trackid')
+    _this.addClass 'loading'
     if _parent.find('.waveform').find('canvas').length < 1
       SC.get '/tracks/'+_trackid, (track) ->
         sound = undefined
@@ -116,12 +117,32 @@ $ ->
           else
             '#F0F0F0'
 
-        SC.stream track.uri, {
+        SC.stream '/tracks/'+_trackid, {
           whileloading: waveform.redraw
           whileplaying: waveform.redraw
           volume: 100
-          # autoPlay: true
         }, (s) ->
           sound = s
-          xx 'play'
           sound.play()
+          _this.removeClass 'loading'
+          _this.removeClass 'play-button'
+          _this.addClass 'stop-button'
+
+    # else
+    #   SC.stream track.uri, {
+    #     whileloading: waveform.redraw
+    #     whileplaying: waveform.redraw
+    #     volume: 100
+    #     # autoPlay: true
+    #   }, (s) ->
+    #     sound = s
+    #     xx 'play'
+    #     sound.play()
+
+  $('body').delegate '.stop-button', 'click', ->
+    # _this = $(this)
+    # _trackid = _this.data('trackid')
+    # SC.stream '/tracks/'+_trackid, (sound) ->
+    sound.stop()
+    _this.removeClass 'stop-button'
+    _this.addClass 'play-button'
