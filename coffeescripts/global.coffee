@@ -17,5 +17,8 @@ xx = (x) ->
 #################################
 $ ->
 
-
-
+  $('body').delegate '.header-nav-button', 'click', ->
+    if $('.header-nav').hasClass('off')
+      $('.header-nav').addClass('on').removeClass('off')
+    else
+      $('.header-nav').addClass('off').removeClass('on')
