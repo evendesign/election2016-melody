@@ -78,6 +78,7 @@
 
   .song-player-container & {
     padding: 0;
+    max-width: 980px;
   }
 
   @include at-breakpoint($desktop) {
