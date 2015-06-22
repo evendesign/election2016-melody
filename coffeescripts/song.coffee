@@ -28,6 +28,7 @@ $ ->
     id = parseInt(vars.no)
     $.getJSON 'http://api.iing.tw/soundclouds/'+id+'.json?token=8888', (item) ->
       xx item
+
       $('.song-title').text item.title
       $('.song-artist').text item.author_name
       $('.song-number').text padLeft(item.id,3)
@@ -38,6 +39,9 @@ $ ->
       $('.vote-button').attr('data-id',item.id)
       $('.play-button').attr('data-trackid',item.track_id)
       $('.next-song a').attr('href',item.random_url)
+
+      if item.official_url
+        $('.song-artist').prepend '<a class="official-link" href="'+item.official_url+'">Official Link</a>'
 
       if item.waveform is null
         SC.get '/tracks/'+item.track_id, (track) ->
