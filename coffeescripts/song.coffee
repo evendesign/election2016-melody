@@ -26,7 +26,7 @@ $ ->
   vars = getUrlVars()
   if typeof vars.no isnt 'undefined' and parseInt(vars.no) > 0
     id = parseInt(vars.no)
-    $.getJSON 'http://api.staging.iing.tw/soundclouds/'+id+'.json?token=8888', (item) ->
+    $.getJSON 'http://api.iing.tw/soundclouds/'+id+'.json?token=8888', (item) ->
       xx item
       $('.song-title').text item.title
       $('.song-artist').text item.author_name

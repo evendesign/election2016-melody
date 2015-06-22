@@ -1,8 +1,10 @@
-var nl2br, padLeft, syncWaveform, vote, voteCheck, waveformStringToArray;
+var nl2br, padLeft, soundManager, syncWaveform, waveformStringToArray;
 
 SC.initialize({
   client_id: 'd2f7da453051d648ae2f3e9ffbd4f69b'
 });
+
+soundManager = void 0;
 
 padLeft = function(str, length) {
   if (str.toString().length >= length) {
@@ -23,44 +25,6 @@ waveformStringToArray = function(str) {
   return str.split(',').map(Number);
 };
 
-voteCheck = function(facebook_token, soundcloud_id) {
-  xx(facebook_token);
-  xx(soundcloud_id);
-  return $.ajax({
-    type: 'post',
-    dataType: 'json',
-    cache: false,
-    data: {
-      facebook_token: facebook_token,
-      soundcloud_id: soundcloud_id
-    },
-    url: 'http://api.staging.iing.tw/vote_check.json',
-    success: function(response) {
-      if (response.message === true) {
-        return vote(facebook_token, soundcloud_id);
-      } else {
-        return alert('您已完成投票（每人每日每首歌可投票乙次）');
-      }
-    }
-  });
-};
-
-vote = function(facebook_token, soundcloud_id) {
-  return $.ajax({
-    type: 'post',
-    dataType: 'json',
-    cache: false,
-    data: {
-      facebook_token: facebook_token,
-      soundcloud_id: soundcloud_id
-    },
-    url: 'http://api.staging.iing.tw/vote.json',
-    success: function(response) {
-      return xx(response);
-    }
-  });
-};
-
 syncWaveform = function(id, token, data) {
   return $.ajax({
     type: 'post',
@@ -71,7 +35,7 @@ syncWaveform = function(id, token, data) {
       token: token,
       data: data.toString()
     },
-    url: 'http://api.staging.iing.tw/sync_waveform.json',
+    url: 'http://api.iing.tw/sync_waveform.json',
     success: function(response) {
       return xx(response);
     }
@@ -79,33 +43,14 @@ syncWaveform = function(id, token, data) {
 };
 
 $(function() {
-  $('body').delegate('.vote-button', 'click', function() {
-    var soundcloud_id;
-
-    soundcloud_id = $(this).data('id');
-    return FB.getLoginStatus(function(response) {
-      var facebook_token;
-
-      if (response.status === 'connected') {
-        facebook_token = response.authResponse.accessToken;
-        return voteCheck(facebook_token, soundcloud_id);
-      } else {
-        return FB.login((function(response) {
-          if (response.status === 'connected') {
-            facebook_token = response.authResponse.accessToken;
-            return voteCheck(facebook_token, soundcloud_id);
-          } else {
-            return xx('Login failed');
-          }
-        }), {
-          return_scopes: true
-        });
-      }
-    });
-  });
   $('body').delegate('.play-button', 'click', function() {
-    var _parent, _this, _trackid, _waveform;
+    var sid, _parent, _this, _trackid, _waveform;
 
+    if (soundManager !== void 0) {
+      soundManager.pauseAll();
+      $('.pause-button').addClass('play-button');
+      $('.play-button').removeClass('pause-button');
+    }
     _this = $(this);
     _parent = _this.parents('.song-player');
     _waveform = waveformStringToArray(_parent.find('.song-waveform-value').val());
@@ -139,18 +84,25 @@ $(function() {
           whileplaying: waveform.redraw,
           volume: 100
         }, function(s) {
+          _this.attr('data-sid', s.sID);
           sound = s;
           sound.play();
           _this.removeClass('loading');
           _this.removeClass('play-button');
-          return _this.addClass('stop-button');
+          return _this.addClass('pause-button');
         });
       });
+    } else {
+      sid = _this.data('sid');
+      soundManager.play(sid);
+      _this.removeClass('loading');
+      _this.removeClass('play-button');
+      return _this.addClass('pause-button');
     }
   });
-  return $('body').delegate('.stop-button', 'click', function() {
-    sound.stop();
-    _this.removeClass('stop-button');
-    return _this.addClass('play-button');
+  return $('body').delegate('.pause-button', 'click', function() {
+    soundManager.pauseAll();
+    $(this).removeClass('pause-button');
+    return $(this).addClass('play-button');
   });
 });

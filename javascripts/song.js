@@ -22,7 +22,7 @@ $(function() {
   vars = getUrlVars();
   if (typeof vars.no !== 'undefined' && parseInt(vars.no) > 0) {
     id = parseInt(vars.no);
-    return $.getJSON('http://api.staging.iing.tw/soundclouds/' + id + '.json?token=8888', function(item) {
+    return $.getJSON('http://api.iing.tw/soundclouds/' + id + '.json?token=8888', function(item) {
       var songWaveform, waveform;
 
       xx(item);

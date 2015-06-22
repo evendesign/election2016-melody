@@ -4,7 +4,7 @@ window.list = [];
 
 window.pageNumber = 0;
 
-window.perPage = 10;
+window.perPage = 50;
 
 appendList = function(page) {
   var array, end, item, songWaveform, start, waveform, _i, _len;
@@ -18,17 +18,13 @@ appendList = function(page) {
   for (_i = 0, _len = array.length; _i < _len; _i++) {
     item = array[_i];
     $('.song-list').append($songItem(item));
-    xx(item);
     if (item.waveform === null) {
       SC.get('/tracks/' + item.track_id, function(track) {
-        xx(track);
-        xx(track.waveform_url);
         return $.getJSON('http://waveformjs.org/w?callback=?', {
           url: track.waveform_url
         }, function(d) {
           var songWaveform, waveform;
 
-          xx(d);
           syncWaveform(item.id, item.token, d);
           songWaveform = d;
           return waveform = new Waveform({
@@ -68,7 +64,7 @@ $songItem = function(item) {
       <div class="vote-count">票數：' + item.vote_count + '</div>\
     </div>\
     <div class="song-player">\
-      <button class="play-button" data-trackid="' + item.track_id + '"></button>\
+      <button class="play-button" data-trackid="' + item.track_id + '" data-sid=""></button>\
       <div class="song-wave">\
         <div class="waveform-preview"></div>\
         <div class="waveform"></div>\
@@ -83,7 +79,7 @@ $songItem = function(item) {
 };
 
 $(function() {
-  $.getJSON('http://api.staging.iing.tw/soundclouds.json?token=8888', function(r) {
+  $.getJSON('http://api.iing.tw/soundclouds.json?token=8888', function(r) {
     window.list = r;
     return appendList(0);
   });

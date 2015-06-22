@@ -3,7 +3,7 @@
 #################################
 window.list = []
 window.pageNumber = 0
-window.perPage = 10
+window.perPage = 50
 
 
 #################################
@@ -19,13 +19,9 @@ appendList = (page) ->
   array = window.list.slice(start,end)
   for item in array
     $('.song-list').append $songItem(item)
-    xx item
     if item.waveform is null
       SC.get '/tracks/'+item.track_id, (track) ->
-        xx track
-        xx track.waveform_url
         $.getJSON 'http://waveformjs.org/w?callback=?', { url: track.waveform_url }, (d) ->
-          xx d
           syncWaveform(item.id,item.token,d)
           songWaveform = d
           waveform = new Waveform(
@@ -68,7 +64,7 @@ $songItem = (item) ->
       <div class="vote-count">票數：'+item.vote_count+'</div>
     </div>
     <div class="song-player">
-      <button class="play-button" data-trackid="'+item.track_id+'"></button>
+      <button class="play-button" data-trackid="'+item.track_id+'" data-sid=""></button>
       <div class="song-wave">
         <div class="waveform-preview"></div>
         <div class="waveform"></div>
@@ -86,7 +82,7 @@ $songItem = (item) ->
 # Document events
 #################################
 $ ->
-  $.getJSON 'http://api.staging.iing.tw/soundclouds.json?token=8888', (r) ->
+  $.getJSON 'http://api.iing.tw/soundclouds.json?token=8888', (r) ->
     window.list = r
     appendList 0
 
