@@ -16,7 +16,7 @@ $songItem = (item) ->
     <div class="song-content">
       <a class="song-number" href="/song?no='+item.id+'">'+padLeft(item.id,3)+'</a>
       <a class="song-info" href="/song?no='+item.id+'">
-        <div class="song-title">'+item.desc+'</div>
+        <div class="song-title">'+item.title+'</div>
         <div class="song-artist">'+item.author_name+'</div>
       </a>
       <div class="vote-count">票數：'+item.vote_count+'</div>
