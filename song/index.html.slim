@@ -8,15 +8,16 @@
       .song-artist
       .vote-count 票數：<span></span>
     .song-tool-buttons
-      button.vote-button type="button" 投他一票
+      button.vote-button type="button" data-id="" 投他一票
       button.fb-share 分享
 
 .song-player-container
   .song-player
-    button.play-button
+    button.play-button data-trackid=""
     .song-wave
       .waveform-preview
       .waveform
+      input.song-waveform-value type="hidden"
 
 .content
   .container

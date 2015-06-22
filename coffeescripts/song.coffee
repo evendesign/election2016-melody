@@ -33,13 +33,15 @@ $ ->
       $('.vote-count span').text r.vote_count
       $('.song-lyric p').html nl2br(r.lyrics)
       $('.song-intro p').html nl2br(r.desc)
+      $('.song-waveform-value').val r.waveform
+      $('.vote-button').attr('data-id',r.id)
+      $('.play-button').attr('data-trackid',r.track_id)
 
-      xx r
-
+      songWaveform = waveformStringToArray r.waveform
       waveform = new Waveform(
         container: $('.waveform-preview').last().get(0)
         innerColor: '#F0F0F0'
-        data: demoWaveform()
+        data: songWaveform
       )
   else
     window.location = '/list'

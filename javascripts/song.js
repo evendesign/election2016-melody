@@ -23,7 +23,7 @@ $(function() {
   if (typeof vars.no !== 'undefined' && parseInt(vars.no) > 0) {
     id = parseInt(vars.no);
     return $.getJSON('http://api.staging.iing.tw/soundclouds/' + id + '.json?token=8888', function(r) {
-      var waveform;
+      var songWaveform, waveform;
 
       $('.song-title').text(r.title);
       $('.song-artist').text(r.author_name);
@@ -31,11 +31,14 @@ $(function() {
       $('.vote-count span').text(r.vote_count);
       $('.song-lyric p').html(nl2br(r.lyrics));
       $('.song-intro p').html(nl2br(r.desc));
-      xx(r);
+      $('.song-waveform-value').val(r.waveform);
+      $('.vote-button').attr('data-id', r.id);
+      $('.play-button').attr('data-trackid', r.track_id);
+      songWaveform = waveformStringToArray(r.waveform);
       return waveform = new Waveform({
         container: $('.waveform-preview').last().get(0),
         innerColor: '#F0F0F0',
-        data: demoWaveform()
+        data: songWaveform
       });
     });
   } else {

@@ -10,6 +10,10 @@
     position: relative;
     @include trailer(1);
 
+    .song-string {
+      display: none;
+    }
+
     .song-content {
       background: #F5F5F5;
       padding: 10px 30px 30px 30px;
