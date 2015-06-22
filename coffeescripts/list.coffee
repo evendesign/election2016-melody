@@ -49,9 +49,10 @@ songFilter = (filter) ->
 $songItem = (item) ->
   '<li class="song-item song-item-'+item.id+'">
     <div class="song-string">' +
-      item.id +
-      item.title +
-      item.desc +
+      padLeft(item.id,3) + ','+
+      item.id + ','+
+      item.title + ','+
+      item.desc + ','+
       item.author_name + '
     </div>
     <div class="song-content">

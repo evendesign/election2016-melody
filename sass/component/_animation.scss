@@ -73,3 +73,15 @@
     @include opacity(1);
   }
 }
+
+@include keyframes(fadeout) {
+  0% {
+    @include opacity(1);
+  }
+  80% {
+    @include opacity(1);
+  }
+  100% {
+    @include opacity(0);
+  }
+}

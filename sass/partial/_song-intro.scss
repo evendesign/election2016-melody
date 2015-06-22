@@ -13,13 +13,6 @@
     color: #A4A4A4;
     text-align: center;
     margin-bottom: 18px;
-
-    .official-link {
-      display: inline-block;
-      margin-right: 3px;
-      @include replace-text-with-svg(icon-facebook);
-      vertical-align: bottom;
-    }
   }
 
   @include at-breakpoint($desktop) {

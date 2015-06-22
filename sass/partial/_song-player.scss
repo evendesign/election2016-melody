@@ -1,7 +1,7 @@
 .song-player-container {
   position: relative;
   height: 200px;
-  // @include animation('fadein 5s');
+  @include animation('fadein 5s');
 
   &:after {
     content: "";
@@ -31,6 +31,12 @@
   margin: 0 auto;
   text-align: center;
   padding: rhythm(1.5) 0;
+
+  .song-list & {
+    width: 120px;
+    float: left;
+    padding: 0;
+  }
 
   %ctrl-button {
     position: relative;
@@ -86,6 +92,12 @@
     text-align: center;
     padding: 0;
     margin: 0 auto;
+
+    .song-list & {
+      width: 100%;
+      float: initial;
+      padding: initial;
+    }
 
     %ctrl-button {
       margin: 24px 0 24px 0;

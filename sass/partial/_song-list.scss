@@ -6,23 +6,28 @@
   padding: 0;
   @include leader(.5);
   @include trailer(3);
-  // @include animation('fadein 5s');
+  @include animation('fadein 5s');
 
   .song-item {
     position: relative;
     @include trailer(1);
+    @include pie-clearfix;
+    @include background(linear-gradient(0deg, #FFFFFF 0%, #F5F5F5 100%));
+    padding: 20px 10px 0 10px;
 
     .song-string {
       display: none;
     }
 
     .song-content {
-      // background: #F5F5F5;
-      @include background(linear-gradient(0deg, #FFFFFF 0%, #F5F5F5 100%));
-      padding: 20px 30px 30px 30px;
       position: relative;
+      float: right;
+      width: 100%;
+      margin-right: -120px;
+      min-height: 100px;
 
       a:hover {
+        text-decoration: none;
         * {
           color: #50B584;
         }
@@ -30,14 +35,18 @@
     }
 
     .song-number {
-      @include adjust-font-size-to(50px, 1.75);
+      @include adjust-font-size-to(22px, 1.75);
       font-weight: 400;
       color: #ABABAB;
       text-decoration: none;
+      display: inline-block;
+      vertical-align: top;
     }
 
     .song-info {
       text-decoration: none;
+      display: inline;
+      max-width: 70%;
 
       * {
         font-weight: 300;
@@ -46,8 +55,14 @@
       .song-title {
         color: #5C5C5C;
         @include adjust-font-size-to(22px, 1);
-        padding-top: rhythm(.75);
+        padding-top: 9px;
         margin-bottom: 8px;
+
+        display: inline-block;
+        max-width: 50%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .song-artist {
@@ -73,9 +88,14 @@
       height: 190px;
       padding-left: 6px;
       @include trailer(3);
+      background: none;
+      padding: 0;
 
       .song-content {
         background: none;
+        float: initial;
+        margin-right: initial;
+        min-height: initial;
       }
 
       &:before,
@@ -104,6 +124,9 @@
         position: absolute;
         top: 0;
         left: 30px;
+
+        display: initial;
+        vertical-align: initial;
       }
 
       .song-info {
@@ -115,6 +138,12 @@
           padding-top: 0;
           @include adjust-font-size-to(32px, 1);
           margin-bottom: 10px;
+
+          display: block;
+          max-width: initial;
+          overflow: initial;
+          text-overflow: initial;
+          white-space: initial;
         }
 
         .song-artist {

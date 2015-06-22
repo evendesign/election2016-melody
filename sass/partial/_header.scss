@@ -64,6 +64,7 @@ $search-button-background  : #6FCFAA;
     }
 
     a {
+      @include adjust-font-size-to(20px, 1);
       display: block;
       line-height: 64px;
       text-align: center;
@@ -88,25 +89,27 @@ $search-button-background  : #6FCFAA;
     form { width: 100%; }
 
     input[type=search] {
-      background-color: #efefef;
-      width: calc(100% - 75px);
-      padding: 0 18px;
+      background-color: white;
+      // width: calc(100% - 75px);
+      width: 100%;
+      padding: 0 28px;
       @include border-left-radius($search-input-height/2);
-    }
-
-    .submit {
-      background: $search-button-background;
-      width: 75px;
-      padding: 0 3px 0 0;
-      color: white;
-      font-weight: 900;
-      @include box-sizing(border-box);
       @include border-right-radius($search-input-height/2);
-
-      &:hover {
-        background: lighten($search-button-background, 10%);
-      }
     }
+
+    // .submit {
+    //   background: $search-button-background;
+    //   width: 75px;
+    //   padding: 0 3px 0 0;
+    //   color: white;
+    //   font-weight: 900;
+    //   @include box-sizing(border-box);
+    //   @include border-right-radius($search-input-height/2);
+
+    //   &:hover {
+    //     background: lighten($search-button-background, 10%);
+    //   }
+    // }
   }
 
 
@@ -173,6 +176,7 @@ $search-button-background  : #6FCFAA;
       }
 
       input[type=search] {
+        background-color: #efefef;
         width: 280px;
       }
     }

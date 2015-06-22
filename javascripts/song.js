@@ -37,7 +37,7 @@ $(function() {
       $('.next-song a').attr('href', item.random_url);
       $('.fb-share').attr('data-href', 'https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/' + item.id);
       if (item.official_url) {
-        $('.song-artist').prepend('<a class="official-link" href="' + item.official_url + '">Official Link</a>');
+        $('.song-intro .song-artist').prepend('<a class="official-link" href="' + item.official_url + '">Official Link</a>');
       }
       if (item.waveform === null) {
         SC.get('/tracks/' + item.track_id, function(track) {

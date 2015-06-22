@@ -54,7 +54,7 @@ songFilter = function(filter) {
 
 $songItem = function(item) {
   return '<li class="song-item song-item-' + item.id + '">\
-    <div class="song-string">' + item.id + item.title + item.desc + item.author_name + '\
+    <div class="song-string">' + padLeft(item.id, 3) + ',' + item.id + ',' + item.title + ',' + item.desc + ',' + item.author_name + '\
     </div>\
     <div class="song-content">\
       <a href="/song/?no=' + item.id + '">\
