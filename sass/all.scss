@@ -55,6 +55,7 @@
   &:before, &:after {
     content: '';
     position: absolute;
+    z-index: 1000;
     bottom: 0;
     margin-bottom: 10%;
     width: 100%;
