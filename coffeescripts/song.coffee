@@ -30,8 +30,6 @@ $ ->
     id = parseInt(song_no)
 
     $.getJSON 'http://api.iing.tw/soundclouds/'+id+'.json?token=8888', (item) ->
-      xx item
-
       $('.song-title').text item.title
       $('.song-artist').text item.author_name
       $('.song-number').text padLeft(item.id,3)

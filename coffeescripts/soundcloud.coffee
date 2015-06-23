@@ -3,6 +3,8 @@
 #################################
 SC.initialize client_id: 'd2f7da453051d648ae2f3e9ffbd4f69b'
 soundManager = undefined
+soundTrack = []
+
 
 #################################
 # Function
@@ -51,6 +53,8 @@ waveformStringToArray = (str) ->
 
 createWaveform = (id,track_id,waveform,selector) ->
   SC.get '/tracks/'+track_id, (track) ->
+    soundTrack[track_id] = track
+
     sound = undefined
     waveform = new Waveform(
       container: $(selector+' .waveform').get(0)
@@ -147,3 +151,13 @@ $ ->
   $('body').delegate '.fb-share', 'click', ->
     href = $(this).data('href')
     window.open(href)
+
+  $('body').delegate '.waveform', 'click', (e)->
+    button = $(this).parents('.song-player').find('button')
+    sid = button.data('sid')
+    trackid = button.data('trackid')
+    currentTrack = soundTrack[trackid]
+    duration = currentTrack.duration
+    position = (e.pageX - $(this).offset().left) / $(this).width()
+    target = Math.floor(duration*position)
+    soundManager.setPosition(sid,target)
