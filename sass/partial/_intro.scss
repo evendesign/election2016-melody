@@ -1,6 +1,6 @@
 .intro {
   position: relative;
-  padding: rhythm(2.5) 0 rhythm(5);
+  padding: 0 0 rhythm(5);
   margin-bottom: -30px;
   overflow: hidden;
   @include background(linear-gradient(#FFFFFF, #F5F5F5));
@@ -58,6 +58,7 @@
 
   @include at-breakpoint($desktop) {
     margin-bottom: 0;
+    padding: rhythm(2.5) 0 rhythm(5);
 
     .intro-content {
       p {
@@ -147,6 +148,7 @@
   @include at-breakpoint($desktop) {
     display: block;
     top: 0;
+    padding: rhythm(2.5) 0 rhythm(5);
   }
 }
 

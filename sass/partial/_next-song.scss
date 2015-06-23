@@ -4,7 +4,7 @@
 }
 .next-song, .go-to-list {
   text-align: center;
-  margin: rhythm(2) auto;
+  margin: 0 auto rhythm(2) auto;
 
   .btn {
     position: relative;
@@ -22,6 +22,8 @@
   }
 
   @include at-breakpoint($desktop) {
+    margin: rhythm(2) auto;
+
     .btn {
       width: 300px;
       @include border-radius(3px);
