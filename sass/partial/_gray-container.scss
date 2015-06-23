@@ -2,7 +2,7 @@
   width: 100%;
   @include border-top-radius(rhythm(.5));
   @include box-sizing(border-box);
-  @include animation('fadein 5s');
+  // @include animation('fadein 5s');
 
   .side-title {
     width: 100%;

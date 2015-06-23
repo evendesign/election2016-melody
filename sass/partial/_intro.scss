@@ -5,10 +5,14 @@
   overflow: hidden;
   @include background(linear-gradient(#FFFFFF, #F5F5F5));
 
+  .go-to-list {
+    // @include animation('fadein 3s');
+  }
+
   .intro-content {
     position: relative;
     z-index: 10;
-    @include animation('fadein 5s');
+    // @include animation('fadein 5s');
 
     p {
       width: 90%;
