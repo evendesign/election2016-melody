@@ -1,6 +1,7 @@
 .song-intro {
   position: relative;
   @include trailer(1.5);
+  @include animation('fadein 5s');
 
   .song-title {
     font-weight: 900;
