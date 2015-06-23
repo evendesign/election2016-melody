@@ -83,6 +83,7 @@ $songItem = function(item) {
 
 $(function() {
   $.getJSON('http://api.iing.tw/soundclouds.json?token=8888', function(r) {
+    xx(r);
     window.list = r;
     return appendList(0);
   });

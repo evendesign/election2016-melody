@@ -85,6 +85,8 @@ $songItem = (item) ->
 #################################
 $ ->
   $.getJSON 'http://api.iing.tw/soundclouds.json?token=8888', (r) ->
+    xx r
+
     window.list = r
     appendList 0
 
