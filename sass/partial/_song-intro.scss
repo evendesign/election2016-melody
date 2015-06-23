@@ -1,22 +1,28 @@
 .song-intro {
+  max-width: 360px;
+  margin: 0 auto;
   position: relative;
   @include trailer(1.5);
+  text-align: center;
   @include animation('fadein 5s');
 
   .song-title {
     font-weight: 900;
     @include adjust-font-size-to(26px, 1.25);
     @include trailer(.25);
-    text-align: center;
   }
 
   .song-artist {
     color: #A4A4A4;
-    text-align: center;
     margin-bottom: 18px;
+  }
+  @include at-breakpoint($pad) {
+    max-width: 560px;
   }
 
   @include at-breakpoint($desktop) {
+    max-width: none;
+    text-align: left;
     @include padding-trailer(1.5);
     border-bottom: 1px solid #B9B9B9;
 

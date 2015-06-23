@@ -4,7 +4,6 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  @include leader(.5);
   @include trailer(3);
   @include animation('fadein 5s');
 
@@ -82,7 +81,7 @@
   }
 
   @include at-breakpoint($desktop) {
-    margin: 36px auto 0;
+    margin: 64px auto 0;
 
     .song-item {
       height: 190px;
