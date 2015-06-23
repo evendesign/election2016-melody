@@ -114,6 +114,7 @@ $search-button-background  : #6FCFAA;
 
 
   @include at-breakpoint($desktop) {
+    position: static;
     background-color: #F9F9F9;
     height: $header-desktop-height;
 

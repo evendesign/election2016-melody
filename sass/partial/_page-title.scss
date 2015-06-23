@@ -1,6 +1,5 @@
 .page-title {
   width: 100%;
-  height: 195px;
   position: relative;
   margin-top: $header-mobile-height;
   padding-bottom: 20px;
@@ -18,21 +17,28 @@
   }
 
   .page-title-inner {
+    @include box-sizing(border-box);
     width: 100%;
     height: 100%;
-    max-width: 980px;
+    max-width: 984px;
     margin: 0 auto;
+    padding: 0 24px;
+    overflow: hidden;
+    text-align: center;
 
     h1 {
+      @include leader(7);
+      @include trailer(0);
       font-weight: 900;
       display: block;
       width: 100%;
-      text-align: center;
-      @include trailer(1.25);
-      @include adjust-font-size-to(26px, 1);
-
-      position:  absolute;
-      bottom: 0;
+      @include adjust-font-size-to(26px);
+    }
+    p {
+      @include trailer(0);
+      &:last-child {
+        @include trailer();
+      }
     }
   }
 
@@ -52,7 +58,8 @@
   }
 
   @include at-breakpoint($desktop) {
-    margin-top: $header-desktop-height;
+    height: 192px;
+    margin-top: 0;
     padding-bottom: 0;
 
     &:after {
@@ -60,19 +67,18 @@
     }
 
     .page-title-inner {
+      @include box-sizing(content-box);
       position: relative;
+      text-align: left;
 
       h1 {
-        @include adjust-font-size-to(34px, 1);
-        padding: rhythm(1) 0;
+        @include leader(2);
+        @include adjust-font-size-to(34px);
         text-align: left;
-        position: absolute;
-        margin: 0;
         padding: 0;
         padding-bottom: 16px;
-        bottom: 36px;
-        left: 0;
       }
+      p br { display: none; }
     }
 
     &.list {
@@ -97,13 +103,18 @@
       @include animation('fadein 3s');
     }
   }
-
+  @include at-breakpoint($wide-screen) {
+    .page-title-inner {
+      max-width: 1060px;
+    }
+  }
 }
 
 .page-title-song-content {
   // background: #F5F5F5;
   @include background(linear-gradient(90deg, #FFFFFF 0%, #F5F5F5 100%));
   padding: 30px;
+  margin: 0 -24px;
   position: relative;
 
   * {
@@ -149,7 +160,7 @@
       margin-right: rhythm(1);
       position: absolute;
       bottom: 30px;
-      left: 0;
+      left: 24px;
       color: #5C5C5C;
     }
 
@@ -159,7 +170,7 @@
       padding-left: 120px;
       position: absolute;
       bottom: 30px;
-      left: 0;
+      left: 24px;
     }
 
     .song-artist {
