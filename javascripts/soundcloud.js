@@ -1,10 +1,12 @@
-var createWaveform, nl2br, padLeft, soundManager, syncWaveform, waveformStringToArray;
+var createWaveform, nl2br, padLeft, soundManager, soundTrack, syncWaveform, waveformStringToArray;
 
 SC.initialize({
   client_id: 'd2f7da453051d648ae2f3e9ffbd4f69b'
 });
 
 soundManager = void 0;
+
+soundTrack = [];
 
 padLeft = function(str, length) {
   if (str.toString().length >= length) {
@@ -29,6 +31,7 @@ createWaveform = function(id, track_id, waveform, selector) {
   return SC.get('/tracks/' + track_id, function(track) {
     var ctx, gradient, sound;
 
+    soundTrack[track_id] = track;
     sound = void 0;
     waveform = new Waveform({
       container: $(selector + ' .waveform').get(0),
@@ -103,10 +106,22 @@ $(function() {
     $(this).removeClass('pause-button');
     return $(this).addClass('play-button');
   });
-  return $('body').delegate('.fb-share', 'click', function() {
+  $('body').delegate('.fb-share', 'click', function() {
     var href;
 
     href = $(this).data('href');
     return window.open(href);
+  });
+  return $('body').delegate('.waveform', 'click', function(e) {
+    var button, currentTrack, duration, position, sid, target, trackid;
+
+    button = $(this).parents('.song-player').find('button');
+    sid = button.data('sid');
+    trackid = button.data('trackid');
+    currentTrack = soundTrack[trackid];
+    duration = currentTrack.duration;
+    position = (e.pageX - $(this).offset().left) / $(this).width();
+    target = Math.floor(duration * position);
+    return soundManager.setPosition(sid, target);
   });
 });
