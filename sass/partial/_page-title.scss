@@ -50,7 +50,7 @@
   }
 
   &.song {
-    padding-bottom: 0;
+    padding-bottom: 36px;
 
     &:after {
       display: none;
@@ -86,6 +86,7 @@
     }
 
     &.song {
+      padding-bottom: 0;
       overflow-y: hidden;
     }
 
@@ -105,7 +106,6 @@
   }
   @include at-breakpoint($wide-screen) {
     .page-title-inner {
-      max-width: 1060px;
     }
   }
 }
