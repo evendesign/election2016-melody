@@ -59,7 +59,7 @@ body {
   position: relative;
 
   &.home {
-    background: #F5F5F5;
+    @include background(linear-gradient(#F5F5F5, #FFFFFF));
   }
 
   .container {
