@@ -45,6 +45,8 @@ $search-button-background  : #6FCFAA;
     list-style: none;
     @include background(linear-gradient(25deg, rgb(80, 181, 132), rgb(152, 205, 127), rgb(231, 232, 121)));
     clear: both;
+    position: relative;
+    z-index: 1000;
 
     &.on {
       display: block;
