@@ -139,6 +139,7 @@ $search-button-background  : #6FCFAA;
       margin: 0;
       background: transparent;
       clear: none;
+      position: static;
 
       &.on {
         display: block;
