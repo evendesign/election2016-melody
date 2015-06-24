@@ -4,7 +4,7 @@ $search-input-height       : 36px;
 $search-button-background  : #6FCFAA;
 
 .header {
-  position: fixed;
+  // position: fixed; footer 會出問題
   top: 0;
   left: 0;
   width: 100%;
