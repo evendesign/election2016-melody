@@ -7,11 +7,15 @@ soundTrack = []
 window.getVars = []
 window.autoLoop = false
 window.autoPlay = false
+window.isDesktop = true
 
 
 #################################
 # Function
 #################################
+isMobile = ->
+  return navigator.userAgent.match(/Android/i) or navigator.userAgent.match(/webOS/i) or navigator.userAgent.match(/iPhone/i) or navigator.userAgent.match(/iPod/i) or navigator.userAgent.match(/iPad/i) or navigator.userAgent.match(/BlackBerry/)
+
 getUrlVars = ->
   vars = []
   hash = undefined
@@ -98,7 +102,7 @@ createWaveform = (id,track_id,waveform,selector) ->
     }, (s) ->
       $(selector+' .play-button').attr('data-sid',s.sID)
       sound = s
-      if window.autoPlay is true
+      if window.autoPlay is true and window.isDesktop is true
         xx 'auto play'
         playSong = (element,sid) ->
           soundManager.play sid,
@@ -138,6 +142,9 @@ syncWaveform = (id,token,data) ->
 # Document events
 #################################
 $ ->
+  if isMobile()
+    window.isDesktop = false
+
   window.getVars = getUrlVars()
   if parseInt(window.getVars['loop']) is 1
     window.autoLoop = true
