@@ -4,6 +4,7 @@
 SC.initialize client_id: 'd2f7da453051d648ae2f3e9ffbd4f69b'
 soundManager = undefined
 soundTrack = []
+window.autoLoop = true
 
 
 #################################
@@ -134,14 +135,19 @@ $ ->
     _this.addClass 'loading'
     sid = _this.data 'sid'
 
-    soundManager.play sid,
-      onplay: ->
-        _this.removeClass 'loading'
-        _this.removeClass 'play-button'
-        _this.addClass 'pause-button'
-      onfinish: ->
-        _this.removeClass 'pause-button'
-        _this.addClass 'play-button'
+    playSong = (element,sid) ->
+      soundManager.play sid,
+        onplay: ->
+          element.removeClass 'loading'
+          element.removeClass 'play-button'
+          element.addClass 'pause-button'
+        onfinish: ->
+          if window.autoLoop
+            playSong(element,sid)
+          else
+            element.removeClass 'pause-button'
+            element.addClass 'play-button'
+    playSong(_this, sid)
 
 
   $('body').delegate '.pause-button', 'click', ->

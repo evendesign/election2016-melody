@@ -3,7 +3,7 @@
 #################################
 window.list = []
 window.pageNumber = 1
-window.perPage = 2
+window.perPage = 10
 
 #################################
 # Function
