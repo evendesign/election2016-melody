@@ -2,42 +2,12 @@
 # Settings
 #################################
 window.list = []
-window.pageNumber = 0
-window.perPage = 50
+window.pageNumber = 1
+window.perPage = 10
 
 #################################
 # Function
 #################################
-appendList = (page) ->
-  start = page*window.perPage
-  end = (page + 1)*window.perPage
-
-  if end > window.list.length
-    $('.list-more-song').remove()
-
-  array = window.list.slice(start,end)
-  for item in array
-    $('.song-list').append $songItem(item)
-    if item.waveform is null
-      SC.get '/tracks/'+item.track_id, (track) ->
-        $.getJSON 'http://waveformjs.org/w?callback=?', { url: track.waveform_url }, (d) ->
-          syncWaveform(item.id,item.token,d)
-          songWaveform = d
-          waveform = new Waveform(
-            container: $('.waveform-preview').last().get(0)
-            innerColor: '#F0F0F0'
-            data: songWaveform
-          )
-    else
-      songWaveform = waveformStringToArray item.waveform
-      waveform = new Waveform(
-        container: $('.waveform-preview').last().get(0)
-        innerColor: '#F0F0F0'
-        data: songWaveform
-      )
-    createWaveform(item.id,item.track_id,songWaveform,'.song-item-'+item.id)
-  window.pageNumber++
-
 songFilter = (filter) ->
   $('.song-list').find(".song-string:not(:Contains(" + filter + "))").parents('li').hide()
   $('.song-list').find(".song-string:contains(" + filter + ")").parents('li').show()
@@ -46,8 +16,8 @@ songFilter = (filter) ->
 #################################
 # Html pattern
 #################################
-$songItem = (item) ->
-  '<li class="song-item song-item-'+item.id+'">
+$songItem = (item,display) ->
+  '<li class="song-item song-item-'+item.id+display+'">
     <div class="song-string">' +
       padLeft(item.id,3) + ','+
       item.id + ','+
@@ -85,13 +55,51 @@ $songItem = (item) ->
 #################################
 $ ->
   $.getJSON 'http://api.iing.tw/soundclouds.json?token=8888', (r) ->
-    xx r
-
     window.list = r
-    appendList 0
+    i = 0
+    $('.song-list').addClass 'loading'
+    for item in window.list
+      if i < window.perPage
+        display = ' show'
+      else
+        display = ''
+
+      $('.song-list').append $songItem(item, display)
+
+      if item.waveform is null
+        SC.get '/tracks/'+item.track_id, (track) ->
+          $.getJSON 'http://waveformjs.org/w?callback=?', { url: track.waveform_url }, (d) ->
+            syncWaveform(item.id,item.token,d)
+            songWaveform = d
+            waveform = new Waveform(
+              container: $('.song-item-'+item.id+' .waveform-preview').get(0)
+              innerColor: '#F0F0F0'
+              data: songWaveform
+            )
+      else
+        songWaveform = waveformStringToArray item.waveform
+        waveform = new Waveform(
+          container: $('.song-item-'+item.id+' .waveform-preview').get(0)
+          innerColor: '#F0F0F0'
+          data: songWaveform
+        )
+      createWaveform(item.id,item.track_id,songWaveform,'.song-item-'+item.id)
+
+      i++
+      if i is window.list.length
+        $('.song-list').removeClass 'loading'
 
   $('body').delegate '.list-more-song', 'click', ->
-    appendList window.pageNumber
+    i = window.pageNumber * window.perPage
+    while i < (window.pageNumber+1) * window.perPage
+      $('.song-item:eq('+i+')').addClass 'show'
+      i++
+    window.pageNumber++
+
+    if $('.song-item.show').length >= window.list.length
+      $('.list-more-song').remove()
+    xx $('.song-item.show').length
+
 
   # $('body').delegate '.header-search .submit', 'click', ->
   #   filter = $('.search-string').val()

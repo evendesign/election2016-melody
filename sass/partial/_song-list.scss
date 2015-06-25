@@ -6,12 +6,30 @@
   @include trailer(3);
   @include animation('fadein 5s');
 
+  &.loading {
+    .song-item {
+      display: block;
+      @include opacity(0);
+
+      &.show {
+        @include opacity(1);
+      }
+    }
+  }
+
   .song-item {
     position: relative;
     @include trailer(1);
     @include pie-clearfix;
     @include background(linear-gradient(0deg, #FFFFFF 0%, #F5F5F5 100%));
     padding: 20px 10px 0 10px;
+    display: none;
+
+
+    &.show,
+    .searching & {
+      display: block;
+    }
 
     .song-string {
       display: none;
@@ -158,4 +176,15 @@
     }
   }
 
+}
+
+.list-more-song {
+  width: 100%;
+  text-align: center;
+
+  .btn {
+    height: 50px;
+    line-height: 50px;
+    min-width: 150px;
+  }
 }
