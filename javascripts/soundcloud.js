@@ -32,6 +32,10 @@ createWaveform = function(id, track_id, waveform, selector) {
     var ctx, gradient, sound;
 
     soundTrack[track_id] = track;
+    xx($(selector + ' .waveform-preview').width());
+    xx($(selector + ' .waveform-preview').height());
+    xx($(selector + ' .waveform').width());
+    xx($(selector + ' .waveform').height());
     sound = void 0;
     waveform = new Waveform({
       container: $(selector + ' .waveform').get(0),
@@ -98,6 +102,10 @@ $(function() {
         _this.removeClass('loading');
         _this.removeClass('play-button');
         return _this.addClass('pause-button');
+      },
+      onfinish: function() {
+        _this.removeClass('pause-button');
+        return _this.addClass('play-button');
       }
     });
   });

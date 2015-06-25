@@ -55,6 +55,10 @@ createWaveform = (id,track_id,waveform,selector) ->
   SC.get '/tracks/'+track_id, (track) ->
     soundTrack[track_id] = track
 
+    xx $(selector+' .waveform-preview').width()
+    xx $(selector+' .waveform-preview').height()
+    xx $(selector+' .waveform').width()
+    xx $(selector+' .waveform').height()
     sound = undefined
     waveform = new Waveform(
       container: $(selector+' .waveform').get(0)
@@ -99,11 +103,6 @@ syncWaveform = (id,token,data) ->
 
 
 #################################
-# Html pattern
-#################################
-
-
-#################################
 # Document events
 #################################
 $ ->
@@ -140,6 +139,9 @@ $ ->
         _this.removeClass 'loading'
         _this.removeClass 'play-button'
         _this.addClass 'pause-button'
+      onfinish: ->
+        _this.removeClass 'pause-button'
+        _this.addClass 'play-button'
 
 
   $('body').delegate '.pause-button', 'click', ->

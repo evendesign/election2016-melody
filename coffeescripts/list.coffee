@@ -3,7 +3,7 @@
 #################################
 window.list = []
 window.pageNumber = 1
-window.perPage = 10
+window.perPage = 2
 
 #################################
 # Function
@@ -21,9 +21,9 @@ $songItem = (item,display) ->
     <div class="song-string">' +
       padLeft(item.id,3) + ','+
       item.id + ','+
-      item.title + ','+
-      item.desc + ','+
-      item.author_name + '
+      item.title.toLowerCase() + ','+
+      item.desc.toLowerCase() + ','+
+      item.author_name.toLowerCase() + '
     </div>
     <div class="song-content">
       <a href="/song/'+item.id+'">
@@ -55,12 +55,14 @@ $songItem = (item,display) ->
 #################################
 $ ->
   $.getJSON 'http://api.iing.tw/soundclouds.json?token=8888', (r) ->
+    xx r
     window.list = r
-    i = 0
+    window.loading = true
     $('.song-list').addClass 'loading'
+    i = 0
     for item in window.list
-      if i < window.perPage
-        display = ' show'
+      if i > window.perPage - 1
+        display = ' hide'
       else
         display = ''
 
@@ -84,7 +86,6 @@ $ ->
           data: songWaveform
         )
       createWaveform(item.id,item.track_id,songWaveform,'.song-item-'+item.id)
-
       i++
       if i is window.list.length
         $('.song-list').removeClass 'loading'
@@ -92,13 +93,12 @@ $ ->
   $('body').delegate '.list-more-song', 'click', ->
     i = window.pageNumber * window.perPage
     while i < (window.pageNumber+1) * window.perPage
-      $('.song-item:eq('+i+')').addClass 'show'
+      $('.song-item:eq('+i+')').removeClass 'hide'
       i++
     window.pageNumber++
 
-    if $('.song-item.show').length >= window.list.length
+    if $('.song-item.hide').length is 0
       $('.list-more-song').remove()
-    xx $('.song-item.show').length
 
 
   # $('body').delegate '.header-search .submit', 'click', ->
@@ -111,6 +111,8 @@ $ ->
   $('body').delegate '.search-string', 'keyup', ->
     filter = $(this).val()
     if filter
-      songFilter filter
+      $('body').addClass 'searching'
+      songFilter filter.toLowerCase()
     else
+      $('body').removeClass 'searching'
       $('.song-list li').show()
