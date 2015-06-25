@@ -33,11 +33,8 @@ createWaveform = function(id, track_id, waveform, selector) {
   return SC.get('/tracks/' + track_id, function(track) {
     var ctx, gradient, sound;
 
+    $(selector + ' .play-times').text(track.playback_count);
     soundTrack[track_id] = track;
-    xx($(selector + ' .waveform-preview').width());
-    xx($(selector + ' .waveform-preview').height());
-    xx($(selector + ' .waveform').width());
-    xx($(selector + ' .waveform').height());
     sound = void 0;
     waveform = new Waveform({
       container: $(selector + ' .waveform').get(0),

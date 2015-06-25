@@ -54,12 +54,8 @@ waveformStringToArray = (str) ->
 
 createWaveform = (id,track_id,waveform,selector) ->
   SC.get '/tracks/'+track_id, (track) ->
+    $(selector+' .play-times').text track.playback_count
     soundTrack[track_id] = track
-
-    xx $(selector+' .waveform-preview').width()
-    xx $(selector+' .waveform-preview').height()
-    xx $(selector+' .waveform').width()
-    xx $(selector+' .waveform').height()
     sound = undefined
     waveform = new Waveform(
       container: $(selector+' .waveform').get(0)

@@ -1,6 +1,7 @@
 #################################
 # Settings
 #################################
+window.pageName = 'list'
 window.list = []
 window.pageNumber = 1
 window.perPage = 10
@@ -30,7 +31,7 @@ $songItem = (item,display) ->
         <div class="song-number">'+padLeft(item.id,3)+'</div>
         <div class="song-info">
           <div class="song-title">'+item.title+'</div>
-          <div class="song-artist">'+item.author_name+'</div>
+          <div class="song-artist">'+item.author_name+'&nbsp;&nbsp;/&nbsp;&nbsp;播放次數: <span class="play-times"></span></div>
         </div>
       </a>
       <!--<div class="vote-count">票數：'+item.vote_count+'</div>-->
