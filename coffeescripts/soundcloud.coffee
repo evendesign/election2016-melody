@@ -4,7 +4,9 @@
 SC.initialize client_id: 'd2f7da453051d648ae2f3e9ffbd4f69b'
 soundManager = undefined
 soundTrack = []
+window.getVars = []
 window.autoLoop = false
+window.autoPlay = false
 
 
 #################################
@@ -81,9 +83,14 @@ createWaveform = (id,track_id,waveform,selector) ->
       volume: 100
       useHTML5Audio: true
       preferFlash: false
+      autoPlay: window.autoPlay
     }, (s) ->
       $(selector+' .play-button').attr('data-sid',s.sID)
       sound = s
+      if window.autoPlay is true
+        element = $('.play-button')
+        element.addClass 'pause-button'
+        element.removeClass 'play-button'
 
 syncWaveform = (id,token,data) ->
   $.ajax
@@ -103,6 +110,9 @@ syncWaveform = (id,token,data) ->
 # Document events
 #################################
 $ ->
+  window.getVars = getUrlVars()
+  if parseInt(window.getVars['loop']) is 1
+    window.autoLoop = true
 
   # $('body').delegate '.vote-button', 'click', ->
   #   soundcloud_id = $(this).data('id')
@@ -134,15 +144,19 @@ $ ->
     playSong = (element,sid) ->
       soundManager.play sid,
         onplay: ->
+          element.addClass 'pause-button'
           element.removeClass 'loading'
           element.removeClass 'play-button'
+        onresume: ->
           element.addClass 'pause-button'
+          element.removeClass 'loading'
+          element.removeClass 'play-button'
         onfinish: ->
           if window.autoLoop
             playSong(element,sid)
           else
-            element.removeClass 'pause-button'
             element.addClass 'play-button'
+            element.removeClass 'pause-button'
     playSong(_this, sid)
 
 

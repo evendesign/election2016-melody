@@ -24,9 +24,15 @@ getUrlVars = ->
 # Document events
 #################################
 $ ->
+  xx window.getVars
+  if parseInt(window.getVars['autoplay']) is 1
+    window.autoPlay = true
+
   url = window.location.href
-  if url.slice(-1) is '/' then url = url.substring(0, url.length - 1)
-  song_no = url.split("/").pop()
+  if url.indexOf('?') > 0 then url = url.split('?')[0]
+  if url.indexOf('#') > 0 then url = url.split('#')[0]
+  explode = url.split('/')
+  song_no = explode[4]
   if typeof song_no isnt 'undefined' and parseInt(song_no) > 0
     id = parseInt(song_no)
 
@@ -67,3 +73,4 @@ $ ->
           data: songWaveform
         )
       createWaveform(item.id,item.track_id,songWaveform,'.song-player')
+
