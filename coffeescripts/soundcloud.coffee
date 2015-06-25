@@ -4,7 +4,7 @@
 SC.initialize client_id: 'd2f7da453051d648ae2f3e9ffbd4f69b'
 soundManager = undefined
 soundTrack = []
-window.autoLoop = true
+window.autoLoop = false
 
 
 #################################

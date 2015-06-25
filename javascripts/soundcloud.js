@@ -8,7 +8,7 @@ soundManager = void 0;
 
 soundTrack = [];
 
-window.autoLoop = true;
+window.autoLoop = false;
 
 padLeft = function(str, length) {
   if (str.toString().length >= length) {
