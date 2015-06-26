@@ -4,7 +4,7 @@
 window.pageName = 'list'
 window.list = []
 window.pageNumber = 1
-window.perPage = 25
+window.perPage = 100
 
 #################################
 # Function
