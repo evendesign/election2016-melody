@@ -1,4 +1,4 @@
-var createWaveform, nl2br, padLeft, soundManager, soundTrack, syncWaveform, waveformStringToArray;
+var createWaveform, getUrlVars, isMobile, nl2br, padLeft, soundManager, soundTrack, syncWaveform, waveformStringToArray;
 
 SC.initialize({
   client_id: 'd2f7da453051d648ae2f3e9ffbd4f69b'
@@ -7,6 +7,34 @@ SC.initialize({
 soundManager = void 0;
 
 soundTrack = [];
+
+window.getVars = [];
+
+window.autoLoop = false;
+
+window.autoPlay = false;
+
+window.isDesktop = true;
+
+isMobile = function() {
+  return navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/BlackBerry/);
+};
+
+getUrlVars = function() {
+  var hash, hashes, i, vars;
+
+  vars = [];
+  hash = void 0;
+  hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+  i = 0;
+  while (i < hashes.length) {
+    hash = hashes[i].split('=');
+    vars.push(hash[0]);
+    vars[hash[0]] = hash[1];
+    i++;
+  }
+  return vars;
+};
 
 padLeft = function(str, length) {
   if (str.toString().length >= length) {
@@ -31,6 +59,7 @@ createWaveform = function(id, track_id, waveform, selector) {
   return SC.get('/tracks/' + track_id, function(track) {
     var ctx, gradient, sound;
 
+    $(selector + ' .play-times').text(track.playback_count);
     soundTrack[track_id] = track;
     sound = void 0;
     waveform = new Waveform({
@@ -58,8 +87,37 @@ createWaveform = function(id, track_id, waveform, selector) {
       useHTML5Audio: true,
       preferFlash: false
     }, function(s) {
+      var playSong;
+
       $(selector + ' .play-button').attr('data-sid', s.sID);
-      return sound = s;
+      sound = s;
+      if (window.autoPlay === true && window.isDesktop === true) {
+        xx('auto play');
+        playSong = function(element, sid) {
+          return soundManager.play(sid, {
+            onplay: function() {
+              element.addClass('pause-button');
+              element.removeClass('loading');
+              return element.removeClass('play-button');
+            },
+            onresume: function() {
+              element.addClass('pause-button');
+              element.removeClass('loading');
+              return element.removeClass('play-button');
+            },
+            onfinish: function() {
+              xx('song finish');
+              if (window.autoLoop) {
+                return playSong(element, sid);
+              } else {
+                element.addClass('play-button');
+                return element.removeClass('pause-button');
+              }
+            }
+          });
+        };
+        return playSong($('.play-button'), s.sID);
+      }
     });
   });
 };
@@ -82,8 +140,15 @@ syncWaveform = function(id, token, data) {
 };
 
 $(function() {
+  if (isMobile()) {
+    window.isDesktop = false;
+  }
+  window.getVars = getUrlVars();
+  if (parseInt(window.getVars['loop']) === 1) {
+    window.autoLoop = true;
+  }
   $('body').delegate('.play-button', 'click', function() {
-    var sid, _this;
+    var playSong, sid, _this;
 
     if (soundManager !== void 0) {
       soundManager.pauseAll();
@@ -93,13 +158,30 @@ $(function() {
     _this = $(this);
     _this.addClass('loading');
     sid = _this.data('sid');
-    return soundManager.play(sid, {
-      onplay: function() {
-        _this.removeClass('loading');
-        _this.removeClass('play-button');
-        return _this.addClass('pause-button');
-      }
-    });
+    playSong = function(element, sid) {
+      return soundManager.play(sid, {
+        onplay: function() {
+          element.addClass('pause-button');
+          element.removeClass('loading');
+          return element.removeClass('play-button');
+        },
+        onresume: function() {
+          element.addClass('pause-button');
+          element.removeClass('loading');
+          return element.removeClass('play-button');
+        },
+        onfinish: function() {
+          xx('song finish');
+          if (window.autoLoop) {
+            return playSong(element, sid);
+          } else {
+            element.addClass('play-button');
+            return element.removeClass('pause-button');
+          }
+        }
+      });
+    };
+    return playSong(_this, sid);
   });
   $('body').delegate('.pause-button', 'click', function() {
     soundManager.pauseAll();

@@ -1,31 +1,27 @@
 #################################
 # Settings
 #################################
+window.pageName = 'song'
 
 
 #################################
 # Function
 #################################
-getUrlVars = ->
-  vars = []
-  hash = undefined
-  hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&')
-  i = 0
-  while i < hashes.length
-    hash = hashes[i].split('=')
-    vars.push hash[0]
-    vars[hash[0]] = hash[1]
-    i++
-  vars
 
 
 #################################
 # Document events
 #################################
 $ ->
+  xx window.getVars
+  if parseInt(window.getVars['autoplay']) is 1
+    window.autoPlay = true
+
   url = window.location.href
-  if url.slice(-1) is '/' then url = url.substring(0, url.length - 1)
-  song_no = url.split("/").pop()
+  if url.indexOf('?') > 0 then url = url.split('?')[0]
+  if url.indexOf('#') > 0 then url = url.split('#')[0]
+  explode = url.split('/')
+  song_no = explode[4]
   if typeof song_no isnt 'undefined' and parseInt(song_no) > 0
     id = parseInt(song_no)
 
@@ -54,15 +50,16 @@ $ ->
             syncWaveform(item.id,item.token,d)
             songWaveform = d
             waveform = new Waveform(
-              container: $('.waveform-preview').last().get(0)
+              container: $('.waveform-preview').get(0)
               innerColor: '#F0F0F0'
               data: songWaveform
             )
       else
         songWaveform = waveformStringToArray item.waveform
         waveform = new Waveform(
-          container: $('.waveform-preview').last().get(0)
+          container: $('.waveform-preview').get(0)
           innerColor: '#F0F0F0'
           data: songWaveform
         )
       createWaveform(item.id,item.track_id,songWaveform,'.song-player')
+

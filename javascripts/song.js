@@ -1,29 +1,21 @@
-var getUrlVars;
-
-getUrlVars = function() {
-  var hash, hashes, i, vars;
-
-  vars = [];
-  hash = void 0;
-  hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-  i = 0;
-  while (i < hashes.length) {
-    hash = hashes[i].split('=');
-    vars.push(hash[0]);
-    vars[hash[0]] = hash[1];
-    i++;
-  }
-  return vars;
-};
+window.pageName = 'song';
 
 $(function() {
-  var id, song_no, url;
+  var explode, id, song_no, url;
 
-  url = window.location.href;
-  if (url.slice(-1) === '/') {
-    url = url.substring(0, url.length - 1);
+  xx(window.getVars);
+  if (parseInt(window.getVars['autoplay']) === 1) {
+    window.autoPlay = true;
   }
-  song_no = url.split("/").pop();
+  url = window.location.href;
+  if (url.indexOf('?') > 0) {
+    url = url.split('?')[0];
+  }
+  if (url.indexOf('#') > 0) {
+    url = url.split('#')[0];
+  }
+  explode = url.split('/');
+  song_no = explode[4];
   if (typeof song_no !== 'undefined' && parseInt(song_no) > 0) {
     id = parseInt(song_no);
     return $.getJSON('http://api.iing.tw/soundclouds/' + id + '.json?token=8888', function(item) {
@@ -56,7 +48,7 @@ $(function() {
             syncWaveform(item.id, item.token, d);
             songWaveform = d;
             return waveform = new Waveform({
-              container: $('.waveform-preview').last().get(0),
+              container: $('.waveform-preview').get(0),
               innerColor: '#F0F0F0',
               data: songWaveform
             });
@@ -65,7 +57,7 @@ $(function() {
       } else {
         songWaveform = waveformStringToArray(item.waveform);
         waveform = new Waveform({
-          container: $('.waveform-preview').last().get(0),
+          container: $('.waveform-preview').get(0),
           innerColor: '#F0F0F0',
           data: songWaveform
         });

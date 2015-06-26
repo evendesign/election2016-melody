@@ -4,11 +4,30 @@
 SC.initialize client_id: 'd2f7da453051d648ae2f3e9ffbd4f69b'
 soundManager = undefined
 soundTrack = []
+window.getVars = []
+window.autoLoop = false
+window.autoPlay = false
+window.isDesktop = true
 
 
 #################################
 # Function
 #################################
+isMobile = ->
+  return navigator.userAgent.match(/Android/i) or navigator.userAgent.match(/webOS/i) or navigator.userAgent.match(/iPhone/i) or navigator.userAgent.match(/iPod/i) or navigator.userAgent.match(/iPad/i) or navigator.userAgent.match(/BlackBerry/)
+
+getUrlVars = ->
+  vars = []
+  hash = undefined
+  hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&')
+  i = 0
+  while i < hashes.length
+    hash = hashes[i].split('=')
+    vars.push hash[0]
+    vars[hash[0]] = hash[1]
+    i++
+  vars
+
 padLeft = (str, length) ->
   if str.toString().length >= length
     str
@@ -53,8 +72,8 @@ waveformStringToArray = (str) ->
 
 createWaveform = (id,track_id,waveform,selector) ->
   SC.get '/tracks/'+track_id, (track) ->
+    $(selector+' .play-times').text track.playback_count
     soundTrack[track_id] = track
-
     sound = undefined
     waveform = new Waveform(
       container: $(selector+' .waveform').get(0)
@@ -83,6 +102,27 @@ createWaveform = (id,track_id,waveform,selector) ->
     }, (s) ->
       $(selector+' .play-button').attr('data-sid',s.sID)
       sound = s
+      if window.autoPlay is true and window.isDesktop is true
+        xx 'auto play'
+        playSong = (element,sid) ->
+          soundManager.play sid,
+            onplay: ->
+              element.addClass 'pause-button'
+              element.removeClass 'loading'
+              element.removeClass 'play-button'
+            onresume: ->
+              element.addClass 'pause-button'
+              element.removeClass 'loading'
+              element.removeClass 'play-button'
+            onfinish: ->
+              xx 'song finish'
+              if window.autoLoop
+                playSong(element,sid)
+              else
+                element.addClass 'play-button'
+                element.removeClass 'pause-button'
+        playSong($('.play-button'), s.sID)
+
 
 syncWaveform = (id,token,data) ->
   $.ajax
@@ -99,14 +139,15 @@ syncWaveform = (id,token,data) ->
 
 
 #################################
-# Html pattern
-#################################
-
-
-#################################
 # Document events
 #################################
 $ ->
+  if isMobile()
+    window.isDesktop = false
+
+  window.getVars = getUrlVars()
+  if parseInt(window.getVars['loop']) is 1
+    window.autoLoop = true
 
   # $('body').delegate '.vote-button', 'click', ->
   #   soundcloud_id = $(this).data('id')
@@ -135,11 +176,24 @@ $ ->
     _this.addClass 'loading'
     sid = _this.data 'sid'
 
-    soundManager.play sid,
-      onplay: ->
-        _this.removeClass 'loading'
-        _this.removeClass 'play-button'
-        _this.addClass 'pause-button'
+    playSong = (element,sid) ->
+      soundManager.play sid,
+        onplay: ->
+          element.addClass 'pause-button'
+          element.removeClass 'loading'
+          element.removeClass 'play-button'
+        onresume: ->
+          element.addClass 'pause-button'
+          element.removeClass 'loading'
+          element.removeClass 'play-button'
+        onfinish: ->
+          xx 'song finish'
+          if window.autoLoop
+            playSong(element,sid)
+          else
+            element.addClass 'play-button'
+            element.removeClass 'pause-button'
+    playSong(_this, sid)
 
 
   $('body').delegate '.pause-button', 'click', ->
