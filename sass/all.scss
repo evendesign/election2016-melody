@@ -11,22 +11,40 @@
 @import "component/slick";
 @import "component/card";
 @import "component/member";
-@import "component/grid"; // guideline 專用
 @import "component/page-header";
 @import "component/block";
+@import "component/animation";
+@import "component/share-button";
+
 
 // ==== partial ====
-@import "partial/guideline-header"; // guideline 專用
 @import "partial/site-info";
 @import "partial/footer";
 @import "partial/scale-content";
-@import "partial/demo-block"; // guideline 專用
 
 // melody
 @import "partial/header";
+@import "partial/spinner";
 @import "partial/hero";
+@import "partial/intro";
+@import "partial/color-lines";
+@import "partial/color-dots";
+@import "partial/gray-container";
+@import "partial/gray-mountain";
 @import "partial/event-detail";
 @import "partial/evaluators";
+@import "partial/gray-balls";
+@import "partial/page-title";
+@import "partial/song-list";
+@import "partial/song-player";
+@import "partial/song-tool-buttons";
+@import "partial/song-intro";
+@import "partial/song-lyric";
+@import "partial/next-song";
+@import "partial/official-link";
+@import "partial/errorpage";
+@import "partial/page-bottom-illustrator";
+
 
 // ==== page ====
 

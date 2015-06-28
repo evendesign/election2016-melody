@@ -1,9 +1,12 @@
 .header
   .header-inner
-    .header-logo TAIWAN MELODY
-    ul.header-nav
-      li: a href="#" 爭選辦法
-      li: a href="#" 參賽作品
-    form.header-search action="#" method="post"
-      input type="search" placeholder="搜尋"
-      input.submit type="submit" value="GO"
+    a.header-logo href="/" 台灣美樂地 TAIWAN MELODY
+    .header-nav-button MENU
+    ul.header-nav.off
+      = nav_link_to("徵選辦法", "/#event-detail")
+      = nav_link_to("參賽作品", "/songs/")
+      - if $pagename == "list"
+        li.header-search
+          input.search-string type="search" placeholder="搜尋歌曲"
+          / input.submit type="button" value="GO"
+

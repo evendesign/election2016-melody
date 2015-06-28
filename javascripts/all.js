@@ -1,35 +1,60 @@
-if( !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+if(Modernizr.csstransitions && !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 
-  var target = $('body');
-  var translate_target = $('.page');
+  var doc = $(document);
+  var body = $('body');
+  var page = $('.page');
   var desktop_breakpoint = 960;
-  target.addClass('scale-content');
+  body.addClass('scale-content');
+
+  function push_page(){
+    push = 'translate(0,'+ (150 - $(window).height() + 'px') +')';
+    page.css({
+      "-webkit-transform": push,
+      "transform": push
+    });
+    body.addClass('is-scaled');
+  }
+  function reset_page(){
+    page.css({
+      "-webkit-transform": 'translate(0,0)',
+      "transform": 'translate(0,0)'
+    });
+    body.removeClass('is-scaled');
+  }
 
   $(window).on('scroll', function(){
-    var target_scrolltop = target.scrollTop();
-    var target_offsettop = target[0].offsetHeight - $(window).height();
-    if (target_scrolltop == target_offsettop) {
+    var scrolling = doc.scrollTop();
+    var touch_bottom = body.height() - $(window).height() - $('.site-info').outerHeight();
+    if ( scrolling >= touch_bottom ) {
       var viewport_width = $(window).width();
       if (viewport_width >= desktop_breakpoint) {
-        var x = -($(window).height() * 0.8) + 'px';
-        translate_target.css('transform', 'translateY('+x+')');
-        target.addClass('is-scaled');
+        push_page();
       }
     } else {
-      target.removeClass('is-scaled');
-      translate_target.css('transform', 'translateY(0)');
+      reset_page();
     }
   });
 
   $(window).resize(function() {
+    var scrolling = doc.scrollTop();
+    var touch_bottom = body.height() - $(window).height() - $('.site-info').outerHeight();
     var viewport_width = $(window).width();
-    if (viewport_width < desktop_breakpoint) {
-      target.removeClass('scale-content');
-      translate_target.css('transform', 'translateY(0)');
+    if (viewport_width < desktop_breakpoint ) {
+      body.removeClass('scale-content');
+      reset_page();
+    } else if (viewport_width >= desktop_breakpoint && scrolling < touch_bottom) {
+      body.addClass('scale-content');
+      reset_page();
     } else {
-      target.addClass('scale-content');
+      body.addClass('scale-content');
+      push_page();
+      $("html, body").scrollTop(doc.height());
     }
   });
 
 }
 
+$("a[href='#top']").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, "slow");
+  return false;
+});

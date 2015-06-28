@@ -1,0 +1,191 @@
+.page-title {
+  width: 100%;
+  position: relative;
+  margin-top: $header-mobile-height;
+  padding-bottom: 20px;
+  @include animation('fadein 5s');
+
+  &:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 8px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    @include background(linear-gradient(left, #57C0C7, #E4E779));
+  }
+
+  .page-title-inner {
+    @include box-sizing(border-box);
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+    overflow: hidden;
+    text-align: center;
+
+    h1 {
+      @include leader(7);
+      @include trailer(0);
+      font-weight: 900;
+      display: block;
+      width: 100%;
+      @include adjust-font-size-to(26px);
+    }
+    p {
+      @include trailer(0);
+      @include adjust-font-size-to(13px);
+      &:last-child {
+        @include trailer();
+      }
+    }
+  }
+
+  &.list {
+    background-image: none, image-url("/images/page-title-background.png");
+    background-image: none, image-url("/images/page-title-background.svg");
+    background-repeat: no-repeat;
+    background-position: top center;
+  }
+
+  &.song {
+    padding-bottom: 36px;
+
+    &:after {
+      display: none;
+    }
+  }
+
+  @include at-breakpoint($desktop) {
+    height: 192px;
+    margin-top: 0;
+    padding-bottom: 0;
+
+    &:after {
+      height: 6px;
+    }
+
+    .page-title-inner {
+      @include box-sizing(content-box);
+      max-width: 984px;
+      position: relative;
+      text-align: left;
+      background: transparent;
+
+      h1 {
+        @include leader(2);
+        @include adjust-font-size-to(34px);
+        text-align: left;
+        padding: 0;
+        padding-bottom: 16px;
+      }
+      p {
+        @include adjust-font-size-to(16px);
+        br { display: none; }
+      }
+    }
+
+    &.list {
+      background-position: center right;
+    }
+
+    &.song {
+      padding-bottom: 0;
+      overflow-y: hidden;
+    }
+
+    &.song:before {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: -187px;
+      left: 20px;
+      width: 374px;
+      height: 374px;
+      @include background(linear-gradient(135deg, #FFFFFF 20%, #E7E7E7 100%));
+      @include border-radius(50%);
+      @include transition(width 1s ease, height 1s ease);
+      @include animation('fadein 3s');
+    }
+  }
+}
+
+.page-title-song-content {
+  // background: #F5F5F5;
+  @include background(linear-gradient(90deg, #FFFFFF 0%, #F5F5F5 100%));
+  padding: 30px;
+  margin: 0 -24px;
+  position: relative;
+
+  * {
+    text-align: center;
+  }
+
+  .song-number {
+    @include adjust-font-size-to(50px, 1.75);
+    font-weight: 400;
+    color: #ABABAB;
+  }
+
+  .song-title {
+    font-weight: 900;
+    color: #5C5C5C;
+    @include adjust-font-size-to(26px, 1.25);
+    padding-top: rhythm(.75);
+    margin-bottom: 8px;
+  }
+
+  .song-artist {
+    color: #ABABAB;
+    @include adjust-font-size-to(14px, 1);
+  }
+
+  .vote-count {
+    color: #939393;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 30px;
+    @include adjust-font-size-to(14px, 1);
+  }
+
+  @include at-breakpoint($desktop) {
+    background: none;
+    padding: 0;
+    position: initial;
+
+    .song-number {
+      @include adjust-font-size-to(60px,1);
+      line-height: 1;
+      margin-right: rhythm(1);
+      position: absolute;
+      bottom: 30px;
+      left: 24px;
+      color: #5C5C5C;
+    }
+
+    .song-title {
+      @include adjust-font-size-to(32px,1);
+      line-height: 1;
+      padding-left: 120px;
+      position: absolute;
+      bottom: 30px;
+      left: 24px;
+    }
+
+    .song-artist {
+      display: none;
+    }
+
+    .vote-count {
+      position: absolute;
+      bottom: 36px;
+      right: 290px;
+      @include adjust-font-size-to(20px, 1);
+      height: 38px;
+      line-height: 38px;
+      padding: 0;
+    }
+  }
+}

@@ -1,0 +1,114 @@
+.song-tool-buttons {
+  text-align: center;
+
+  * {
+    height: 50px;
+    line-height: 50px;
+    display: inline-block;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    margin-right: 5px;
+    background: none;
+    text-align: center;
+    color: white;
+    vertical-align: top;
+    @include adjust-font-size-to(18px, 1);
+    @include border-radius(6px);
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .vote-button {
+    width: 170px;
+    background-color: #68C75B;
+
+    &:hover {
+      background-color: #70A656;
+    }
+
+    &.done,
+    &.done:hover {
+      background-color: #EAEAEA;
+      color: #A2A8B3;
+    }
+  }
+
+  .fb-share {
+    width: 90px;
+    background-color: #71CDAA;
+
+    &:hover {
+      background-color: #50B584;
+    }
+  }
+
+  .song & {
+    position: absolute;
+    z-index: 1000;
+    bottom: -155px;
+    left: 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .song-list & {
+    width: 120px;
+    float: left;
+
+    .fb-share {
+      width: 60px;
+      height: 35px;
+      line-height: 1;
+      background: none;
+      border: 2px solid #51BE91;
+      color: #51BE91;
+      margin-top: rhythm(.5);
+    }
+  }
+
+  @include at-breakpoint($desktop) {
+    position: absolute;
+
+    .song-item & {
+      top: 0;
+      right: 0;
+    }
+
+    .song & {
+      bottom: 36px;
+      right: 24px;
+      left: initial;
+      padding: 0;
+      text-align: right;
+
+      * {
+        height: 38px;
+        line-height: 38px;
+      }
+    }
+
+    * {
+      margin-right: rhythm(.5);
+    }
+
+    .song-list & {
+      width: initial;
+      float: initial;
+
+      .fb-share {
+        width: 90px;
+        height: 50px;
+        line-height: 50px;
+        background-color: #71CDAA;
+        border: none;
+        color: white;
+        margin-top: 0;
+      }
+    }
+  }
+
+}

@@ -1,0 +1,32 @@
+.go-to-list {
+  position: relative;
+  z-index: 10;
+}
+.next-song, .go-to-list {
+  text-align: center;
+  margin: 0 auto rhythm(2) auto;
+
+  .btn {
+    position: relative;
+    width: 100%;
+    @include border-radius(0px);
+    @include box-sizing(border-box);
+    @include adjust-font-size-to(18px, 1);
+    padding: 10px 22px;
+    &:after {
+      content: "";
+      display: inline-block;
+      vertical-align: top;
+      @include replace-text-with-svg(icon-note);
+    }
+  }
+
+  @include at-breakpoint($desktop) {
+    margin: rhythm(2) auto;
+
+    .btn {
+      width: 300px;
+      @include border-radius(3px);
+    }
+  }
+}

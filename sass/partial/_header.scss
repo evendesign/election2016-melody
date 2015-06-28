@@ -1,24 +1,134 @@
-$header-height             : 85px;
-$header-background         : #434437;
+$header-mobile-height      : 75px;
+$header-desktop-height     : 80px;
 $search-input-height       : 36px;
 $search-button-background  : #6FCFAA;
 
 .header {
+  // position: fixed; footer 會出問題
+  top: 0;
+  left: 0;
   width: 100%;
-  height: $header-height;
-  background-color: $header-background;
+  height: $header-mobile-height;
+  background-color: white;
+  z-index: 1000;
 
   .header-inner {
     width: 100%;
     max-width: 1060px;
-    height: $header-height;
+    height: $header-mobile-height;
     margin: 0 auto;
+    position: relative;
+  }
 
-    .header-logo {
-      float: left;
-      @include replace-text-with-dimensions("logo.png");
-      background-position: center center;
-      height: 100%;
+  .header-logo {
+    float: left;
+    @include replace-text-with-svg("logo");
+    background-position: center center;
+    height: 100%;
+  }
+
+  .header-nav-button {
+    float: right;
+    margin: 22px 18px 0 0;
+    padding: 0 15px;
+    color: white;
+    line-height: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #73CEAB;
+    @include border-radius(24px);
+  }
+
+  .header-nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    @include background(linear-gradient(25deg, rgb(80, 181, 132), rgb(152, 205, 127), rgb(231, 232, 121)));
+    clear: both;
+    position: relative;
+    z-index: 1000;
+
+    &.on {
+      display: block;
+      @include animation('fadein .5s');
+    }
+
+    &.off {
+      display: none;
+    }
+
+    li {
+      margin: 0 12px;
+    }
+
+    li + li {
+      border-top: 1px solid white;
+    }
+
+    a {
+      @include adjust-font-size-to(20px, 1);
+      display: block;
+      line-height: 64px;
+      text-align: center;
+      font-weight: bold;
+      color: white;
+      &:hover { text-decoration: none; }
+    }
+  }
+
+  .header-search {
+    position: relative;
+    padding: 21px 0;
+
+    * {
+      display: inline-block;
+      height: $search-input-height;
+      border: none;
+      @include box-sizing(border-box);
+      outline: none;
+    }
+
+    form { width: 100%; }
+
+    input[type=search] {
+      background-color: white;
+      // width: calc(100% - 75px);
+      width: 100%;
+      padding: 0 28px;
+      @include border-left-radius($search-input-height/2);
+      @include border-right-radius($search-input-height/2);
+    }
+
+    // .submit {
+    //   background: $search-button-background;
+    //   width: 75px;
+    //   padding: 0 3px 0 0;
+    //   color: white;
+    //   font-weight: 900;
+    //   @include box-sizing(border-box);
+    //   @include border-right-radius($search-input-height/2);
+
+    //   &:hover {
+    //     background: lighten($search-button-background, 10%);
+    //   }
+    // }
+  }
+
+
+  @include at-breakpoint($desktop) {
+    position: static;
+    background-color: #F9F9F9;
+    height: $header-desktop-height;
+
+    .header-inner {
+      height: $header-desktop-height;
+      .header-logo {
+        float: left;
+      }
+    }
+
+    .header-nav-button {
+      display: none;
     }
 
     .header-nav {
@@ -27,60 +137,53 @@ $search-button-background  : #6FCFAA;
       list-style: none;
       padding: 0;
       margin: 0;
+      background: transparent;
+      clear: none;
+      position: static;
+
+      &.on {
+        display: block;
+      }
+
+      &.off {
+        display: block;
+      }
 
       li {
         display: inline-block;
-        height: $header-height;
-        line-height: $header-height;
+        height: $header-desktop-height;
+        line-height: $header-desktop-height;
         padding-left: rhythm(3);
+        &.active a {
+          color: #54B584;
+        }
       }
 
       a {
-        color: white;
+        color: #6C736E;
         font-weight: 900;
         @include adjust-font-size-to(18px, 1);
-
-        &:hover {
-          text-decoration: none;
-        }
+        line-height: $header-desktop-height;
       }
     }
 
     .header-search {
-      position: relative;
-      float: right;
-      height: $header-height;
+      height: $header-desktop-height;
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin: 0;
+      padding: 0;
 
-      * {
-        display: inline-block;
-        vertical-align: middle;
-        height: $search-input-height;
-        border: none;
-        margin: ($header-height - $search-input-height)*.5 0;
-        @include box-sizing(border-box);
-        outline: none;
+      form {
+        display: block;
       }
 
       input[type=search] {
+        background-color: #efefef;
         width: 280px;
-        background-color: white;
-        padding: 0 18px;
-        @include border-left-radius($search-input-height/2);
-      }
-
-      .submit {
-        background: $search-button-background;
-        width: 75px;
-        padding: 0 3px 0 0;
-        color: white;
-        font-weight: 900;
-        @include box-sizing(border-box);
-        @include border-right-radius($search-input-height/2);
-
-        &:hover {
-          background: darken($search-button-background, 10%);
-        }
       }
     }
   }
+
 }

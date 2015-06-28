@@ -1,0 +1,6 @@
+.official-link {
+  display: inline-block;
+  margin-right: 3px;
+  @include replace-text-with-svg(icon-facebook);
+  vertical-align: bottom;
+}

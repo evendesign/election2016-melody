@@ -8,7 +8,8 @@ $grid-padding   : $gutter-width;
 // add media
 $phone          : $total-columns;
 $pad            : 640px 8;
-$desktop        : 960px 12;
+$desktop        : 1025px 12;
+$wide-screen    : 1440px 20;
 
 // page-container
 $page-container: ".container";
@@ -20,7 +21,7 @@ $page-container: ".container";
 
 body {
   background-color: #183840;
-
+  position: relative;
 }
 
 .page {
@@ -28,6 +29,7 @@ body {
 }
 
 .page-inner {
+  overflow: hidden;
   background-color: white;
 }
 
@@ -45,13 +47,62 @@ body {
     $container-style: magic;
     @include set-container-width;
   }
+  @include at-breakpoint($wide-screen) {
+    $container-style: magic;
+    @include set-container-width;
+  }
 
 }
 
-
 .content {
-  @include padding-trailer(1);
-  @include at-breakpoint($pad) {
-    @include padding-trailer(2);
+  background: #FFFFFF;
+  position: relative;
+
+  &.home {
+    @include background(linear-gradient(#F5F5F5, #FFFFFF));
   }
+
+  .container {
+    position: relative;
+    z-index: 10;
+  }
+
+  &.list .container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  @include at-breakpoint($desktop) {
+
+    @include padding-trailer(3);
+
+    &.home {
+      &:before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        border-style: solid;
+        border-width: 60vh 60vw;
+        border-color: transparent transparent white white;
+      }
+
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: -30vh;
+        right: -30vw;
+        border-style: solid;
+        border-width: 60vh 60vw;
+        border-color: transparent white white transparent;
+      }
+    }
+
+    &.list {
+      .container {
+        padding-right: rhythm(1);
+        padding-left: rhythm(1);
+      }
+    }
+  }
+
 }

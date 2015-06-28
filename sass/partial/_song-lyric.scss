@@ -1,0 +1,15 @@
+.song-lyric {
+  position: relative;
+  max-width: 360px;
+  margin: 0 auto;
+  @include trailer(1.5);
+  text-align: center;
+  @include animation('fadein 5s');
+  @include at-breakpoint($pad) {
+    max-width: 560px;
+  }
+  @include at-breakpoint($desktop) {
+    max-width: none;
+    text-align: left;
+  }
+}

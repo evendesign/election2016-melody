@@ -1,0 +1,31 @@
+.gray-balls {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 515px;
+
+  .ball-2 {
+    position: absolute;
+    top: -40px;
+    left: -40px;
+    width: 180px;
+    height: 180px;
+    @include background(linear-gradient(45deg, #E7E7E7 0%, #FFFFFF 80%));
+    @include border-radius(50%);
+    @include transition(width 1s ease, height 1s ease);
+    @include animation('fadein 3s');
+  }
+
+  @include at-breakpoint($desktop) {
+    height: 650px;
+
+    .ball-2 {
+      top: -40px;
+      left: -90px;
+      width: 383px;
+      height: 383px;
+      @include transition(width 1s ease, height 1s ease);
+    }
+  }
+}

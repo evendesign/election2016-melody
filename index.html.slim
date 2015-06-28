@@ -1,7 +1,8 @@
-= render "/partial/hero"
-= render "/partial/header"
+- $pagename = "home"
 
-.content
+.content.home
+  / = render "/partial/gray-mountain"
   .container
-    = render "/partial/event-detail"
-    = render "/partial/evaluators"
+    .gray-container
+      = render "/partial/event-detail"
+      = render "/partial/evaluators"

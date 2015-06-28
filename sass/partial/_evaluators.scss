@@ -1,40 +1,72 @@
 .evaluators {
+  position: relative;
+  @include trailer(5);
+}
+
+.evaluators-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
   @include pie-clearfix;
+  @include trailer(.5);
 
-  .evaluators-title {
-    width: 160px;
-    float: left;
-  }
-
-  .evaluators-content {
-    width: calc(100% - 160px);
-    float: right;
-  }
-
-  .evaluators-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    @include pie-clearfix;
+  li {
     @include trailer(.5);
+    clear: both;
+    margin-top: 20px;
+    min-height: 5em;
 
+    h4 {
+      @include adjust-font-size-to(18px, 1);
+      @include trailer(.25);
+      font-weight: bold;
+    }
+
+    img {
+      display: block;
+      float: left;
+      clear: left;
+      width: 60px;
+      height: 60px;
+      max-width: 100px;
+      @include trailer(.5);
+      @include border-radius(50%);
+      margin-right: 10px;
+      position: relative;
+      // top: -10px;
+    }
+
+    p {
+      @include adjust-font-size-to(13px, 3/4);
+    }
+  }
+
+  @include at-breakpoint($desktop) {
     li {
-      @include isolate-grid(2, 10);
-      @include trailer(1);
+      @include isolate-grid(4, 12);
+      @include trailer(0);
 
-      *{
-        display: block;
+      h4 {
+        @include adjust-font-size-to(16px, 1);
       }
 
       img {
+        float: none;
+        margin-right: 0;
+        display: block;
+        width: 100px;
+        height: 100px;
+        max-width: 100px;
         @include trailer(.5);
         @include border-radius(50%);
+        left: -3px;
       }
-
-      p {
-        @include adjust-font-size-to(12px, 1);
-      }
+    }
+  }
+  @include at-breakpoint($wide-screen) {
+    li {
+      @include isolate-grid(3, 15);
     }
   }
 

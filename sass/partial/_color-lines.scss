@@ -1,0 +1,356 @@
+$line-1-bottom: 13%;
+$line-2-bottom: 23%;
+$line-3-bottom: 32%;
+$line-4-bottom: 42%;
+$line-5-bottom: 52%;
+$line-6-bottom: 61%;
+$line-7-bottom: 71%;
+$line-8-bottom: 78%;
+
+.color-lines {
+  position: absolute;
+  right: -370px;
+  top: 0;
+  width: 100%;
+  height: 100%;
+
+  .layer-1,
+  .layer-2,
+  .layer-3,
+  .layer-4,
+  .layer-5,
+  .layer-6,
+  .layer-7,
+  .layer-8 {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  @include at-breakpoint($desktop) {
+    right: 0;
+  }
+
+  [class^="line-"],
+  [class^="line-"]:before,
+  [class^="line-"]:after {
+    position: absolute;
+    height: 12px;
+    @include border-radius(6px);
+    @include animation('stretch 2.5s');
+  }
+
+  [class^="line-"]:before,
+  [class^="line-"]:after {
+    content: "";
+    display: block;
+  }
+
+  .line-1 {
+    bottom: $line-1-bottom;
+    background: #57C0C7;
+    width: 150px;
+    right: 1170px;
+
+    &:before {
+      background: #E7E879;
+      width: 16px;
+      left: calc(100% + 15px);
+    }
+
+    &:after {
+      background: #57C0C7;
+      width: 102px;
+      left: calc(100% + 112px);
+    }
+  }
+
+  .line-2-1 {
+    bottom: $line-2-bottom;
+    background: #4AA6AC;
+    width: 68px;
+    right: 1068px;
+
+    &:before {
+      background: #E7E879;
+      width: 35px;
+      left: 52px;
+    }
+
+    &:after {
+      background: #81BF63;
+      width: 30px;
+      right: calc(100% + 56px);
+    }
+  }
+
+  .line-2-2 {
+    bottom: $line-2-bottom;
+    background: #57C0C7;
+    width: 14px;
+    right: 935px;
+
+    &:before {
+      background: #81BF63;
+      width: 39px;
+      right: 28px;
+    }
+  }
+
+  .line-2-3 {
+    bottom: $line-2-bottom;
+    background: #50B584;
+    width: 68px;
+    right: 807px;
+
+    &:before {
+      background: #81BF63;
+      width: 36px;
+      right: 34px;
+    }
+  }
+
+  .line-3-1 {
+    bottom: $line-3-bottom;
+    background: #50B584;
+    width: 125px;
+    right: 1035px;
+
+    &:before {
+      background: #81BF63;
+      width: 67px;
+      left: 95px;
+    }
+  }
+
+  .line-3-2 {
+    bottom: $line-3-bottom;
+    background: #57C0C7;
+    width: 95px;
+    right: 865px;
+
+    &:before {
+      background: #50B584;
+      width: 125px;
+      left: 155px;
+    }
+  }
+
+  .line-4-1 {
+    bottom: $line-4-bottom;
+    background: #81BF63;
+    width: 82px;
+    right: 1200px;
+
+    &:before {
+      background: #50B584;
+      width: 85px;
+      left: 38px;
+    }
+  }
+
+  .line-4-2 {
+    bottom: $line-4-bottom;
+    background: #81BF63;
+    width: 232px;
+    right: 817px;
+
+    &:before {
+      background: #E7E879;
+      width: 37px;
+      left: 46px;
+    }
+
+    &:after {
+      background: #4AA6AC;
+      width: 125px;
+      left: 204px;
+    }
+  }
+
+  .line-4-3 {
+    bottom: $line-4-bottom;
+    background: #81BF63;
+    width: 41px;
+    right: 669px;
+  }
+
+  .line-5-1 {
+    bottom: $line-5-bottom;
+    background: #E7E879;
+    width: 218px;
+    right: 654px;
+
+    &:before {
+      @include border-radius(0px);
+      bottom: 12px;
+      left: 22%;
+      width: 0;
+      min-width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 38px 28px 38px;
+      border-color: transparent transparent #79C75F transparent;
+
+      @include transform-origin(50%, 100%);
+      @include animation('growup 2.5s');
+    }
+  }
+
+  .line-5-2 {
+    bottom: $line-5-bottom;
+    background: #7ECFAF;
+    width: 136px;
+    right: 463px;
+
+    &:before {
+      background: #EAEC6E;
+      width: 60px;
+      left: 106px;
+    }
+  }
+
+  .line-6-1 {
+    bottom: $line-6-bottom;
+    background: #EAEC6E;
+    width: 54px;
+    right: 763px;
+
+    &:before {
+      background: #79C75F;
+      width: 150px;
+      left: 32px;
+    }
+  }
+
+  .line-6-2 {
+    bottom: $line-6-bottom;
+    background: #50B584;
+    width: 136px;
+    right: 286px;
+
+    &:before {
+      @include border-radius(0px);
+      bottom: 12px;
+      left: 32%;
+      width: 0;
+      min-width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 22px 28px 22px;
+      border-color: transparent transparent #88C8AB transparent;
+
+      @include transform-origin(50%, 100%);
+      @include animation('growup 3s');
+    }
+
+    &:after {
+      background: #EAEC6E;
+      width: 65px;
+      right: 188px;
+    }
+  }
+
+  .line-7-1 {
+    bottom: $line-7-bottom;
+    background: #EAEC6E;
+    width: 27px;
+    right: 942px;
+
+    &:before {
+      background: #EAEC6E;
+      width: 64px;
+      left: 236px;
+    }
+
+    &:after {
+      background: #7ECFAF;
+      width: 188px;
+      left: 60px;
+    }
+  }
+
+  .line-7-2 {
+    bottom: $line-7-bottom;
+    background: #38BC6D;
+    width: 190px;
+    right: 357px;
+
+    &:before {
+      @include border-radius(0px);
+      bottom: 12px;
+      left: 12%;
+      width: 0;
+      min-width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 54px 98px 54px;
+      border-color: transparent transparent #EAEC6E transparent;
+
+      @include transform-origin(50%, 100%);
+      @include animation('growup 3s');
+    }
+
+    &:after {
+      @include border-radius(0px);
+      bottom: 12px;
+      left: 63%;
+      width: 0;
+      min-width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 26px 48px 26px;
+      border-color: transparent transparent #EAEC6E transparent;
+
+      @include transform-origin(50%, 100%);
+      @include animation('growup 3s');
+    }
+  }
+
+  .line-7-3 {
+    bottom: $line-7-bottom;
+    background: #79C75F;
+    width: 41px;
+    right: 586px;
+
+    &:before {
+      background: #E7E879;
+      width: 65px;
+      left: 232px;
+    }
+
+    &:after {
+      background: #81BF63;
+      width: 203px;
+      left: 375px;
+    }
+  }
+
+  .line-8-1 {
+    bottom: $line-8-bottom;
+    background: #EAEC6E;
+    width: 68px;
+    right: 705px;
+
+    &:before {
+      background: #28BE87;
+      width: 124px;
+      left: 138px;
+    }
+
+    &:after {
+      background: #50B584;
+      width: 17px;
+      left: 350px;
+    }
+  }
+
+  .line-8-2 {
+    bottom: $line-8-bottom;
+    background: #88C8AB;
+    width: 68px;
+    right: 285px;
+  }
+}

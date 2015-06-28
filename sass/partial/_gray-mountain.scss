@@ -1,0 +1,112 @@
+.gray-mountain {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: none;
+
+  [class^="line-"],
+  [class^="line-"]:before,
+  [class^="line-"]:after {
+    position: absolute;
+    height: 20px;
+    @include border-radius(10px);
+    @include animation('stretch 2.5s');
+  }
+
+  [class^="line-"]:before,
+  [class^="line-"]:after {
+    content: "";
+    display: block;
+  }
+
+  .line-1 {
+    width: 290px;
+    background: #F2F3F4;
+    left: -50px;
+    bottom: 30px;
+  }
+
+  .line-2 {
+    width: 110px;
+    background: #E3E4E5;
+    left: 50px;
+    bottom: 110px;
+
+    &:after {
+      background: #F2F3F4;
+      width: 230px;
+      left: 240px;
+    }
+  }
+
+  .line-3-1 {
+    width: 300px;
+    background: #F2F3F4;
+    left: 20px;
+    bottom: 190px;
+
+    &:before {
+      @include border-radius(0px);
+      bottom: 20px;
+      left: 12%;
+      width: 0;
+      min-width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 90px 160px 90px;
+      border-color: transparent transparent #F2F3F4 transparent;
+      @include transform-origin(50%, 100%);
+      @include animation('growup 3s');
+    }
+
+    &:after {
+      @include border-radius(0px);
+      bottom: 20px;
+      left: 63%;
+      width: 0;
+      min-width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 40px 85px 40px;
+      border-color: transparent transparent #F2F3F4 transparent;
+      @include transform-origin(50%, 100%);
+      @include animation('growup 3s');
+    }
+  }
+
+  .line-3-2 {
+    width: 110px;
+    background: #E3E4E5;
+    left: 220px;
+    bottom: 190px;
+
+    &:after {
+      background: #F2F3F4;
+      width: 260px;
+      left: 200px;
+    }
+  }
+
+  .line-4 {
+    width: 100px;
+    background: #E3E4E5;
+    left: -20px;
+    bottom: 265px;
+
+    &:before {
+      background: #F2F3F4;
+      width: 30px;
+      left: 230px;
+    }
+
+    &:after {
+      background: #F2F3F4;
+      width: 120px;
+      left: 300px;
+    }
+  }
+
+  @include at-breakpoint($desktop) {
+    display: block;
+  }
+}

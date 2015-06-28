@@ -1,0 +1,22 @@
+.share-button {
+  span {
+    position: relative;
+    display: inline-block;
+    margin-right: 6px;
+    vertical-align: text-top;
+    @include adjust-font-size-to(13px);
+  }
+  .fb-share, .tweet {
+    @include inline-block();
+    @include filter(brightness(0%));
+    opacity: .25;
+    &:hover {
+      @include filter(brightness(100%));
+      opacity: 1;
+    }
+  }
+  .fb-share { @include replace-text-with-svg("icon-share-facebook"); }
+  .tweet { @include replace-text-with-svg("icon-share-twitter"); }
+}
+
+

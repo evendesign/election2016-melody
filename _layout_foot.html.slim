@@ -1,4 +1,20 @@
 = javascript_include_tag \
   "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js", \
+  "http://connect.soundcloud.com/sdk.js", \
   "/vender/slick.min.js", \
-  "all"
+  "global", \
+  "animate", \
+  "soundcloud"
+
+
+- if $pagename == "list"
+  = javascript_include_tag \
+    "waveform", \
+    "list"
+
+- if $pagename == "song"
+  = javascript_include_tag \
+    "waveform", \
+    "song"
+
+= javascript_include_tag "all"

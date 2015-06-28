@@ -7,10 +7,15 @@ html lang="zh-TW"
   body
     .page
       .page-inner
-        / = render "/partial/demo-header"
+        / = render "/partial/header"
+        = render "/partial/gray-balls"
+        = render "/partial/hero"
+        = render "/partial/intro"
         = yield
+        .page-bottom-illustrator
       = render "/partial/site-info"
     = render "/partial/footer"
 
     = render "/layout_foot"
-    = render "/layout_livereload"
+    / = render "/layout_livereload"
+    = render "/layout_ga.erb"
