@@ -1,8 +1,8 @@
 .page-title {
   width: 100%;
   position: relative;
-  margin-top: $header-mobile-height;
   padding-bottom: 20px;
+  text-align: center;
   @include animation('fadein 5s');
 
   &:after {
@@ -13,7 +13,7 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    @include background(linear-gradient(left, #57C0C7, #E4E779));
+    @include background(linear-gradient(left, #67C299, #E8ED91));
   }
 
   .page-title-inner {
@@ -23,7 +23,6 @@
     margin: 0 auto;
     padding: 0 24px;
     overflow: hidden;
-    text-align: center;
 
     h1 {
       @include leader(7);
@@ -50,21 +49,14 @@
   }
 
   &.song {
+    text-align: left;
     padding-bottom: 36px;
-
-    &:after {
-      display: none;
-    }
   }
 
-  @include at-breakpoint($desktop) {
-    height: 192px;
+  @include at-breakpoint($pad) {
+    height: 265px;
     margin-top: 0;
     padding-bottom: 0;
-
-    &:after {
-      height: 6px;
-    }
 
     .page-title-inner {
       @include box-sizing(content-box);
@@ -87,12 +79,17 @@
     }
 
     &.list {
-      background-position: center right;
+      background-position: 120% 55%;
     }
 
     &.song {
+      height: 150px;
       padding-bottom: 0;
       overflow-y: hidden;
+
+      &:after {
+        height:6px;
+      }
     }
 
     &.song:before {
@@ -109,83 +106,10 @@
       @include animation('fadein 3s');
     }
   }
-}
-
-.page-title-song-content {
-  // background: #F5F5F5;
-  @include background(linear-gradient(90deg, #FFFFFF 0%, #F5F5F5 100%));
-  padding: 30px;
-  margin: 0 -24px;
-  position: relative;
-
-  * {
-    text-align: center;
-  }
-
-  .song-number {
-    @include adjust-font-size-to(50px, 1.75);
-    font-weight: 400;
-    color: #ABABAB;
-  }
-
-  .song-title {
-    font-weight: 900;
-    color: #5C5C5C;
-    @include adjust-font-size-to(26px, 1.25);
-    padding-top: rhythm(.75);
-    margin-bottom: 8px;
-  }
-
-  .song-artist {
-    color: #ABABAB;
-    @include adjust-font-size-to(14px, 1);
-  }
-
-  .vote-count {
-    color: #939393;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    padding: 30px;
-    @include adjust-font-size-to(14px, 1);
-  }
 
   @include at-breakpoint($desktop) {
-    background: none;
-    padding: 0;
-    position: initial;
-
-    .song-number {
-      @include adjust-font-size-to(60px,1);
-      line-height: 1;
-      margin-right: rhythm(1);
-      position: absolute;
-      bottom: 30px;
-      left: 24px;
-      color: #5C5C5C;
-    }
-
-    .song-title {
-      @include adjust-font-size-to(32px,1);
-      line-height: 1;
-      padding-left: 120px;
-      position: absolute;
-      bottom: 30px;
-      left: 24px;
-    }
-
-    .song-artist {
-      display: none;
-    }
-
-    .vote-count {
-      position: absolute;
-      bottom: 36px;
-      right: 290px;
-      @include adjust-font-size-to(20px, 1);
-      height: 38px;
-      line-height: 38px;
-      padding: 0;
+    &.song {
+      height: 185px;
     }
   }
 }

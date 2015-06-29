@@ -96,15 +96,6 @@
         @include adjust-font-size-to(14px, 1);
       }
     }
-
-    .vote-count {
-      color: #939393;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      padding: 30px;
-      @include adjust-font-size-to(14px, 1);
-    }
   }
 
   @include at-breakpoint($desktop) {
@@ -125,8 +116,7 @@
         min-height: initial;
       }
 
-      &:before,
-      &:after {
+      &:before {
         content: "";
         display: block;
         width: 6px;
@@ -139,11 +129,6 @@
       &:before {
         height: 100%;
         background-color: #E4EE6A;
-      }
-
-      &:after {
-        height: 40%;
-        background-color: #00BC82;
       }
 
       .song-number {
@@ -176,12 +161,6 @@
         .song-artist {
           @include adjust-font-size-to(18px, 1);
         }
-      }
-
-      .vote-count {
-        top: 0;
-        right: 290px;
-        padding: 0;
       }
     }
   }

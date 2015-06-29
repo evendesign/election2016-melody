@@ -1,5 +1,6 @@
 .errorpage {
   text-align: center;
+  @include trailer(15);
   .btn {
     padding: 4px 72px;
     @include adjust-font-size-to(18px, 2);

@@ -1,0 +1,5 @@
+.mobile-wrap {
+  @include at-breakpoint($desktop) {
+    display: none;
+  }
+}

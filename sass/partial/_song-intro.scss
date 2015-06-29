@@ -2,8 +2,8 @@
   max-width: 360px;
   margin: 0 auto;
   position: relative;
-  @include trailer(1.5);
   text-align: center;
+  @include trailer(1.5);
   @include animation('fadein 5s');
 
   .song-title {

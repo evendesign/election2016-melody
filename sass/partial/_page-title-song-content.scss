@@ -1,0 +1,81 @@
+.page-title-song-content {
+  @include background(linear-gradient(0deg, #FFFFFF 0%, #F5F5F5 100%));
+  padding: 30px;
+  padding-bottom: 20px;
+  margin: 0 -24px;
+  position: relative;
+
+  .song-number {
+    @include adjust-font-size-to(24px,1);
+    display: inline-block;
+    font-weight: 400;
+    color: #ABABAB;
+  }
+
+  .song-title-container {
+
+    .song-title {
+      font-weight: 900;
+      color: #5C5C5C;
+      @include adjust-font-size-to(24px, 1);
+      position: absolute;
+      left: 80px;
+      top: 30px;
+    }
+
+    .song-artist {
+      color: #ABABAB;
+      @include adjust-font-size-to(14px, 1);
+    }
+
+    .play-times-container{
+      @include adjust-font-size-to(14px, 1);
+      color: #A09FAB;
+    }
+  }
+
+  @include at-breakpoint($pad) {
+    background: none;
+    padding: 0;
+    position: initial;
+
+    .song-number {
+      @include adjust-font-size-to(32px,1);
+      line-height: 1;
+      position: absolute;
+      bottom: 80px;
+      left: 24px;
+      color: #AAAAAA;
+    }
+
+    .song-title-container {
+      position: absolute;
+      bottom: 80px;
+      left: 24px;
+
+      * {
+        display: inline-block;
+      }
+
+      .song-title {
+        @include adjust-font-size-to(28px,1);
+        padding-left: 65px;
+        margin-bottom: 0;
+
+        position: relative;
+        left: initial;
+        top: initial;
+      }
+
+      .song-artist {
+        display: none;
+      }
+
+      .play-times-container{
+        @include adjust-font-size-to(20px, 1);
+        line-height: 28px;
+        padding-left: 25px;
+      }
+    }
+  }
+}

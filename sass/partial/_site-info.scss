@@ -1,5 +1,4 @@
 .site-info {
-
   display: none;
 
   @include at-breakpoint($desktop) {
@@ -17,7 +16,6 @@
       @include adjust-font-size-to(13px);
       color: rgba(white,.3);
     }
-
   }
   a {
     @include unstyled-link;
