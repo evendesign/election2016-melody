@@ -100,7 +100,7 @@
 
   @include at-breakpoint($desktop) {
     max-width: 980px;
-    margin: 64px auto 0;
+    margin: 0 auto;
 
     .song-item {
       height: 190px;

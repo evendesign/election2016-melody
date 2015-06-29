@@ -103,14 +103,6 @@ $ ->
     if $('.song-item.hide').length is 0
       $('.list-more-song').remove()
 
-
-  # $('body').delegate '.header-search .submit', 'click', ->
-  #   filter = $('.search-string').val()
-  #   if filter
-  #     songFilter filter
-  #   else
-  #     $('.song-list li').show()
-
   $('body').delegate '.search-string', 'keyup', ->
     filter = $(this).val()
     if filter

@@ -1,7 +1,5 @@
 $header-mobile-height      : 75px;
 $header-desktop-height     : 80px;
-$search-input-height       : 36px;
-$search-button-background  : #6FCFAA;
 
 .header {
   // position: fixed; footer 會出問題
@@ -76,44 +74,6 @@ $search-button-background  : #6FCFAA;
     }
   }
 
-  .header-search {
-    position: relative;
-    padding: 21px 0;
-
-    * {
-      display: inline-block;
-      height: $search-input-height;
-      border: none;
-      @include box-sizing(border-box);
-      outline: none;
-    }
-
-    form { width: 100%; }
-
-    input[type=search] {
-      background-color: white;
-      // width: calc(100% - 75px);
-      width: 100%;
-      padding: 0 28px;
-      @include border-left-radius($search-input-height/2);
-      @include border-right-radius($search-input-height/2);
-    }
-
-    // .submit {
-    //   background: $search-button-background;
-    //   width: 75px;
-    //   padding: 0 3px 0 0;
-    //   color: white;
-    //   font-weight: 900;
-    //   @include box-sizing(border-box);
-    //   @include border-right-radius($search-input-height/2);
-
-    //   &:hover {
-    //     background: lighten($search-button-background, 10%);
-    //   }
-    // }
-  }
-
 
   @include at-breakpoint($desktop) {
     position: static;
@@ -164,24 +124,6 @@ $search-button-background  : #6FCFAA;
         font-weight: 900;
         @include adjust-font-size-to(18px, 1);
         line-height: $header-desktop-height;
-      }
-    }
-
-    .header-search {
-      height: $header-desktop-height;
-      position: absolute;
-      right: 0;
-      top: 0;
-      margin: 0;
-      padding: 0;
-
-      form {
-        display: block;
-      }
-
-      input[type=search] {
-        background-color: #efefef;
-        width: 280px;
       }
     }
   }
