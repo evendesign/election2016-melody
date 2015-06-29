@@ -1,4 +1,4 @@
-var $songItem, songFilter;
+var $songItem, countdown, currentTime, songFilter;
 
 window.pageName = 'list';
 
@@ -6,7 +6,11 @@ window.list = [];
 
 window.pageNumber = 1;
 
-window.perPage = 5;
+window.perPage = 150;
+
+countdown = Date.now();
+
+currentTime = Date.now();
 
 songFilter = function(filter) {
   $('.song-list').find(".song-string:not(:Contains(" + filter + "))").parents('li').hide();
@@ -14,7 +18,7 @@ songFilter = function(filter) {
 };
 
 $songItem = function(item, display) {
-  return '<li class="song-item song-item-' + item.id + display + '">\
+  return '<li class="song-item song-item-' + item.id + display + '" data-id="' + item.id + '" data-vote="' + item.vote_count + '">\
     <div class="song-string">' + padLeft(item.id, 3) + ',' + item.id + ',' + item.title.toLowerCase() + ',' + item.desc.toLowerCase() + ',' + item.author_name.toLowerCase() + '\
     </div>\
     <div class="song-content">\
@@ -49,6 +53,9 @@ $(function() {
     var display, i, item, songWaveform, waveform, _i, _len, _ref, _results;
 
     xx(r);
+    r = r.slice().sort(function(a, b) {
+      return a.id - b.id;
+    });
     window.list = r;
     window.loading = true;
     $('.song-list').addClass('loading');
@@ -110,16 +117,51 @@ $(function() {
       return $('.list-more-song').remove();
     }
   });
-  return $('body').delegate('.search-string', 'keyup', function() {
+  $('body').delegate('.search-string', 'keydown', function() {
+    return countdown = Date.now();
+  });
+  $('body').delegate('.search-string', 'keyup', function() {
     var filter;
 
-    filter = $(this).val();
-    if (filter) {
-      $('body').addClass('searching');
-      return songFilter(filter.toLowerCase());
-    } else {
-      $('body').removeClass('searching');
-      return $('.song-list li').show();
+    filter = ($(this).val()).toLowerCase();
+    return setTimeout((function() {
+      currentTime = Date.now();
+      if (currentTime - countdown >= 490) {
+        $('.no-result-container').removeClass('on');
+        if (filter) {
+          $('body').addClass('searching');
+          songFilter(filter);
+        } else {
+          $('body').removeClass('searching');
+          $('.song-list li').show();
+        }
+        return setInterval((function() {
+          if ($('.song-list li').filter(':visible').size() === 0) {
+            return $('.no-result-container').addClass('on');
+          }
+        }), 500);
+      }
+    }), 500);
+  });
+  return $('body').delegate('#listSorting', 'change', function() {
+    var value;
+
+    value = parseInt($(this).val());
+    if (value === 1) {
+      return tinysort('ul.song-list>li', {
+        data: 'id',
+        order: 'asc'
+      });
+    } else if (value === 2) {
+      return tinysort('ul.song-list>li', {
+        data: 'id',
+        order: 'desc'
+      });
+    } else if (value === 3) {
+      return tinysort('ul.song-list>li', {
+        data: 'vote',
+        order: 'desc'
+      });
     }
   });
 });

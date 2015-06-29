@@ -4,7 +4,9 @@
 window.pageName = 'list'
 window.list = []
 window.pageNumber = 1
-window.perPage = 5
+window.perPage = 150
+countdown = Date.now()
+currentTime = Date.now()
 
 #################################
 # Function
@@ -18,7 +20,7 @@ songFilter = (filter) ->
 # Html pattern
 #################################
 $songItem = (item,display) ->
-  '<li class="song-item song-item-'+item.id+display+'">
+  '<li class="song-item song-item-'+item.id+display+'" data-id="'+item.id+'" data-vote="'+item.vote_count+'">
     <div class="song-string">' +
       padLeft(item.id,3) + ','+
       item.id + ','+
@@ -59,6 +61,8 @@ $songItem = (item,display) ->
 $ ->
   $.getJSON 'http://api.staging.iing.tw/soundclouds.json?token=8888', (r) ->
     xx r
+    r = r.slice().sort (a, b) ->
+      return a.id - b.id
     window.list = r
     window.loading = true
     $('.song-list').addClass 'loading'
@@ -99,15 +103,36 @@ $ ->
       $('.song-item:eq('+i+')').removeClass 'hide'
       i++
     window.pageNumber++
-
     if $('.song-item.hide').length is 0
       $('.list-more-song').remove()
 
+  $('body').delegate '.search-string', 'keydown', ->
+    countdown = Date.now()
+
   $('body').delegate '.search-string', 'keyup', ->
-    filter = $(this).val()
-    if filter
-      $('body').addClass 'searching'
-      songFilter filter.toLowerCase()
-    else
-      $('body').removeClass 'searching'
-      $('.song-list li').show()
+    filter = ($(this).val()).toLowerCase()
+    setTimeout (->
+      currentTime = Date.now()
+      if currentTime - countdown >= 490
+        $('.no-result-container').removeClass 'on'
+        if filter
+          $('body').addClass 'searching'
+          songFilter filter
+        else
+          $('body').removeClass 'searching'
+          $('.song-list li').show()
+
+        setInterval (->
+          if $('.song-list li').filter(':visible').size() is 0
+            $('.no-result-container').addClass 'on'
+        ), 500
+    ), 500
+
+  $('body').delegate '#listSorting', 'change', ->
+    value = parseInt($(this).val())
+    if value is 1
+      tinysort('ul.song-list>li',{data:'id',order:'asc'})
+    else if value is 2
+      tinysort('ul.song-list>li',{data:'id',order:'desc'})
+    else if value is 3
+      tinysort('ul.song-list>li',{data:'vote',order:'desc'})

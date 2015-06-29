@@ -3800,6 +3800,7 @@ body {
   text-align: center;
   max-width: 320px;
   margin: 0 auto;
+  -webkit-animation: fadein 7s;
 }
 .search-bar * {
   display: inline-block;
@@ -4046,6 +4047,20 @@ body {
 }
 .searching .list-more-song {
   display: none;
+}
+
+.no-result-container {
+  width: 100%;
+  text-align: center;
+  margin-top: 48px;
+  display: none;
+}
+.no-result-container.on {
+  display: block;
+}
+.no-result-container h2 {
+  font-size: 20px;
+  line-height: 36px;
 }
 
 .song-player-container {

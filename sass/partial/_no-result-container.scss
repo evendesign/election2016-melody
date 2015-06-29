@@ -1,0 +1,14 @@
+.no-result-container {
+  width: 100%;
+  text-align: center;
+  @include leader(2);
+  display: none;
+
+  &.on {
+    display: block;
+  }
+
+  h2 {
+    @include adjust-font-size-to(20px, 1.5);
+  }
+}
