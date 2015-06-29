@@ -47,10 +47,10 @@
       }
 
       &:hover {
-        background-color: #70A656;
+        background-color: #A7CD6B;
 
         &:after {
-          border-color: transparent transparent transparent #70A656;
+          border-color: transparent transparent transparent #A7CD6B;
         }
       }
 
@@ -67,7 +67,7 @@
 
     .vote-count {
       color: white;
-      background: #E7574D;
+      background: #E65E50;
       padding: 0 20px 0 34px;
       @include border-right-radius(6px);
 
