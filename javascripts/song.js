@@ -18,7 +18,7 @@ $(function() {
   song_no = explode[4];
   if (typeof song_no !== 'undefined' && parseInt(song_no) > 0) {
     id = parseInt(song_no);
-    return $.getJSON('http://api.iing.tw/soundclouds/' + id + '.json?token=8888', function(item) {
+    return $.getJSON('http://api.staging.iing.tw/soundclouds/' + id + '.json?token=8888', function(item) {
       var songWaveform, waveform;
 
       $('.song-title').text(item.title);

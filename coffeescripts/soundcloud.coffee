@@ -51,7 +51,7 @@ waveformStringToArray = (str) ->
 #     data:
 #       facebook_token: facebook_token
 #       soundcloud_id: soundcloud_id
-#     url: 'http://api.iing.tw/vote_check.json'
+#     url: 'http://api.staging.iing.tw/vote_check.json'
 #     success: (response) ->
 #       if response.message is true
 #         vote(facebook_token,soundcloud_id)
@@ -66,7 +66,7 @@ waveformStringToArray = (str) ->
 #     data:
 #       facebook_token: facebook_token
 #       soundcloud_id: soundcloud_id
-#     url: 'http://api.iing.tw/vote.json'
+#     url: 'http://api.staging.iing.tw/vote.json'
 #     success: (response) ->
 #       xx response
 
@@ -133,7 +133,7 @@ syncWaveform = (id,token,data) ->
       id: id
       token: token
       data: data.toString()
-    url: 'http://api.iing.tw/sync_waveform.json'
+    url: 'http://api.staging.iing.tw/sync_waveform.json'
     success: (response) ->
       xx response
 

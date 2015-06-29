@@ -1,48 +1,92 @@
 .song-tool-buttons {
   text-align: center;
 
-  * {
-    height: 50px;
-    line-height: 50px;
+
+  *,
+  .vote-button-container * {
+    @include adjust-font-size-to(18px, 1);
+    height: 35px;
+    line-height: 35px;
     display: inline-block;
     border: none;
     outline: none;
     padding: 0;
     margin: 0;
-    margin-right: 5px;
+    margin-right: 0;
     background: none;
     text-align: center;
     color: white;
     vertical-align: top;
-    @include adjust-font-size-to(18px, 1);
-    @include border-radius(6px);
-
-    &:last-child {
-      margin-right: 0;
-    }
   }
 
-  .vote-button {
-    width: 170px;
-    background-color: #68C75B;
+  .vote-button-container {
+    float: right;
 
-    &:hover {
-      background-color: #70A656;
+    * {
+      float: left;
     }
 
-    &.done,
-    &.done:hover {
-      background-color: #EAEAEA;
-      color: #A2A8B3;
+    .vote-button {
+      width: 140px;
+      background-color: #46B37F;
+      @include border-left-radius(6px);
+      margin-right: -6px;
+      position: relative;
+
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        right: -14px;
+        top: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 17.5px 0 17.5px 14px;
+        border-color: transparent transparent transparent #46B37F;
+      }
+
+      &:hover {
+        background-color: #70A656;
+
+        &:after {
+          border-color: transparent transparent transparent #70A656;
+        }
+      }
+
+      &.done,
+      &.done:hover {
+        background-color: #EAEAEA;
+        color: #A2A8B3;
+
+        &:after {
+          border-color: transparent transparent transparent #EAEAEA;
+        }
+      }
+    }
+
+    .vote-count {
+      color: white;
+      background: #E7574D;
+      padding: 0 20px 0 34px;
+      @include border-right-radius(6px);
+
+      float: left;
     }
   }
 
   .fb-share {
-    width: 90px;
-    background-color: #71CDAA;
+    width: 60px;
+    background: none;
+    border: 2px solid #51BE91;
+    color: #51BE91;
+    line-height: 1;
+    margin: 0 30px;
+    @include border-radius(6px);
 
     &:hover {
       background-color: #50B584;
+      color: white;
     }
   }
 
@@ -56,22 +100,28 @@
   }
 
   .song-list & {
-    width: 120px;
     float: left;
-
-    .fb-share {
-      width: 60px;
-      height: 35px;
-      line-height: 1;
-      background: none;
-      border: 2px solid #51BE91;
-      color: #51BE91;
-      margin-top: rhythm(.5);
-    }
   }
 
   @include at-breakpoint($desktop) {
     position: absolute;
+
+    .vote-button-container {
+      float: initial;
+
+      * {
+        float: left;
+      }
+      .vote-button {
+        width: 150px;
+      }
+    }
+
+    .fb-share {
+      width: 90px;
+      margin: 0;
+      margin-left: 10px;
+    }
 
     .song-item & {
       top: 0;
@@ -91,23 +141,8 @@
       }
     }
 
-    * {
-      margin-right: rhythm(.5);
-    }
-
     .song-list & {
-      width: initial;
       float: initial;
-
-      .fb-share {
-        width: 90px;
-        height: 50px;
-        line-height: 50px;
-        background-color: #71CDAA;
-        border: none;
-        color: white;
-        margin-top: 0;
-      }
     }
   }
 

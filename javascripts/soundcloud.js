@@ -132,7 +132,7 @@ syncWaveform = function(id, token, data) {
       token: token,
       data: data.toString()
     },
-    url: 'http://api.iing.tw/sync_waveform.json',
+    url: 'http://api.staging.iing.tw/sync_waveform.json',
     success: function(response) {
       return xx(response);
     }

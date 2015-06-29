@@ -25,7 +25,7 @@ $ ->
   if typeof song_no isnt 'undefined' and parseInt(song_no) > 0
     id = parseInt(song_no)
 
-    $.getJSON 'http://api.iing.tw/soundclouds/'+id+'.json?token=8888', (item) ->
+    $.getJSON 'http://api.staging.iing.tw/soundclouds/'+id+'.json?token=8888', (item) ->
       $('.song-title').text item.title
       $('.song-artist').text item.author_name
       $('.song-number').text padLeft(item.id,3)
