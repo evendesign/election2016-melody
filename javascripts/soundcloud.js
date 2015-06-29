@@ -1,4 +1,4 @@
-var createWaveform, getUrlVars, isMobile, nl2br, padLeft, soundManager, soundTrack, syncWaveform, waveformStringToArray;
+var createWaveform, getUrlVars, isMobile, nl2br, padLeft, soundManager, soundTrack, syncWaveform, vote, voteCheck, waveformStringToArray;
 
 SC.initialize({
   client_id: 'd2f7da453051d648ae2f3e9ffbd4f69b'
@@ -53,6 +53,49 @@ nl2br = function(str, is_xhtml) {
 
 waveformStringToArray = function(str) {
   return str.split(',').map(Number);
+};
+
+voteCheck = function(facebook_token, soundcloud_id) {
+  return $.ajax({
+    type: 'post',
+    dataType: 'json',
+    cache: false,
+    data: {
+      facebook_token: facebook_token,
+      soundcloud_id: soundcloud_id
+    },
+    url: 'http://api.staging.iing.tw/vote_check.json',
+    success: function(response) {
+      xx(response);
+      if (response.message === true) {
+        xx('true');
+        return vote(facebook_token, soundcloud_id);
+      } else {
+        return alert('您已完成投票（每人 每日 每首歌 限投乙次）');
+      }
+    }
+  });
+};
+
+vote = function(facebook_token, soundcloud_id) {
+  xx(facebook_token);
+  xx(soundcloud_id);
+  return $.ajax({
+    type: 'post',
+    dataType: 'json',
+    cache: false,
+    data: {
+      facebook_token: facebook_token,
+      soundcloud_id: soundcloud_id
+    },
+    url: 'http://api.staging.iing.tw/votes.json',
+    success: function(r) {
+      xx(r);
+      if (r.message === 'success') {
+        return $('.song-item-' + soundcloud_id + ' .vote-count').text(r.vote_count + ' 票');
+      }
+    }
+  });
 };
 
 createWaveform = function(id, track_id, waveform, selector) {
@@ -147,6 +190,30 @@ $(function() {
   if (parseInt(window.getVars['loop']) === 1) {
     window.autoLoop = true;
   }
+  $('body').delegate('.vote-button', 'click', function() {
+    var soundcloud_id;
+
+    soundcloud_id = $(this).data('id');
+    return FB.getLoginStatus(function(response) {
+      var facebook_token;
+
+      if (response.status === 'connected') {
+        facebook_token = response.authResponse.accessToken;
+        return voteCheck(facebook_token, soundcloud_id);
+      } else {
+        return FB.login((function(response) {
+          if (response.status === 'connected') {
+            facebook_token = response.authResponse.accessToken;
+            return voteCheck(facebook_token, soundcloud_id);
+          } else {
+            return xx('Login failed');
+          }
+        }), {
+          return_scopes: true
+        });
+      }
+    });
+  });
   $('body').delegate('.play-button', 'click', function() {
     var playSong, sid, _this;
 

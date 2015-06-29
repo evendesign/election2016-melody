@@ -16,7 +16,6 @@ xx = (x) ->
 # Document events
 #################################
 $ ->
-
   $('body').delegate '.header-nav-button', 'click', ->
     if $('.header-nav').hasClass('off')
       $('.header-nav').addClass('on').removeClass('off')

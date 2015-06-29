@@ -41,34 +41,38 @@ nl2br = (str, is_xhtml) ->
 waveformStringToArray = (str) ->
   str.split(',').map(Number)
 
-# voteCheck = (facebook_token,soundcloud_id)->
-#   xx facebook_token
-#   xx soundcloud_id
-#   $.ajax
-#     type: 'post'
-#     dataType: 'json'
-#     cache: false
-#     data:
-#       facebook_token: facebook_token
-#       soundcloud_id: soundcloud_id
-#     url: 'http://api.staging.iing.tw/vote_check.json'
-#     success: (response) ->
-#       if response.message is true
-#         vote(facebook_token,soundcloud_id)
-#       else
-#         alert '您已完成投票（每人每日每首歌可投票乙次）'
+voteCheck = (facebook_token,soundcloud_id)->
+  $.ajax
+    type: 'post'
+    dataType: 'json'
+    cache: false
+    data:
+      facebook_token: facebook_token
+      soundcloud_id: soundcloud_id
+    url: 'http://api.staging.iing.tw/vote_check.json'
+    success: (response) ->
+      xx response
+      if response.message is true
+        xx 'true'
+        vote(facebook_token,soundcloud_id)
+      else
+        alert '您已完成投票（每人 每日 每首歌 限投乙次）'
 
-# vote = (facebook_token,soundcloud_id)->
-#   $.ajax
-#     type: 'post'
-#     dataType: 'json'
-#     cache: false
-#     data:
-#       facebook_token: facebook_token
-#       soundcloud_id: soundcloud_id
-#     url: 'http://api.staging.iing.tw/vote.json'
-#     success: (response) ->
-#       xx response
+vote = (facebook_token,soundcloud_id)->
+  xx facebook_token
+  xx soundcloud_id
+  $.ajax
+    type: 'post'
+    dataType: 'json'
+    cache: false
+    data:
+      facebook_token: facebook_token
+      soundcloud_id: soundcloud_id
+    url: 'http://api.staging.iing.tw/votes.json'
+    success: (r) ->
+      xx r
+      if r.message is 'success'
+        $('.song-item-'+soundcloud_id+' .vote-count').text(r.vote_count+' 票')
 
 createWaveform = (id,track_id,waveform,selector) ->
   SC.get '/tracks/'+track_id, (track) ->
@@ -149,21 +153,21 @@ $ ->
   if parseInt(window.getVars['loop']) is 1
     window.autoLoop = true
 
-  # $('body').delegate '.vote-button', 'click', ->
-  #   soundcloud_id = $(this).data('id')
-  #   FB.getLoginStatus (response) ->
-  #     if response.status is 'connected'
-  #       facebook_token = response.authResponse.accessToken
-  #       voteCheck(facebook_token,soundcloud_id)
-  #     else
-  #       FB.login ((response) ->
-  #         if response.status is 'connected'
-  #           facebook_token = response.authResponse.accessToken
-  #           voteCheck(facebook_token,soundcloud_id)
-  #         else
-  #           xx 'Login failed'
-  #       ),
-  #         return_scopes: true
+  $('body').delegate '.vote-button', 'click', ->
+    soundcloud_id = $(this).data('id')
+    FB.getLoginStatus (response) ->
+      if response.status is 'connected'
+        facebook_token = response.authResponse.accessToken
+        voteCheck(facebook_token,soundcloud_id)
+      else
+        FB.login ((response) ->
+          if response.status is 'connected'
+            facebook_token = response.authResponse.accessToken
+            voteCheck(facebook_token,soundcloud_id)
+          else
+            xx 'Login failed'
+        ),
+          return_scopes: true
 
 
   $('body').delegate '.play-button', 'click', ->

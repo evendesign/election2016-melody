@@ -111,7 +111,7 @@
     float: left;
   }
 
-  @include at-breakpoint($pad) {
+  @include at-breakpoint($desktop) {
 
     .vote-button-container {
       float: initial;

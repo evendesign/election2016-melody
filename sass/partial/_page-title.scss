@@ -79,7 +79,7 @@
     }
 
     &.list {
-      background-position: 120% 55%;
+      background-position: 200% 0%;
     }
 
     &.song {
@@ -108,8 +108,13 @@
   }
 
   @include at-breakpoint($desktop) {
+
     &.song {
       height: 185px;
+    }
+
+    &.list {
+      background-position: 120% 55%;
     }
   }
 }
