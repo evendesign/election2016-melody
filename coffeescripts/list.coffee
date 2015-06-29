@@ -47,7 +47,7 @@ $songItem = (item,display) ->
     </div>
     <div class="song-tool-buttons">
       <div class="vote-button-container">
-        <button class="vote-button" type="button" data-id="'+item.id+'">投他一票</button>
+        <button class="vote-button" type="button" data-id="'+item.id+'"><i class="icon-vote"></i>投他一票</button>
         <div class="vote-count">'+item.vote_count+' 票</div>
       </div>
       <button class="fb-share" type="button" data-href="https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/'+item.id+'">分享</button>

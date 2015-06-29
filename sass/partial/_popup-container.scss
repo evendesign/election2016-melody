@@ -1,0 +1,82 @@
+.popup-container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,.6);
+  z-index: 2000;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+  display: none;
+
+  &.on {
+    display: table;
+  }
+
+  .popup-dialog {
+    display:table-cell;
+    vertical-align:middle;
+
+    .popup-dialog-inner {
+      width: 320px;
+      background: white;
+      border: 6px solid #2BB179;
+      padding: rhythm(1) 0;
+      margin: 0 auto;
+
+      h2 {
+        @include adjust-font-size-to(24px, 1);
+        font-weight: 900;
+        padding: 0;
+        margin: 0;
+        @include trailer(.25);
+      }
+
+      p {
+        margin: 0;
+        @include trailer(.5);
+      }
+
+      .close-popup {
+        border: none;
+        outline: none;
+        background: none;
+        border-bottom: 2px solid #999;
+        padding: 0;
+        text-align: center;
+        margin-top: 10px;
+        @include adjust-font-size-to(14px, 1);
+      }
+    }
+  }
+
+  [class^="icon-"] {
+    display: inline-block;
+    @include trailer(.5);
+  }
+
+  .icon-error {
+    @include replace-text-with-svg(popup-icon);
+  }
+
+  .icon-alarm {
+    @include replace-text-with-svg(popup-icon2);
+  }
+
+  .icon-success {
+    @include replace-text-with-svg(popup-icon3);
+  }
+
+  @include at-breakpoint($desktop) {
+
+    .popup-dialog {
+      .popup-dialog-inner {
+        width: 400px;
+      }
+    }
+
+  }
+
+}

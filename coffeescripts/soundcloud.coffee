@@ -11,6 +11,37 @@ window.isDesktop = true
 
 
 #################################
+# Html pattern
+#################################
+$popupAlarmContent = (id) ->
+  '<i class="icon-alarm"></i>
+  <h2>咦，你今天已經投過囉！</h2>
+  <p>每天可以對任一首歌投票一次</p>
+  <a class="btn btn_primary" href="https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/'+id+'" target="_blank">分享拉票</a><br>
+  <button type="button" class="close-popup">關閉視窗</button>'
+
+$popupSuccessContent = (id) ->
+  '<i class="icon-success"></i>
+  <h2>恭喜你完成投票！</h2>
+  <p>是否將投票的好歌曲分享到臉書？</p>
+  <a class="btn btn_primary" href="https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/'+id+'" target="_blank">分享拉票</a><br>
+  <button type="button" class="close-popup">關閉視窗</button>'
+
+$popupErrorContent = ->
+  '<i class="icon-error"></i>
+  <h2>糟糕！投票失敗...</h2>
+  <p>請嘗試重新整理頁面</p>
+  <button class="btn btn_primary" type="button">再試一次</button><br>
+  <button type="button" class="close-popup">關閉視窗</button>'
+
+$popupLoginErrorContent = ->
+  '<i class="icon-error"></i>
+  <h2>糟糕！登入失敗...</h2>
+  <p>請嘗試重新整理頁面</p>
+  <button class="btn btn_primary" type="button">再試一次</button><br>
+  <button type="button" class="close-popup">關閉視窗</button>'
+
+#################################
 # Function
 #################################
 isMobile = ->
@@ -51,12 +82,13 @@ voteCheck = (facebook_token,soundcloud_id)->
       soundcloud_id: soundcloud_id
     url: 'http://api.staging.iing.tw/vote_check.json'
     success: (response) ->
-      xx response
       if response.message is true
-        xx 'true'
         vote(facebook_token,soundcloud_id)
       else
-        alert '您已完成投票（每人 每日 每首歌 限投乙次）'
+        html = $popupAlarmContent soundcloud_id
+        $('.popup-dialog-inner').html html
+        $('.popup-container').addClass 'on'
+
 
 vote = (facebook_token,soundcloud_id)->
   xx facebook_token
@@ -72,7 +104,15 @@ vote = (facebook_token,soundcloud_id)->
     success: (r) ->
       xx r
       if r.message is 'success'
+        html = $popupSuccessContent soundcloud_id
+        showPopup html
         $('.song-item-'+soundcloud_id+' .vote-count').text(r.vote_count+' 票')
+      else
+        showPopup $popupErrorContent()
+
+showPopup = (html) ->
+  $('.popup-dialog-inner').html html
+  $('.popup-container').addClass 'on'
 
 createWaveform = (id,track_id,waveform,selector) ->
   SC.get '/tracks/'+track_id, (track) ->
@@ -165,7 +205,7 @@ $ ->
             facebook_token = response.authResponse.accessToken
             voteCheck(facebook_token,soundcloud_id)
           else
-            xx 'Login failed'
+            showPopup $popupLoginErrorContent()
         ),
           return_scopes: true
 
@@ -191,7 +231,6 @@ $ ->
           element.removeClass 'loading'
           element.removeClass 'play-button'
         onfinish: ->
-          xx 'song finish'
           if window.autoLoop
             playSong(element,sid)
           else
@@ -219,3 +258,11 @@ $ ->
     position = (e.pageX - $(this).offset().left) / $(this).width()
     target = Math.floor(duration*position)
     soundManager.setPosition(sid,target)
+
+  $('body').delegate '.close-popup', 'click', ->
+    $('.popup-container').removeClass 'on'
+
+  $(document).mouseup (e) ->
+    container = $('.popup-dialog-inner')
+    if !container.is(e.target) and container.has(e.target).length == 0
+      $('.popup-container').removeClass 'on'

@@ -1,4 +1,4 @@
-var createWaveform, getUrlVars, isMobile, nl2br, padLeft, soundManager, soundTrack, syncWaveform, vote, voteCheck, waveformStringToArray;
+var $popupAlarmContent, $popupErrorContent, $popupLoginErrorContent, $popupSuccessContent, createWaveform, getUrlVars, isMobile, nl2br, padLeft, showPopup, soundManager, soundTrack, syncWaveform, vote, voteCheck, waveformStringToArray;
 
 SC.initialize({
   client_id: 'd2f7da453051d648ae2f3e9ffbd4f69b'
@@ -15,6 +15,38 @@ window.autoLoop = false;
 window.autoPlay = false;
 
 window.isDesktop = true;
+
+$popupAlarmContent = function(id) {
+  return '<i class="icon-alarm"></i>\
+  <h2>咦，你今天已經投過囉！</h2>\
+  <p>每天可以對任一首歌投票一次</p>\
+  <a class="btn btn_primary" href="https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/' + id + '" target="_blank">分享拉票</a><br>\
+  <button type="button" class="close-popup">關閉視窗</button>';
+};
+
+$popupSuccessContent = function(id) {
+  return '<i class="icon-success"></i>\
+  <h2>恭喜你完成投票！</h2>\
+  <p>是否將投票的好歌曲分享到臉書？</p>\
+  <a class="btn btn_primary" href="https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/' + id + '" target="_blank">分享拉票</a><br>\
+  <button type="button" class="close-popup">關閉視窗</button>';
+};
+
+$popupErrorContent = function() {
+  return '<i class="icon-error"></i>\
+  <h2>糟糕！投票失敗...</h2>\
+  <p>請嘗試重新整理頁面</p>\
+  <button class="btn btn_primary" type="button">再試一次</button><br>\
+  <button type="button" class="close-popup">關閉視窗</button>';
+};
+
+$popupLoginErrorContent = function() {
+  return '<i class="icon-error"></i>\
+  <h2>糟糕！登入失敗...</h2>\
+  <p>請嘗試重新整理頁面</p>\
+  <button class="btn btn_primary" type="button">再試一次</button><br>\
+  <button type="button" class="close-popup">關閉視窗</button>';
+};
 
 isMobile = function() {
   return navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/BlackBerry/);
@@ -66,12 +98,14 @@ voteCheck = function(facebook_token, soundcloud_id) {
     },
     url: 'http://api.staging.iing.tw/vote_check.json',
     success: function(response) {
-      xx(response);
+      var html;
+
       if (response.message === true) {
-        xx('true');
         return vote(facebook_token, soundcloud_id);
       } else {
-        return alert('您已完成投票（每人 每日 每首歌 限投乙次）');
+        html = $popupAlarmContent(soundcloud_id);
+        $('.popup-dialog-inner').html(html);
+        return $('.popup-container').addClass('on');
       }
     }
   });
@@ -90,12 +124,23 @@ vote = function(facebook_token, soundcloud_id) {
     },
     url: 'http://api.staging.iing.tw/votes.json',
     success: function(r) {
+      var html;
+
       xx(r);
       if (r.message === 'success') {
+        html = $popupSuccessContent(soundcloud_id);
+        showPopup(html);
         return $('.song-item-' + soundcloud_id + ' .vote-count').text(r.vote_count + ' 票');
+      } else {
+        return showPopup($popupErrorContent());
       }
     }
   });
+};
+
+showPopup = function(html) {
+  $('.popup-dialog-inner').html(html);
+  return $('.popup-container').addClass('on');
 };
 
 createWaveform = function(id, track_id, waveform, selector) {
@@ -206,7 +251,7 @@ $(function() {
             facebook_token = response.authResponse.accessToken;
             return voteCheck(facebook_token, soundcloud_id);
           } else {
-            return xx('Login failed');
+            return showPopup($popupLoginErrorContent());
           }
         }), {
           return_scopes: true
@@ -238,7 +283,6 @@ $(function() {
           return element.removeClass('play-button');
         },
         onfinish: function() {
-          xx('song finish');
           if (window.autoLoop) {
             return playSong(element, sid);
           } else {
@@ -261,7 +305,7 @@ $(function() {
     href = $(this).data('href');
     return window.open(href);
   });
-  return $('body').delegate('.waveform', 'click', function(e) {
+  $('body').delegate('.waveform', 'click', function(e) {
     var button, currentTrack, duration, position, sid, target, trackid;
 
     button = $(this).parents('.song-player').find('button');
@@ -272,5 +316,16 @@ $(function() {
     position = (e.pageX - $(this).offset().left) / $(this).width();
     target = Math.floor(duration * position);
     return soundManager.setPosition(sid, target);
+  });
+  $('body').delegate('.close-popup', 'click', function() {
+    return $('.popup-container').removeClass('on');
+  });
+  return $(document).mouseup(function(e) {
+    var container;
+
+    container = $('.popup-dialog-inner');
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+      return $('.popup-container').removeClass('on');
+    }
   });
 });
