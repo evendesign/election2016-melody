@@ -105,7 +105,7 @@ voteCheck = function(facebook_token, soundcloud_id) {
       facebook_token: facebook_token,
       soundcloud_id: soundcloud_id
     },
-    url: '//api.staging.iing.tw/vote_check.json',
+    url: '//api.iing.tw/vote_check.json',
     error: function(response) {
       return showPopup($popup400ErrorContent());
     },
@@ -131,7 +131,7 @@ vote = function(facebook_token, soundcloud_id) {
       facebook_token: facebook_token,
       soundcloud_id: soundcloud_id
     },
-    url: '//api.staging.iing.tw/votes.json',
+    url: '//api.iing.tw/votes.json',
     success: function(r) {
       xx(r);
       if (r.message === 'success') {
