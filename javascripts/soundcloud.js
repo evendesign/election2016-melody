@@ -14,6 +14,8 @@ window.autoLoop = false;
 
 window.autoPlay = false;
 
+window.shuffle = false;
+
 window.isDesktop = true;
 
 $popupAlarmContent = function(id) {
@@ -194,32 +196,36 @@ createWaveform = function(id, track_id, waveform, selector) {
 
       $(selector + ' .play-button').attr('data-sid', s.sID);
       sound = s;
-      if (window.autoPlay === true && window.isDesktop === true) {
-        xx('auto play');
-        playSong = function(element, sid) {
-          return soundManager.play(sid, {
-            onplay: function() {
-              element.addClass('pause-button');
-              element.removeClass('loading');
-              return element.removeClass('play-button');
-            },
-            onresume: function() {
-              element.addClass('pause-button');
-              element.removeClass('loading');
-              return element.removeClass('play-button');
-            },
-            onfinish: function() {
-              xx('song finish');
-              if (window.autoLoop) {
-                return playSong(element, sid);
-              } else {
-                element.addClass('play-button');
-                return element.removeClass('pause-button');
+      if (window.isDesktop) {
+        if (window.autoPlay || window.shuffle) {
+          xx('auto play');
+          playSong = function(element, sid) {
+            return soundManager.play(sid, {
+              onplay: function() {
+                element.addClass('pause-button');
+                element.removeClass('loading');
+                return element.removeClass('play-button');
+              },
+              onresume: function() {
+                element.addClass('pause-button');
+                element.removeClass('loading');
+                return element.removeClass('play-button');
+              },
+              onfinish: function() {
+                xx('song finish');
+                if (window.autoLoop) {
+                  return playSong(element, sid);
+                } else if (window.shuffle && window.pageName === 'song') {
+                  return window.location = $('#nextSong').attr('href') + '?shuffle=1';
+                } else {
+                  element.addClass('play-button');
+                  return element.removeClass('pause-button');
+                }
               }
-            }
-          });
-        };
-        return playSong($('.play-button'), s.sID);
+            });
+          };
+          return playSong($('.play-button'), s.sID);
+        }
       }
     });
   });
@@ -249,6 +255,9 @@ $(function() {
   window.getVars = getUrlVars();
   if (parseInt(window.getVars['loop']) === 1) {
     window.autoLoop = true;
+  }
+  if (parseInt(window.getVars['shuffle']) === 1) {
+    window.shuffle = true;
   }
   $('body').delegate('.vote-button', 'click', function() {
     var soundcloud_id;

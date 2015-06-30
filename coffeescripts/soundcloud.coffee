@@ -7,6 +7,7 @@ soundTrack = []
 window.getVars = []
 window.autoLoop = false
 window.autoPlay = false
+window.shuffle = false
 window.isDesktop = true
 
 
@@ -159,26 +160,29 @@ createWaveform = (id,track_id,waveform,selector) ->
     }, (s) ->
       $(selector+' .play-button').attr('data-sid',s.sID)
       sound = s
-      if window.autoPlay is true and window.isDesktop is true
-        xx 'auto play'
-        playSong = (element,sid) ->
-          soundManager.play sid,
-            onplay: ->
-              element.addClass 'pause-button'
-              element.removeClass 'loading'
-              element.removeClass 'play-button'
-            onresume: ->
-              element.addClass 'pause-button'
-              element.removeClass 'loading'
-              element.removeClass 'play-button'
-            onfinish: ->
-              xx 'song finish'
-              if window.autoLoop
-                playSong(element,sid)
-              else
-                element.addClass 'play-button'
-                element.removeClass 'pause-button'
-        playSong($('.play-button'), s.sID)
+      if window.isDesktop
+        if window.autoPlay or window.shuffle
+          xx 'auto play'
+          playSong = (element,sid) ->
+            soundManager.play sid,
+              onplay: ->
+                element.addClass 'pause-button'
+                element.removeClass 'loading'
+                element.removeClass 'play-button'
+              onresume: ->
+                element.addClass 'pause-button'
+                element.removeClass 'loading'
+                element.removeClass 'play-button'
+              onfinish: ->
+                xx 'song finish'
+                if window.autoLoop
+                  playSong(element,sid)
+                else if window.shuffle and window.pageName is 'song'
+                  window.location = $('#nextSong').attr('href') + '?shuffle=1'
+                else
+                  element.addClass 'play-button'
+                  element.removeClass 'pause-button'
+          playSong($('.play-button'), s.sID)
 
 
 syncWaveform = (id,token,data) ->
@@ -205,6 +209,9 @@ $ ->
   window.getVars = getUrlVars()
   if parseInt(window.getVars['loop']) is 1
     window.autoLoop = true
+
+  if parseInt(window.getVars['shuffle']) is 1
+    window.shuffle = true
 
   $('body').delegate '.vote-button', 'click', ->
     soundcloud_id = $(this).data('id')
