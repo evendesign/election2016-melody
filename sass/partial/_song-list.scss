@@ -177,19 +177,3 @@
   }
 
 }
-
-.list-more-song {
-  width: 100%;
-  text-align: center;
-  @include animation('fadein 7s');
-
-  .btn {
-    height: 50px;
-    line-height: 50px;
-    min-width: 150px;
-  }
-
-  .searching & {
-    display: none;
-  }
-}

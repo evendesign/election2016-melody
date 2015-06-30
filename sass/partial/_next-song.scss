@@ -2,7 +2,7 @@
   position: relative;
   z-index: 10;
 }
-.next-song, .go-to-list {
+.list-more-song, .next-song, .go-to-list {
   text-align: center;
   margin: 0 auto rhythm(2) auto;
 
@@ -29,6 +29,14 @@
       width: initial;
       @include border-radius(3px);
     }
+  }
+}
+
+.list-more-song {
+  // @include animation('fadein 7s');
+
+  .searching & {
+    display: none;
   }
 }
 

@@ -4,7 +4,8 @@
 window.pageName = 'list'
 window.list = []
 window.pageNumber = 1
-window.perPage = 50
+window.perPage = 20
+window.append = false
 countdown = Date.now()
 currentTime = Date.now()
 
@@ -106,6 +107,20 @@ $ ->
     window.pageNumber++
     if $('.song-item.hide').length is 0
       $('.list-more-song').remove()
+
+  $(window).scroll (event) ->
+    scroll = $(window).scrollTop()
+    height = $(document).height()
+    if scroll > height * 0.8 and window.append is false and $('.list-more-song').length > 0
+      window.append = true
+      i = window.pageNumber * window.perPage
+      while i < (window.pageNumber+1) * window.perPage
+        $('.song-item:eq('+i+')').removeClass 'hide'
+        i++
+      window.append = false
+      window.pageNumber++
+      if $('.song-item.hide').length is 0
+        $('.list-more-song').remove()
 
   $('body').delegate '.search-string', 'keydown', ->
     countdown = Date.now()
