@@ -17,14 +17,14 @@ $popupAlarmContent = (id) ->
   '<i class="icon-alarm"></i>
   <h2>咦，你今天已經投過囉！</h2>
   <p>每天可以對任一首歌投票一次</p>
-  <a class="btn btn_primary" href="https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/'+id+'" target="_blank">分享拉票</a><br>
+  <a class="btn btn_primary" href="https://www.facebook.com/sharer/sharer.php?u=//melody.iing.tw/song/'+id+'" target="_blank">分享拉票</a><br>
   <button type="button" class="close-popup">關閉視窗</button>'
 
 $popupSuccessContent = (id) ->
   '<i class="icon-success"></i>
   <h2>恭喜你完成投票！</h2>
   <p>是否將投票的好歌曲分享到臉書？</p>
-  <a class="btn btn_primary" href="https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/'+id+'" target="_blank">分享拉票</a><br>
+  <a class="btn btn_primary" href="https://www.facebook.com/sharer/sharer.php?u=//melody.iing.tw/song/'+id+'" target="_blank">分享拉票</a><br>
   <button type="button" class="close-popup">關閉視窗</button>'
 
 $popupErrorContent = ->
@@ -32,6 +32,12 @@ $popupErrorContent = ->
   <h2>糟糕！投票失敗...</h2>
   <p>請嘗試重新整理頁面</p>
   <button class="btn btn_primary" type="button">再試一次</button><br>
+  <button type="button" class="close-popup">關閉視窗</button>'
+
+$popup400ErrorContent = ->
+  '<i class="icon-error"></i>
+  <h2>嘿，投票還沒開始唷...</h2>
+  <p>投票時間 7/2 10:00 ～ 7/6 23:59</p>
   <button type="button" class="close-popup">關閉視窗</button>'
 
 $popupLoginErrorContent = ->
@@ -80,15 +86,15 @@ voteCheck = (facebook_token,soundcloud_id)->
     data:
       facebook_token: facebook_token
       soundcloud_id: soundcloud_id
-    url: 'http://api.staging.iing.tw/vote_check.json'
+    url: '//api.staging.iing.tw/vote_check.json'
+    error: (response) ->
+      showPopup $popup400ErrorContent()
     success: (response) ->
       if response.message is true
         vote(facebook_token,soundcloud_id)
       else
-        html = $popupAlarmContent soundcloud_id
-        $('.popup-dialog-inner').html html
-        $('.popup-container').addClass 'on'
-
+        disableVoteButton(soundcloud_id)
+        showPopup $popupAlarmContent(soundcloud_id)
 
 vote = (facebook_token,soundcloud_id)->
   xx facebook_token
@@ -100,23 +106,30 @@ vote = (facebook_token,soundcloud_id)->
     data:
       facebook_token: facebook_token
       soundcloud_id: soundcloud_id
-    url: 'http://api.staging.iing.tw/votes.json'
+    url: '//api.staging.iing.tw/votes.json'
     success: (r) ->
       xx r
       if r.message is 'success'
-        html = $popupSuccessContent soundcloud_id
-        showPopup html
+        showPopup $popupSuccessContent(soundcloud_id)
+        disableVoteButton(soundcloud_id)
         $('.song-item-'+soundcloud_id+' .vote-count').text(r.vote_count+' 票')
       else
         showPopup $popupErrorContent()
 
 showPopup = (html) ->
+  $('.popup-loading-container').removeClass 'on'
   $('.popup-dialog-inner').html html
   $('.popup-container').addClass 'on'
 
+disableVoteButton = (soundcloud_id) ->
+  button = $('.song-item-'+soundcloud_id+' .vote-button')
+  if button.hasClass('done') is false
+    button.addClass 'done'
+    button.text '感謝支持！'
+
 createWaveform = (id,track_id,waveform,selector) ->
   SC.get '/tracks/'+track_id, (track) ->
-    $(selector+' .play-times').text track.playback_count
+    # $(selector+' .play-times').text track.playback_count
     soundTrack[track_id] = track
     sound = undefined
     waveform = new Waveform(
@@ -177,7 +190,7 @@ syncWaveform = (id,token,data) ->
       id: id
       token: token
       data: data.toString()
-    url: 'http://api.staging.iing.tw/sync_waveform.json'
+    url: '//api.iing.tw/sync_waveform.json'
     success: (response) ->
       xx response
 
@@ -195,6 +208,7 @@ $ ->
 
   $('body').delegate '.vote-button', 'click', ->
     soundcloud_id = $(this).data('id')
+    $('.popup-loading-container').addClass 'on'
     FB.getLoginStatus (response) ->
       if response.status is 'connected'
         facebook_token = response.authResponse.accessToken

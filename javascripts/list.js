@@ -6,7 +6,7 @@ window.list = [];
 
 window.pageNumber = 1;
 
-window.perPage = 150;
+window.perPage = 50;
 
 countdown = Date.now();
 
@@ -18,7 +18,14 @@ songFilter = function(filter) {
 };
 
 $songItem = function(item, display) {
-  return '<li class="song-item song-item-' + item.id + display + '" data-id="' + item.id + '" data-vote="' + item.vote_count + '">\
+  var top20;
+
+  if (item.id % 3 === '########') {
+    top20 = ' top20';
+  } else {
+    top20 = '';
+  }
+  return '<li class="song-item song-item-' + item.id + display + top20 + '" data-id="' + item.id + '" data-vote="' + item.vote_count + '">\
     <div class="song-string">' + padLeft(item.id, 3) + ',' + item.id + ',' + item.title.toLowerCase() + ',' + item.desc.toLowerCase() + ',' + item.author_name.toLowerCase() + '\
     </div>\
     <div class="song-content">\
@@ -26,7 +33,7 @@ $songItem = function(item, display) {
         <div class="song-number">' + padLeft(item.id, 3) + '</div>\
         <div class="song-info">\
           <div class="song-title">' + item.title + '</div>\
-          <div class="song-artist">' + item.author_name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br class="mobile-wrap">播放次數: <span class="play-times"></span></div>\
+          <div class="song-artist">' + item.author_name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br class="mobile-wrap"><!--播放次數: <span class="play-times"></span>--></div>\
         </div>\
       </a>\
     </div>\
@@ -43,16 +50,15 @@ $songItem = function(item, display) {
         <button class="vote-button" type="button" data-id="' + item.id + '"><i class="icon-vote"></i>投他一票</button>\
         <div class="vote-count">' + item.vote_count + ' 票</div>\
       </div>\
-      <button class="fb-share" type="button" data-href="https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/' + item.id + '">分享</button>\
+      <button class="fb-share" type="button" data-href="https://www.facebook.com/sharer/sharer.php?u=//melody.iing.tw/song/' + item.id + '">分享</button>\
     </div>\
   </li>';
 };
 
 $(function() {
-  $.getJSON('http://api.staging.iing.tw/soundclouds.json?token=8888', function(r) {
+  $.getJSON('//api.iing.tw/soundclouds.json?token=8888', function(r) {
     var display, i, item, songWaveform, waveform, _i, _len, _ref, _results;
 
-    xx(r);
     r = r.slice().sort(function(a, b) {
       return a.id - b.id;
     });
@@ -72,7 +78,7 @@ $(function() {
       $('.song-list').append($songItem(item, display));
       if (item.waveform === null) {
         SC.get('/tracks/' + item.track_id, function(track) {
-          return $.getJSON('http://waveformjs.org/w?callback=?', {
+          return $.getJSON('//waveformjs.org/w?callback=?', {
             url: track.waveform_url
           }, function(d) {
             var songWaveform, waveform;

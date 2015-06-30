@@ -4,14 +4,17 @@
   position: fixed;
   top: 30vh;
   left: calc(50% - 20px);
-  @include opacity(0);
-  @include animation('fadeout 3s');
+
+  .page & {
+    @include opacity(0);
+    @include animation('fadeout 3s');
+  }
 }
 
 .container1 > div, .container2 > div, .container3 > div {
   width: 6px;
   height: 6px;
-  background-color: #E9EA9C;
+  background-color: #89C693;
 
   border-radius: 100%;
   position: absolute;

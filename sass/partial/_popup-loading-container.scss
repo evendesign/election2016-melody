@@ -1,4 +1,4 @@
-.popup-container {
+.popup-loading-container {
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -15,7 +15,7 @@
     display: table;
   }
 
-  .popup-dialog {
+  .popup-inner {
     display:table-cell;
     vertical-align:middle;
 
@@ -50,33 +50,6 @@
         @include adjust-font-size-to(14px, 1);
       }
     }
-  }
-
-  [class^="icon-"] {
-    display: inline-block;
-    @include trailer(.5);
-  }
-
-  .icon-error {
-    @include replace-text-with-svg(popup-icon);
-  }
-
-  .icon-alarm {
-    @include replace-text-with-svg(popup-icon2);
-  }
-
-  .icon-success {
-    @include replace-text-with-svg(popup-icon3);
-  }
-
-  @include at-breakpoint($desktop) {
-
-    .popup-dialog {
-      .popup-dialog-inner {
-        width: 400px;
-      }
-    }
-
   }
 
 }

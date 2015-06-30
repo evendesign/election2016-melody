@@ -40,6 +40,30 @@
         <div class="popup-dialog-inner"></div>
       </div>
     </div>
+    <div class="popup-loading-container">
+      <div class="popup-inner">
+        <div class="spinner">
+          <div class="spinner-container container1">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+          </div>
+          <div class="spinner-container container2">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+          </div>
+          <div class="spinner-container container3">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="page">
       <div class="page-inner">
         <div class="header">
@@ -79,9 +103,9 @@
               <div class="song-title-container">
                 <div class="song-title"></div>
                 <div class="song-artist"></div>
-                <div class="play-times-container">
+                <!-- <div class="play-times-container">
                   播放次數：<span class="play-times"></span>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="song-tool-buttons">
@@ -137,9 +161,11 @@
             </div>
           </div>
           <div class="next-song">
-            <a class="btn btn_primary" href="">來去聽下一首</a>
+            <a class="btn btn_primary" href="/songs">全部歌曲</a>
+            <a id="nextSong" class="btn btn_primary" href="">隨機播放另一首</a>
           </div>
         </div>
+        <div class="page-bottom-illustrator"></div>
       </div>
       <div class="site-info">
         <div class="container">

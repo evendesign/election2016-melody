@@ -13,6 +13,7 @@
     @include box-sizing(border-box);
     @include adjust-font-size-to(18px, 1);
     padding: 10px 22px;
+    @include trailer(.5);
     &:after {
       content: "";
       display: inline-block;
@@ -21,12 +22,35 @@
     }
   }
 
-  @include at-breakpoint($desktop) {
+  @include at-breakpoint($pad) {
     margin: rhythm(2) auto;
 
     .btn {
-      width: 300px;
+      width: initial;
       @include border-radius(3px);
+    }
+  }
+}
+
+.next-song {
+  @include at-breakpoint($pad) {
+    @include leader(5);
+
+    .btn {
+      padding-right: rhythm(2);
+      padding-left: rhythm(2);
+    }
+
+    .btn:first-child {
+      margin-right: rhythm(1);
+    }
+  }
+}
+
+.go-to-list {
+  @include at-breakpoint($desktop) {
+    .btn {
+      width: 300px;
     }
   }
 }

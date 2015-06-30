@@ -32,6 +32,7 @@
       width: 100%;
       @include adjust-font-size-to(26px);
     }
+
     p {
       @include trailer(0);
       @include adjust-font-size-to(13px);
@@ -53,7 +54,7 @@
     padding-bottom: 36px;
   }
 
-  @include at-breakpoint($pad) {
+  @include at-breakpoint($desktop) {
     height: 265px;
     margin-top: 0;
     padding-bottom: 0;

@@ -4,7 +4,7 @@
 window.pageName = 'list'
 window.list = []
 window.pageNumber = 1
-window.perPage = 150
+window.perPage = 50
 countdown = Date.now()
 currentTime = Date.now()
 
@@ -20,7 +20,9 @@ songFilter = (filter) ->
 # Html pattern
 #################################
 $songItem = (item,display) ->
-  '<li class="song-item song-item-'+item.id+display+'" data-id="'+item.id+'" data-vote="'+item.vote_count+'">
+  if item.id%3 is '########' then top20 = ' top20'
+  else top20 = ''
+  '<li class="song-item song-item-'+item.id+display+top20+'" data-id="'+item.id+'" data-vote="'+item.vote_count+'">
     <div class="song-string">' +
       padLeft(item.id,3) + ','+
       item.id + ','+
@@ -33,7 +35,7 @@ $songItem = (item,display) ->
         <div class="song-number">'+padLeft(item.id,3)+'</div>
         <div class="song-info">
           <div class="song-title">'+item.title+'</div>
-          <div class="song-artist">'+item.author_name+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br class="mobile-wrap">播放次數: <span class="play-times"></span></div>
+          <div class="song-artist">'+item.author_name+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br class="mobile-wrap"><!--播放次數: <span class="play-times"></span>--></div>
         </div>
       </a>
     </div>
@@ -50,7 +52,7 @@ $songItem = (item,display) ->
         <button class="vote-button" type="button" data-id="'+item.id+'"><i class="icon-vote"></i>投他一票</button>
         <div class="vote-count">'+item.vote_count+' 票</div>
       </div>
-      <button class="fb-share" type="button" data-href="https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/'+item.id+'">分享</button>
+      <button class="fb-share" type="button" data-href="https://www.facebook.com/sharer/sharer.php?u=//melody.iing.tw/song/'+item.id+'">分享</button>
     </div>
   </li>'
 
@@ -59,8 +61,7 @@ $songItem = (item,display) ->
 # Document events
 #################################
 $ ->
-  $.getJSON 'http://api.staging.iing.tw/soundclouds.json?token=8888', (r) ->
-    xx r
+  $.getJSON '//api.iing.tw/soundclouds.json?token=8888', (r) ->
     r = r.slice().sort (a, b) ->
       return a.id - b.id
     window.list = r
@@ -77,7 +78,7 @@ $ ->
 
       if item.waveform is null
         SC.get '/tracks/'+item.track_id, (track) ->
-          $.getJSON 'http://waveformjs.org/w?callback=?', { url: track.waveform_url }, (d) ->
+          $.getJSON '//waveformjs.org/w?callback=?', { url: track.waveform_url }, (d) ->
             syncWaveform(item.id,item.token,d)
             songWaveform = d
             waveform = new Waveform(

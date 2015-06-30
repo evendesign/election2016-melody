@@ -1,4 +1,4 @@
-var $popupAlarmContent, $popupErrorContent, $popupLoginErrorContent, $popupSuccessContent, createWaveform, getUrlVars, isMobile, nl2br, padLeft, showPopup, soundManager, soundTrack, syncWaveform, vote, voteCheck, waveformStringToArray;
+var $popup400ErrorContent, $popupAlarmContent, $popupErrorContent, $popupLoginErrorContent, $popupSuccessContent, createWaveform, disableVoteButton, getUrlVars, isMobile, nl2br, padLeft, showPopup, soundManager, soundTrack, syncWaveform, vote, voteCheck, waveformStringToArray;
 
 SC.initialize({
   client_id: 'd2f7da453051d648ae2f3e9ffbd4f69b'
@@ -20,7 +20,7 @@ $popupAlarmContent = function(id) {
   return '<i class="icon-alarm"></i>\
   <h2>咦，你今天已經投過囉！</h2>\
   <p>每天可以對任一首歌投票一次</p>\
-  <a class="btn btn_primary" href="https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/' + id + '" target="_blank">分享拉票</a><br>\
+  <a class="btn btn_primary" href="https://www.facebook.com/sharer/sharer.php?u=//melody.iing.tw/song/' + id + '" target="_blank">分享拉票</a><br>\
   <button type="button" class="close-popup">關閉視窗</button>';
 };
 
@@ -28,7 +28,7 @@ $popupSuccessContent = function(id) {
   return '<i class="icon-success"></i>\
   <h2>恭喜你完成投票！</h2>\
   <p>是否將投票的好歌曲分享到臉書？</p>\
-  <a class="btn btn_primary" href="https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/' + id + '" target="_blank">分享拉票</a><br>\
+  <a class="btn btn_primary" href="https://www.facebook.com/sharer/sharer.php?u=//melody.iing.tw/song/' + id + '" target="_blank">分享拉票</a><br>\
   <button type="button" class="close-popup">關閉視窗</button>';
 };
 
@@ -37,6 +37,13 @@ $popupErrorContent = function() {
   <h2>糟糕！投票失敗...</h2>\
   <p>請嘗試重新整理頁面</p>\
   <button class="btn btn_primary" type="button">再試一次</button><br>\
+  <button type="button" class="close-popup">關閉視窗</button>';
+};
+
+$popup400ErrorContent = function() {
+  return '<i class="icon-error"></i>\
+  <h2>嘿，投票還沒開始唷...</h2>\
+  <p>投票時間 7/2 10:00 ～ 7/6 23:59</p>\
   <button type="button" class="close-popup">關閉視窗</button>';
 };
 
@@ -96,16 +103,16 @@ voteCheck = function(facebook_token, soundcloud_id) {
       facebook_token: facebook_token,
       soundcloud_id: soundcloud_id
     },
-    url: 'http://api.staging.iing.tw/vote_check.json',
+    url: '//api.staging.iing.tw/vote_check.json',
+    error: function(response) {
+      return showPopup($popup400ErrorContent());
+    },
     success: function(response) {
-      var html;
-
       if (response.message === true) {
         return vote(facebook_token, soundcloud_id);
       } else {
-        html = $popupAlarmContent(soundcloud_id);
-        $('.popup-dialog-inner').html(html);
-        return $('.popup-container').addClass('on');
+        disableVoteButton(soundcloud_id);
+        return showPopup($popupAlarmContent(soundcloud_id));
       }
     }
   });
@@ -122,14 +129,12 @@ vote = function(facebook_token, soundcloud_id) {
       facebook_token: facebook_token,
       soundcloud_id: soundcloud_id
     },
-    url: 'http://api.staging.iing.tw/votes.json',
+    url: '//api.staging.iing.tw/votes.json',
     success: function(r) {
-      var html;
-
       xx(r);
       if (r.message === 'success') {
-        html = $popupSuccessContent(soundcloud_id);
-        showPopup(html);
+        showPopup($popupSuccessContent(soundcloud_id));
+        disableVoteButton(soundcloud_id);
         return $('.song-item-' + soundcloud_id + ' .vote-count').text(r.vote_count + ' 票');
       } else {
         return showPopup($popupErrorContent());
@@ -139,15 +144,25 @@ vote = function(facebook_token, soundcloud_id) {
 };
 
 showPopup = function(html) {
+  $('.popup-loading-container').removeClass('on');
   $('.popup-dialog-inner').html(html);
   return $('.popup-container').addClass('on');
+};
+
+disableVoteButton = function(soundcloud_id) {
+  var button;
+
+  button = $('.song-item-' + soundcloud_id + ' .vote-button');
+  if (button.hasClass('done') === false) {
+    button.addClass('done');
+    return button.text('感謝支持！');
+  }
 };
 
 createWaveform = function(id, track_id, waveform, selector) {
   return SC.get('/tracks/' + track_id, function(track) {
     var ctx, gradient, sound;
 
-    $(selector + ' .play-times').text(track.playback_count);
     soundTrack[track_id] = track;
     sound = void 0;
     waveform = new Waveform({
@@ -220,7 +235,7 @@ syncWaveform = function(id, token, data) {
       token: token,
       data: data.toString()
     },
-    url: 'http://api.staging.iing.tw/sync_waveform.json',
+    url: '//api.iing.tw/sync_waveform.json',
     success: function(response) {
       return xx(response);
     }
@@ -239,6 +254,7 @@ $(function() {
     var soundcloud_id;
 
     soundcloud_id = $(this).data('id');
+    $('.popup-loading-container').addClass('on');
     return FB.getLoginStatus(function(response) {
       var facebook_token;
 
