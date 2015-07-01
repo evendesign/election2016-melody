@@ -88,7 +88,7 @@ $(document).on 'fbload', ->
       checkUserVoted response.authResponse.accessToken
 
 $ ->
-  $.getJSON '//api.iing.tw/soundclouds.json?token=8888', (r) ->
+  $.getJSON '//api.staging.iing.tw/soundclouds.json?token=8888', (r) ->
     xx r
     r = r.slice().sort (a, b) ->
       return a.id - b.id
@@ -105,23 +105,12 @@ $ ->
 
       $('.song-list').append $songItem(item, display)
 
-      if item.waveform is null
-        SC.get '/tracks/'+item.track_id, (track) ->
-          $.getJSON '//waveformjs.org/w?callback=?', { url: track.waveform_url }, (d) ->
-            syncWaveform(item.id,item.token,d)
-            songWaveform = d
-            waveform = new Waveform(
-              container: $('.song-item-'+item.id+' .waveform-preview').get(0)
-              innerColor: 'rgba(0,0,0,.1)'
-              data: songWaveform
-            )
-      else
-        songWaveform = waveformStringToArray item.waveform
-        waveform = new Waveform(
-          container: $('.song-item-'+item.id+' .waveform-preview').get(0)
-          innerColor: 'rgba(0,0,0,.1)'
-          data: songWaveform
-        )
+      songWaveform = waveformStringToArray item.waveform
+      waveform = new Waveform(
+        container: $('.song-item-'+item.id+' .waveform-preview').get(0)
+        innerColor: 'rgba(0,0,0,.1)'
+        data: songWaveform
+      )
       createWaveform(item.id,item.track_id,songWaveform,'.song-item-'+item.id)
       i++
       if i is window.list.length
@@ -139,9 +128,10 @@ $ ->
       $('.list-more-song').remove()
 
   $(window).scroll (event) ->
-    scroll = $(window).scrollTop()
-    height = $(document).height()
-    if scroll > height * 0.8 and window.append is false and $('.list-more-song').length > 0
+    xx scroll = $(window).scrollTop()
+    xx height = $(document).height()
+    if scroll > height * 0.5 and window.append is false and $('.list-more-song').length > 0
+      xx 'list appending'
       window.append = true
       i = window.pageNumber * window.perPage
       while i < (window.pageNumber+1) * window.perPage

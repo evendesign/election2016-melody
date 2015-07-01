@@ -6,6 +6,10 @@
   left: calc(50% - 20px);
   z-index: 2000;
 
+  .list & {
+    top: 500px;
+  }
+
   @include at-breakpoint($desktop) {
     top: 450px;
   }

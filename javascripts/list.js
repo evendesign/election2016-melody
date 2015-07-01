@@ -101,7 +101,7 @@ $(document).on('fbload', function() {
 });
 
 $(function() {
-  $.getJSON('//api.iing.tw/soundclouds.json?token=8888', function(r) {
+  $.getJSON('//api.staging.iing.tw/soundclouds.json?token=8888', function(r) {
     var display, i, item, songWaveform, waveform, _i, _len, _ref, _results;
 
     xx(r);
@@ -122,30 +122,12 @@ $(function() {
         display = '';
       }
       $('.song-list').append($songItem(item, display));
-      if (item.waveform === null) {
-        SC.get('/tracks/' + item.track_id, function(track) {
-          return $.getJSON('//waveformjs.org/w?callback=?', {
-            url: track.waveform_url
-          }, function(d) {
-            var songWaveform, waveform;
-
-            syncWaveform(item.id, item.token, d);
-            songWaveform = d;
-            return waveform = new Waveform({
-              container: $('.song-item-' + item.id + ' .waveform-preview').get(0),
-              innerColor: 'rgba(0,0,0,.1)',
-              data: songWaveform
-            });
-          });
-        });
-      } else {
-        songWaveform = waveformStringToArray(item.waveform);
-        waveform = new Waveform({
-          container: $('.song-item-' + item.id + ' .waveform-preview').get(0),
-          innerColor: 'rgba(0,0,0,.1)',
-          data: songWaveform
-        });
-      }
+      songWaveform = waveformStringToArray(item.waveform);
+      waveform = new Waveform({
+        container: $('.song-item-' + item.id + ' .waveform-preview').get(0),
+        innerColor: 'rgba(0,0,0,.1)',
+        data: songWaveform
+      });
       createWaveform(item.id, item.track_id, songWaveform, '.song-item-' + item.id);
       i++;
       if (i === window.list.length) {
@@ -174,9 +156,10 @@ $(function() {
   $(window).scroll(function(event) {
     var height, i, scroll;
 
-    scroll = $(window).scrollTop();
-    height = $(document).height();
-    if (scroll > height * 0.8 && window.append === false && $('.list-more-song').length > 0) {
+    xx(scroll = $(window).scrollTop());
+    xx(height = $(document).height());
+    if (scroll > height * 0.5 && window.append === false && $('.list-more-song').length > 0) {
+      xx('list appending');
       window.append = true;
       i = window.pageNumber * window.perPage;
       while (i < (window.pageNumber + 1) * window.perPage) {
