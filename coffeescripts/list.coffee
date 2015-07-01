@@ -40,7 +40,8 @@ disableVoteButton = (soundcloud_id) ->
 # Html pattern
 #################################
 $songItem = (item,display) ->
-  if item.top20 is true then top20 = ' top20'
+  if item.winners isnt undefined and item.winners is true then top20 = ' top20'
+  else if item.top20 isnt undefined and item.top20 is true then top20 = ' top20'
   else top20 = ''
   '<li class="song-item song-item-'+item.id+display+top20+'" data-id="'+item.id+'" data-vote="'+item.vote_count+'">
     <div class="song-string">' +
