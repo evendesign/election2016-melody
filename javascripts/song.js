@@ -18,7 +18,7 @@ $(function() {
   song_no = explode[4];
   if (typeof song_no !== 'undefined' && parseInt(song_no) > 0) {
     id = parseInt(song_no);
-    return $.getJSON('//api.iing.tw/soundclouds/' + id + '.json?token=8888', function(item) {
+    return $.getJSON('//api.staging.iing.tw/soundclouds/' + id + '.json?token=8888', function(item) {
       var songWaveform, waveform;
 
       xx(item);
@@ -50,7 +50,7 @@ $(function() {
             songWaveform = d;
             return waveform = new Waveform({
               container: $('.waveform-preview').get(0),
-              innerColor: '#F0F0F0',
+              innerColor: 'rgba(0,0,0,.1)',
               data: songWaveform
             });
           });
@@ -59,11 +59,15 @@ $(function() {
         songWaveform = waveformStringToArray(item.waveform);
         waveform = new Waveform({
           container: $('.waveform-preview').get(0),
-          innerColor: '#F0F0F0',
+          innerColor: 'rgba(0,0,0,.1)',
           data: songWaveform
         });
       }
-      return createWaveform(item.id, item.track_id, songWaveform, '.page');
+      createWaveform(item.id, item.track_id, songWaveform, '.page');
+      $('.page .spinner').remove();
+      $('.song-player-container').removeClass('off');
+      $('.song-detail').removeClass('off');
+      return $('.page-bottom-illustrator').removeClass('off');
     });
   }
 });

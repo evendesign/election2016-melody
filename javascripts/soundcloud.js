@@ -1,4 +1,4 @@
-var $popup400ErrorContent, $popupAlarmContent, $popupErrorContent, $popupLoginErrorContent, $popupSuccessContent, createWaveform, disableVoteButton, getUrlVars, isMobile, nl2br, padLeft, showPopup, soundManager, soundTrack, syncWaveform, vote, voteCheck, waveformStringToArray;
+var $popup400ErrorContent, $popupAlarmContent, $popupErrorContent, $popupLoginContent, $popupLoginErrorContent, $popupSuccessContent, createWaveform, disableVoteButton, getUrlVars, isMobile, nl2br, padLeft, showPopup, showPopupLoading, soundManager, soundTrack, syncWaveform, vote, voteCheck, waveformStringToArray;
 
 SC.initialize({
   client_id: 'd2f7da453051d648ae2f3e9ffbd4f69b'
@@ -17,6 +17,18 @@ window.autoPlay = false;
 window.shuffle = false;
 
 window.isDesktop = true;
+
+window.soundcloudId = void 0;
+
+window.userVoted = [];
+
+$popupLoginContent = function(id) {
+  return '<i class="icon-alarm"></i>\
+  <h2>請先登入臉書帳號</h2>\
+  <p>投票會需要你的臉書帳號</p>\
+  <button class="btn btn_primary login-button">以 Facebook 登入投票</button><br>\
+  <button type="button" class="close-popup">算了</button>';
+};
 
 $popupAlarmContent = function(id) {
   return '<i class="icon-alarm"></i>\
@@ -97,6 +109,7 @@ waveformStringToArray = function(str) {
 };
 
 voteCheck = function(facebook_token, soundcloud_id) {
+  xx('vote check');
   return $.ajax({
     type: 'post',
     dataType: 'json',
@@ -105,8 +118,9 @@ voteCheck = function(facebook_token, soundcloud_id) {
       facebook_token: facebook_token,
       soundcloud_id: soundcloud_id
     },
-    url: '//api.iing.tw/vote_check.json',
+    url: '//api.staging.iing.tw/vote_check.json',
     error: function(response) {
+      xx(response);
       return showPopup($popup400ErrorContent());
     },
     success: function(response) {
@@ -131,7 +145,7 @@ vote = function(facebook_token, soundcloud_id) {
       facebook_token: facebook_token,
       soundcloud_id: soundcloud_id
     },
-    url: '//api.iing.tw/votes.json',
+    url: '//api.staging.iing.tw/votes.json',
     success: function(r) {
       xx(r);
       if (r.message === 'success') {
@@ -146,9 +160,29 @@ vote = function(facebook_token, soundcloud_id) {
 };
 
 showPopup = function(html) {
-  $('.popup-loading-container').removeClass('on');
+  var loading, popup;
+
+  popup = $('.popup-container');
+  loading = $('.popup-loading-container');
+  if (popup.hasClass('on') === true) {
+    popup.removeClass('on');
+  }
+  if (loading.hasClass('on') === true) {
+    loading.removeClass('on');
+  }
   $('.popup-dialog-inner').html(html);
-  return $('.popup-container').addClass('on');
+  return popup.addClass('on');
+};
+
+showPopupLoading = function() {
+  var loading, popup;
+
+  popup = $('.popup-container');
+  loading = $('.popup-loading-container');
+  if (popup.hasClass('on') === true) {
+    popup.removeClass('on');
+  }
+  return loading.addClass('on');
 };
 
 disableVoteButton = function(soundcloud_id) {
@@ -169,7 +203,7 @@ createWaveform = function(id, track_id, waveform, selector) {
     sound = void 0;
     waveform = new Waveform({
       container: $(selector + ' .waveform').get(0),
-      innerColor: '#F0F0F0',
+      innerColor: 'rgba(0,0,0,.1)',
       data: waveform
     });
     ctx = waveform.context;
@@ -262,26 +296,38 @@ $(function() {
   $('body').delegate('.vote-button', 'click', function() {
     var soundcloud_id;
 
+    xx('vote button clicked');
     soundcloud_id = $(this).data('id');
-    $('.popup-loading-container').addClass('on');
+    showPopupLoading();
     return FB.getLoginStatus(function(response) {
       var facebook_token;
 
+      xx(response);
       if (response.status === 'connected') {
         facebook_token = response.authResponse.accessToken;
         return voteCheck(facebook_token, soundcloud_id);
       } else {
-        return FB.login((function(response) {
-          if (response.status === 'connected') {
-            facebook_token = response.authResponse.accessToken;
-            return voteCheck(facebook_token, soundcloud_id);
-          } else {
-            return showPopup($popupLoginErrorContent());
-          }
-        }), {
-          return_scopes: true
-        });
+        window.soundcloudId = soundcloud_id;
+        return showPopup($popupLoginContent());
       }
+    });
+  });
+  $('body').delegate('.login-button', 'click', function() {
+    xx('login button clicked');
+    showPopupLoading();
+    return FB.login((function(response) {
+      var facebook_token;
+
+      if (response.status === 'connected') {
+        facebook_token = response.authResponse.accessToken;
+        xx(facebook_token);
+        xx(window.soundcloudId);
+        return voteCheck(facebook_token, window.soundcloudId);
+      } else {
+        return showPopup($popupLoginErrorContent());
+      }
+    }), {
+      return_scopes: true
     });
   });
   $('body').delegate('.play-button', 'click', function() {

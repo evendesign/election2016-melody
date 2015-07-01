@@ -25,6 +25,7 @@
           xfbml      : true,
           version    : 'v2.3'
         });
+        $(document).trigger('fbload');
       };
 
       (function(d, s, id){
@@ -35,6 +36,7 @@
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));
     </script>
+    <div id="fb-root"></div>
     <div class="popup-container">
       <div class="popup-dialog">
         <div class="popup-dialog-inner"></div>
@@ -117,7 +119,7 @@
             </div>
           </div>
         </div>
-        <div class="song-player-container">
+        <div class="song-player-container off">
           <div class="song-player">
             <button class="play-button" data-sid="" data-trackid=""></button>
             <div class="song-wave">
@@ -127,7 +129,7 @@
             </div>
           </div>
         </div>
-        <div class="content song-detail">
+        <div class="content song-detail off">
           <div class="container">
             <div class="gray-container">
               <div class="song-intro">
@@ -165,7 +167,7 @@
             <a id="nextSong" class="btn btn_primary" href="">隨機播放另一首</a>
           </div>
         </div>
-        <div class="page-bottom-illustrator"></div>
+        <div class="page-bottom-illustrator off"></div>
       </div>
       <div class="site-info">
         <div class="container">

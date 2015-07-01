@@ -4,7 +4,7 @@
   margin: 0 auto;
   text-align: center;
   @include trailer(1.5);
-  @include animation('fadein 5s');
+  // @include animation('fadein 5s');
 
   @include at-breakpoint($pad) {
     max-width: 560px;

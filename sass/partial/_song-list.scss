@@ -5,7 +5,7 @@
   margin: 0;
   padding: 0;
   @include trailer(3);
-  @include animation('fadein 7s');
+  // @include animation('fadein 7s');
 
   .song-item {
     position: relative;

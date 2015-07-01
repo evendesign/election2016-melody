@@ -9,11 +9,20 @@ window.autoLoop = false
 window.autoPlay = false
 window.shuffle = false
 window.isDesktop = true
+window.soundcloudId = undefined
+window.userVoted = []
 
 
 #################################
 # Html pattern
 #################################
+$popupLoginContent = (id) ->
+  '<i class="icon-alarm"></i>
+  <h2>請先登入臉書帳號</h2>
+  <p>投票會需要你的臉書帳號</p>
+  <button class="btn btn_primary login-button">以 Facebook 登入投票</button><br>
+  <button type="button" class="close-popup">算了</button>'
+
 $popupAlarmContent = (id) ->
   '<i class="icon-alarm"></i>
   <h2>咦，你今天已經投過囉！</h2>
@@ -80,6 +89,7 @@ waveformStringToArray = (str) ->
   str.split(',').map(Number)
 
 voteCheck = (facebook_token,soundcloud_id)->
+  xx 'vote check'
   $.ajax
     type: 'post'
     dataType: 'json'
@@ -87,8 +97,9 @@ voteCheck = (facebook_token,soundcloud_id)->
     data:
       facebook_token: facebook_token
       soundcloud_id: soundcloud_id
-    url: '//api.iing.tw/vote_check.json'
+    url: '//api.staging.iing.tw/vote_check.json'
     error: (response) ->
+      xx response
       showPopup $popup400ErrorContent()
     success: (response) ->
       if response.message is true
@@ -107,7 +118,7 @@ vote = (facebook_token,soundcloud_id)->
     data:
       facebook_token: facebook_token
       soundcloud_id: soundcloud_id
-    url: '//api.iing.tw/votes.json'
+    url: '//api.staging.iing.tw/votes.json'
     success: (r) ->
       xx r
       if r.message is 'success'
@@ -118,9 +129,21 @@ vote = (facebook_token,soundcloud_id)->
         showPopup $popupErrorContent()
 
 showPopup = (html) ->
-  $('.popup-loading-container').removeClass 'on'
+  popup = $('.popup-container')
+  loading = $('.popup-loading-container')
+  if popup.hasClass('on') is true
+    popup.removeClass 'on'
+  if loading.hasClass('on') is true
+    loading.removeClass 'on'
   $('.popup-dialog-inner').html html
-  $('.popup-container').addClass 'on'
+  popup.addClass 'on'
+
+showPopupLoading = ->
+  popup = $('.popup-container')
+  loading = $('.popup-loading-container')
+  if popup.hasClass('on') is true
+    popup.removeClass 'on'
+  loading.addClass 'on'
 
 disableVoteButton = (soundcloud_id) ->
   button = $('.song-item-'+soundcloud_id+' .vote-button')
@@ -135,7 +158,7 @@ createWaveform = (id,track_id,waveform,selector) ->
     sound = undefined
     waveform = new Waveform(
       container: $(selector+' .waveform').get(0)
-      innerColor: '#F0F0F0'
+      innerColor: 'rgba(0,0,0,.1)'
       data: waveform
     )
     ctx = waveform.context
@@ -214,22 +237,31 @@ $ ->
     window.shuffle = true
 
   $('body').delegate '.vote-button', 'click', ->
+    xx 'vote button clicked'
     soundcloud_id = $(this).data('id')
-    $('.popup-loading-container').addClass 'on'
+    showPopupLoading()
     FB.getLoginStatus (response) ->
+      xx response
       if response.status is 'connected'
         facebook_token = response.authResponse.accessToken
         voteCheck(facebook_token,soundcloud_id)
       else
-        FB.login ((response) ->
-          if response.status is 'connected'
-            facebook_token = response.authResponse.accessToken
-            voteCheck(facebook_token,soundcloud_id)
-          else
-            showPopup $popupLoginErrorContent()
-        ),
-          return_scopes: true
+        window.soundcloudId = soundcloud_id
+        showPopup $popupLoginContent()
 
+  $('body').delegate '.login-button', 'click', ->
+    xx 'login button clicked'
+    showPopupLoading()
+    FB.login ((response) ->
+      if response.status is 'connected'
+        facebook_token = response.authResponse.accessToken
+        xx facebook_token
+        xx window.soundcloudId
+        voteCheck(facebook_token,window.soundcloudId)
+      else
+        showPopup $popupLoginErrorContent()
+      ),
+        return_scopes: true
 
   $('body').delegate '.play-button', 'click', ->
     if soundManager isnt undefined

@@ -25,7 +25,7 @@ $ ->
   if typeof song_no isnt 'undefined' and parseInt(song_no) > 0
     id = parseInt(song_no)
 
-    $.getJSON '//api.iing.tw/soundclouds/'+id+'.json?token=8888', (item) ->
+    $.getJSON '//api.staging.iing.tw/soundclouds/'+id+'.json?token=8888', (item) ->
       xx item
       $('.song-title').text item.title
       $('.song-artist').text item.author_name
@@ -52,15 +52,19 @@ $ ->
             songWaveform = d
             waveform = new Waveform(
               container: $('.waveform-preview').get(0)
-              innerColor: '#F0F0F0'
+              innerColor: 'rgba(0,0,0,.1)'
               data: songWaveform
             )
       else
         songWaveform = waveformStringToArray item.waveform
         waveform = new Waveform(
           container: $('.waveform-preview').get(0)
-          innerColor: '#F0F0F0'
+          innerColor: 'rgba(0,0,0,.1)'
           data: songWaveform
         )
       createWaveform(item.id,item.track_id,songWaveform,'.page')
+      $('.page .spinner').remove()
+      $('.song-player-container').removeClass 'off'
+      $('.song-detail').removeClass 'off'
+      $('.page-bottom-illustrator').removeClass 'off'
 

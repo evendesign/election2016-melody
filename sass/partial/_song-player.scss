@@ -1,7 +1,11 @@
 .song-player-container {
   position: relative;
   padding: 40px 0 5px 0;
-  @include animation('fadein 5s');
+  // @include animation('fadein 5s');
+
+  &.off {
+    display: none;
+  }
 
   @include at-breakpoint($pad) {
     height: initial;

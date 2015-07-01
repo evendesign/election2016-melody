@@ -4,7 +4,7 @@
   position: relative;
   text-align: center;
   @include trailer(1.5);
-  @include animation('fadein 5s');
+  // @include animation('fadein 5s');
 
   .song-title {
     font-weight: 900;
@@ -37,4 +37,8 @@
 .song-detail {
   max-width: 1156px;
   margin: 0 auto;
+
+  &.off {
+    display: none;
+  }
 }

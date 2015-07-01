@@ -3,7 +3,7 @@
   position: relative;
   padding-bottom: 20px;
   text-align: center;
-  @include animation('fadein 5s');
+  // @include animation('fadein 5s');
 
   &:after {
     content: "";
@@ -104,7 +104,7 @@
       @include background(linear-gradient(135deg, #FFFFFF 20%, #E7E7E7 100%));
       @include border-radius(50%);
       @include transition(width 1s ease, height 1s ease);
-      @include animation('fadein 3s');
+      // @include animation('fadein 3s');
     }
   }
 
@@ -116,6 +116,12 @@
 
     &.list {
       background-position: 120% 55%;
+    }
+  }
+
+  @include at-breakpoint($wide-screen) {
+    &.list {
+      background-position: 80% 55%;
     }
   }
 }

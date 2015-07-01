@@ -1,4 +1,4 @@
-var $songItem, countdown, currentTime, songFilter;
+var $songItem, checkUserVoted, countdown, currentTime, songFilter;
 
 window.pageName = 'list';
 
@@ -6,7 +6,7 @@ window.list = [];
 
 window.pageNumber = 1;
 
-window.perPage = 20;
+window.perPage = 200;
 
 window.append = false;
 
@@ -19,10 +19,34 @@ songFilter = function(filter) {
   return $('.song-list').find(".song-string:contains(" + filter + ")").parents('li').show();
 };
 
+checkUserVoted = function(facebook_token) {
+  return $.ajax({
+    type: 'post',
+    dataType: 'json',
+    cache: false,
+    data: {
+      facebook_token: facebook_token
+    },
+    url: '//api.staging.iing.tw/check_user_voted.json',
+    success: function(response) {
+      var id, _i, _len, _ref, _results;
+
+      window.userVoted = response.data;
+      _ref = window.userVoted;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        id = _ref[_i];
+        _results.push(disableVoteButton(id));
+      }
+      return _results;
+    }
+  });
+};
+
 $songItem = function(item, display) {
   var top20;
 
-  if (item.id % 3 === '########') {
+  if (item.top20 === true) {
     top20 = ' top20';
   } else {
     top20 = '';
@@ -57,10 +81,20 @@ $songItem = function(item, display) {
   </li>';
 };
 
+$(document).on('fbload', function() {
+  return FB.getLoginStatus(function(response) {
+    xx(response);
+    if (response.status === 'connected') {
+      return checkUserVoted(response.authResponse.accessToken);
+    }
+  });
+});
+
 $(function() {
-  $.getJSON('//api.iing.tw/soundclouds.json?token=8888', function(r) {
+  $.getJSON('//api.staging.iing.tw/soundclouds.json?token=8888', function(r) {
     var display, i, item, songWaveform, waveform, _i, _len, _ref, _results;
 
+    xx(r);
     r = r.slice().sort(function(a, b) {
       return a.id - b.id;
     });
@@ -89,7 +123,7 @@ $(function() {
             songWaveform = d;
             return waveform = new Waveform({
               container: $('.song-item-' + item.id + ' .waveform-preview').get(0),
-              innerColor: '#F0F0F0',
+              innerColor: 'rgba(0,0,0,.1)',
               data: songWaveform
             });
           });
@@ -98,14 +132,16 @@ $(function() {
         songWaveform = waveformStringToArray(item.waveform);
         waveform = new Waveform({
           container: $('.song-item-' + item.id + ' .waveform-preview').get(0),
-          innerColor: '#F0F0F0',
+          innerColor: 'rgba(0,0,0,.1)',
           data: songWaveform
         });
       }
       createWaveform(item.id, item.track_id, songWaveform, '.song-item-' + item.id);
       i++;
       if (i === window.list.length) {
-        _results.push($('.song-list').removeClass('loading'));
+        $('.song-list').removeClass('loading');
+        $('.search-bar').removeClass('off');
+        _results.push($('.page .spinner').remove());
       } else {
         _results.push(void 0);
       }

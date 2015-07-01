@@ -26,6 +26,7 @@
           xfbml      : true,
           version    : 'v2.3'
         });
+        $(document).trigger('fbload');
       };
 
       (function(d, s, id){
@@ -36,6 +37,7 @@
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));
     </script>
+    <div id="fb-root"></div>
     <div class="popup-container">
       <div class="popup-dialog">
         <div class="popup-dialog-inner"></div>
@@ -113,13 +115,13 @@
               一天時間以 00:00 ~ 23:59 為基準。
             </p>
             <p>
-              投票截止後，7/7 00:30 將新設前二十名歌曲之分頁
+              投票截止後，7/7 00:30 將公開前二十名歌曲
             </p>
           </div>
         </div>
         <div class="content list">
           <div class="container" id="song-list">
-            <div class="search-bar">
+            <div class="search-bar off">
               <input class="search-string" placeholder="搜尋歌曲" type="search">
               <div class="list-sorting">
                 <label for="">歌曲排列：</label>

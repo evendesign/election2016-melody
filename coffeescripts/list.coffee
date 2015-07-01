@@ -4,7 +4,7 @@
 window.pageName = 'list'
 window.list = []
 window.pageNumber = 1
-window.perPage = 20
+window.perPage = 200
 window.append = false
 countdown = Date.now()
 currentTime = Date.now()
@@ -16,12 +16,25 @@ songFilter = (filter) ->
   $('.song-list').find(".song-string:not(:Contains(" + filter + "))").parents('li').hide()
   $('.song-list').find(".song-string:contains(" + filter + ")").parents('li').show()
 
+checkUserVoted = (facebook_token)->
+  $.ajax
+    type: 'post'
+    dataType: 'json'
+    cache: false
+    data:
+      facebook_token: facebook_token
+    url: '//api.staging.iing.tw/check_user_voted.json'
+    success: (response) ->
+      window.userVoted = response.data
+      for id in window.userVoted
+        disableVoteButton id
+
 
 #################################
 # Html pattern
 #################################
 $songItem = (item,display) ->
-  if item.id%3 is '########' then top20 = ' top20'
+  if item.top20 is true then top20 = ' top20'
   else top20 = ''
   '<li class="song-item song-item-'+item.id+display+top20+'" data-id="'+item.id+'" data-vote="'+item.vote_count+'">
     <div class="song-string">' +
@@ -61,13 +74,22 @@ $songItem = (item,display) ->
 #################################
 # Document events
 #################################
+
+$(document).on 'fbload', ->
+  FB.getLoginStatus (response) ->
+    xx response
+    if response.status is 'connected'
+      checkUserVoted response.authResponse.accessToken
+
 $ ->
-  $.getJSON '//api.iing.tw/soundclouds.json?token=8888', (r) ->
+  $.getJSON '//api.staging.iing.tw/soundclouds.json?token=8888', (r) ->
+    xx r
     r = r.slice().sort (a, b) ->
       return a.id - b.id
     window.list = r
     window.loading = true
     $('.song-list').addClass 'loading'
+
     i = 0
     for item in window.list
       if i > window.perPage - 1
@@ -84,20 +106,22 @@ $ ->
             songWaveform = d
             waveform = new Waveform(
               container: $('.song-item-'+item.id+' .waveform-preview').get(0)
-              innerColor: '#F0F0F0'
+              innerColor: 'rgba(0,0,0,.1)'
               data: songWaveform
             )
       else
         songWaveform = waveformStringToArray item.waveform
         waveform = new Waveform(
           container: $('.song-item-'+item.id+' .waveform-preview').get(0)
-          innerColor: '#F0F0F0'
+          innerColor: 'rgba(0,0,0,.1)'
           data: songWaveform
         )
       createWaveform(item.id,item.track_id,songWaveform,'.song-item-'+item.id)
       i++
       if i is window.list.length
         $('.song-list').removeClass 'loading'
+        $('.search-bar').removeClass 'off'
+        $('.page .spinner').remove()
 
   $('body').delegate '.list-more-song', 'click', ->
     i = window.pageNumber * window.perPage

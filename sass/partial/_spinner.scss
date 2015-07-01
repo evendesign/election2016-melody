@@ -2,12 +2,12 @@
   width: 40px;
   height: 40px;
   position: fixed;
-  top: 30vh;
+  top: 350px;
   left: calc(50% - 20px);
+  z-index: 2000;
 
-  .page & {
-    @include opacity(0);
-    @include animation('fadeout 3s');
+  @include at-breakpoint($desktop) {
+    top: 450px;
   }
 }
 

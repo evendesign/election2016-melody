@@ -4,6 +4,10 @@
   padding-bottom: 264px;
   overflow: hidden;
 
+  &.off {
+    display: none;
+  }
+
   &:before, &:after {
     content: '';
     position: absolute;
