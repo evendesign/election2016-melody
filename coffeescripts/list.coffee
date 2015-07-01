@@ -88,7 +88,7 @@ $(document).on 'fbload', ->
       checkUserVoted response.authResponse.accessToken
 
 $ ->
-  $.getJSON '//api.staging.iing.tw/soundclouds.json?token=8888', (r) ->
+  $.getJSON '//api.iing.tw/soundclouds.json?token=8888', (r) ->
     xx r
     r = r.slice().sort (a, b) ->
       return a.id - b.id

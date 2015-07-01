@@ -101,7 +101,7 @@ $(document).on('fbload', function() {
 });
 
 $(function() {
-  $.getJSON('//api.staging.iing.tw/soundclouds.json?token=8888', function(r) {
+  $.getJSON('//api.iing.tw/soundclouds.json?token=8888', function(r) {
     var display, i, item, songWaveform, waveform, _i, _len, _ref, _results;
 
     xx(r);
