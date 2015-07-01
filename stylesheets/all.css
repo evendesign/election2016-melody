@@ -4191,6 +4191,11 @@ body {
     width: 48px;
     height: 48px;
   }
+  .song-player .loading {
+    padding: 8px;
+    width: 32px;
+    height: 32px;
+  }
   .song-player .song-wave {
     width: 100%;
     height: 40px;
