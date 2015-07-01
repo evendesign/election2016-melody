@@ -97,7 +97,7 @@ voteCheck = (facebook_token,soundcloud_id)->
     data:
       facebook_token: facebook_token
       soundcloud_id: soundcloud_id
-    url: '//api.staging.iing.tw/vote_check.json'
+    url: '//api.iing.tw/vote_check.json'
     error: (response) ->
       xx response
       showPopup $popup400ErrorContent()
@@ -118,7 +118,7 @@ vote = (facebook_token,soundcloud_id)->
     data:
       facebook_token: facebook_token
       soundcloud_id: soundcloud_id
-    url: '//api.staging.iing.tw/votes.json'
+    url: '//api.iing.tw/votes.json'
     success: (r) ->
       xx r
       if r.message is 'success'

@@ -15,7 +15,7 @@ checkUserVoted = (facebook_token)->
     cache: false
     data:
       facebook_token: facebook_token
-    url: '//api.staging.iing.tw/check_user_voted.json'
+    url: '//api.iing.tw/check_user_voted.json'
     success: (response) ->
       for id in response.data
         if id is window.id
@@ -50,7 +50,7 @@ $ ->
   if typeof song_no isnt 'undefined' and parseInt(song_no) > 0
     window.id = parseInt(song_no)
 
-    $.getJSON '//api.staging.iing.tw/soundclouds/'+window.id+'.json?token=8888', (item) ->
+    $.getJSON '//api.iing.tw/soundclouds/'+window.id+'.json?token=8888', (item) ->
       xx item
       $('.song-title').text item.title
       $('.song-artist').text item.author_name

@@ -23,7 +23,7 @@ checkUserVoted = (facebook_token)->
     cache: false
     data:
       facebook_token: facebook_token
-    url: '//api.staging.iing.tw/check_user_voted.json'
+    url: '//api.iing.tw/check_user_voted.json'
     success: (response) ->
       window.userVoted = response.data
       for id in window.userVoted
@@ -88,7 +88,7 @@ $(document).on 'fbload', ->
       checkUserVoted response.authResponse.accessToken
 
 $ ->
-  $.getJSON '//api.staging.iing.tw/soundclouds.json?token=8888', (r) ->
+  $.getJSON '//api.iing.tw/soundclouds.json?token=8888', (r) ->
     xx r
     r = r.slice().sort (a, b) ->
       return a.id - b.id

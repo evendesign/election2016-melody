@@ -12,7 +12,7 @@ checkUserVoted = function(facebook_token) {
     data: {
       facebook_token: facebook_token
     },
-    url: '//api.staging.iing.tw/check_user_voted.json',
+    url: '//api.iing.tw/check_user_voted.json',
     success: function(response) {
       var id, _i, _len, _ref, _results;
 
@@ -68,7 +68,7 @@ $(function() {
   song_no = explode[4];
   if (typeof song_no !== 'undefined' && parseInt(song_no) > 0) {
     window.id = parseInt(song_no);
-    return $.getJSON('//api.staging.iing.tw/soundclouds/' + window.id + '.json?token=8888', function(item) {
+    return $.getJSON('//api.iing.tw/soundclouds/' + window.id + '.json?token=8888', function(item) {
       var songWaveform, waveform;
 
       xx(item);
