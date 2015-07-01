@@ -1573,12 +1573,12 @@ body {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
-  background-image: url('/images/icon-share-facebook.png?1435502003');
+  background-image: url('/images/icon-share-facebook.png?1434060501');
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 32px;
   height: 32px;
-  background-image: none, url('/images/icon-share-facebook.svg?1435502003');
+  background-image: none, url('/images/icon-share-facebook.svg?1434060501');
   background-position: center center;
   -webkit-background-size: contain;
   -moz-background-size: contain;
@@ -1589,12 +1589,12 @@ body {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
-  background-image: url('/images/icon-share-twitter.png?1435502003');
+  background-image: url('/images/icon-share-twitter.png?1434060501');
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 32px;
   height: 32px;
-  background-image: none, url('/images/icon-share-twitter.svg?1435502003');
+  background-image: none, url('/images/icon-share-twitter.svg?1434060501');
   background-position: center center;
   -webkit-background-size: contain;
   -moz-background-size: contain;
@@ -1656,12 +1656,12 @@ body {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
-  background-image: url('/images/footer/footer-vi.png?1435502003');
+  background-image: url('/images/footer/footer-vi.png?1434060501');
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 500px;
   height: 500px;
-  background-image: none, url('/images/footer/footer-vi.svg?1435502003');
+  background-image: none, url('/images/footer/footer-vi.svg?1434060501');
   background-position: center center;
   -webkit-background-size: contain;
   -moz-background-size: contain;
@@ -1676,12 +1676,12 @@ body {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
-  background-image: url('/images/footer/footer-title.png?1435502003');
+  background-image: url('/images/footer/footer-title.png?1434060501');
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 180px;
   height: 150px;
-  background-image: none, url('/images/footer/footer-title.svg?1435502003');
+  background-image: none, url('/images/footer/footer-title.svg?1434060501');
   background-position: center center;
   -webkit-background-size: contain;
   -moz-background-size: contain;
@@ -2055,12 +2055,12 @@ body {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
-  background-image: url('/images/logo.png?1435502003');
+  background-image: url('/images/logo.png?1435755588');
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 221px;
   height: 80px;
-  background-image: none, url('/images/logo.svg?1435502003');
+  background-image: none, url('/images/logo.svg?1435755588');
   background-position: center center;
   -webkit-background-size: contain;
   -moz-background-size: contain;
@@ -2327,12 +2327,12 @@ body {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
-  background-image: url('/images/title.png?1435502003');
+  background-image: url('/images/title.png?1434060501');
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 228px;
   height: 144px;
-  background-image: none, url('/images/title.svg?1435502003');
+  background-image: none, url('/images/title.svg?1434060501');
   background-position: center center;
   -webkit-background-size: contain;
   -moz-background-size: contain;
@@ -3635,8 +3635,8 @@ body {
   margin-bottom: 24px;
 }
 .page-title.list {
-  background-image: none, url('/images/page-title-background.png?1435502003');
-  background-image: none, url('/images/page-title-background.svg?1435502003');
+  background-image: none, url('/images/page-title-background.png?1435755588');
+  background-image: none, url('/images/page-title-background.svg?1435755588');
   background-repeat: no-repeat;
   background-position: top center;
 }
@@ -3842,8 +3842,8 @@ body {
   text-align: center;
   -webkit-appearance: none;
   padding: 0 20px;
-  background-image: none, url('/images/down.png?1435744849');
-  background-image: none, url('/images/down.svg?1435744849');
+  background-image: none, url('/images/down.png?1435755596');
+  background-image: none, url('/images/down.svg?1435755596');
   background-repeat: no-repeat;
   background-position: 97% 50%;
 }
@@ -3983,7 +3983,7 @@ body {
   white-space: nowrap;
 }
 .song-list .song-item .song-info .song-artist {
-  color: #ABABAB;
+  color: rgba(0, 0, 0, 0.3);
   font-size: 14px;
   line-height: 24px;
 }
@@ -3993,7 +3993,7 @@ body {
     margin: 0 auto;
   }
   .song-list .song-item {
-    height: 190px;
+    height: 100px;
     padding-left: 6px;
     margin-bottom: 72px;
     background: none;
@@ -4028,8 +4028,8 @@ body {
     background-color: #E4EE6A;
   }
   .song-list .song-item .song-number {
-    font-size: 65px;
-    line-height: 42px;
+    font-size: 24px;
+    line-height: 24px;
     position: absolute;
     top: 0;
     left: 30px;
@@ -4039,13 +4039,13 @@ body {
   .song-list .song-item .song-info {
     position: absolute;
     top: 0;
-    left: 160px;
+    left: 100px;
   }
   .song-list .song-item .song-info .song-title {
     padding-top: 0;
-    font-size: 32px;
-    line-height: 24px;
-    margin-bottom: 10px;
+    font-size: 24px;
+    line-height: 1.1;
+    margin-bottom: 3px;
     display: block;
     max-width: initial;
     overflow: initial;
@@ -4053,8 +4053,8 @@ body {
     white-space: initial;
   }
   .song-list .song-item .song-info .song-artist {
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 13px;
+    line-height: 1.1;
   }
 }
 
@@ -4130,16 +4130,16 @@ body {
   background-size: contain;
 }
 .song-player .play-button {
-  background-image: url('/images/play-button.png?1435502003');
-  background-image: none, url('/images/play-button.svg?1435502003');
+  background-image: url('/images/play-button.png?1435755588');
+  background-image: none, url('/images/play-button.svg?1435755588');
 }
 .song-player .pause-button {
-  background-image: url('/images/pause-button.png?1435502003');
-  background-image: none, url('/images/pause-button.svg?1435502003');
+  background-image: url('/images/pause-button.png?1435755588');
+  background-image: none, url('/images/pause-button.svg?1435755588');
 }
 .song-player .stop-button {
-  background-image: url('/images/stop-button.png?1435502003');
-  background-image: none, url('/images/stop-button.svg?1435502003');
+  background-image: url('/images/stop-button.png?1435755588');
+  background-image: none, url('/images/stop-button.svg?1435755588');
 }
 .song-player .loading {
   -webkit-box-sizing: content-box;
@@ -4148,7 +4148,7 @@ body {
   width: 50px;
   height: 50px;
   padding: 11px;
-  background-image: url('/images/loading.gif?1435502003');
+  background-image: url('/images/loading.gif?1435755588');
   background-position: center center;
   -webkit-background-size: 70%;
   -moz-background-size: 70%;
@@ -4180,13 +4180,17 @@ body {
     float: initial;
     padding: initial;
   }
-  .song-player .play-button, .song-player .pause-button, .song-player .stop-button, .song-player .loading {
-    margin: 24px 0 24px 0;
+  .song-player .play-button,
+  .song-player .pause-button,
+  .song-player .stop-button {
     float: left;
+    margin: -5px 0 0 30px;
+    width: 48px;
+    height: 48px;
   }
   .song-player .song-wave {
     width: 100%;
-    height: 120px;
+    height: 40px;
     display: block;
     position: relative;
   }
@@ -4195,7 +4199,7 @@ body {
     position: absolute;
     top: 0;
     right: 0;
-    width: calc(100% - 120px);
+    width: calc(100% - 100px);
     height: 100%;
     z-index: 1;
   }
@@ -4208,12 +4212,9 @@ body {
     bottom: 0;
     left: 0;
   }
-  .song-item .song-player .play-button, .song-item .song-player .pause-button, .song-item .song-player .stop-button, .song-item .song-player .loading {
-    margin: 24px 25px 24px 52px;
-  }
   .song-item .song-player .song-wave .waveform-preview,
   .song-item .song-player .song-wave .waveform {
-    width: calc(100% - 160px);
+    width: calc(100% - 100px);
   }
 }
 
@@ -4257,12 +4258,12 @@ body {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
-  background-image: url('/images/vote-icon.png?1435688495');
+  background-image: url('/images/vote-icon.png?1435755596');
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 12px;
   height: 11px;
-  background-image: none, url('/images/vote-icon.svg?1435688495');
+  background-image: none, url('/images/vote-icon.svg?1435755596');
   background-position: center center;
   -webkit-background-size: contain;
   -moz-background-size: contain;
@@ -4473,12 +4474,12 @@ body {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
-  background-image: url('/images/icon-note.png?1435502003');
+  background-image: url('/images/icon-note.png?1435755588');
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 24px;
   height: 24px;
-  background-image: none, url('/images/icon-note.svg?1435502003');
+  background-image: none, url('/images/icon-note.svg?1435755588');
   background-position: center center;
   -webkit-background-size: contain;
   -moz-background-size: contain;
@@ -4528,12 +4529,12 @@ body {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
-  background-image: url('/images/icon-facebook.png?1435502003');
+  background-image: url('/images/icon-facebook.png?1435755588');
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 24px;
   height: 24px;
-  background-image: none, url('/images/icon-facebook.svg?1435502003');
+  background-image: none, url('/images/icon-facebook.svg?1435755588');
   background-position: center center;
   -webkit-background-size: contain;
   -moz-background-size: contain;
@@ -4714,12 +4715,12 @@ body {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
-  background-image: url('/images/popup-icon.png?1435688495');
+  background-image: url('/images/popup-icon.png?1435755596');
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 28px;
   height: 29px;
-  background-image: none, url('/images/popup-icon.svg?1435688495');
+  background-image: none, url('/images/popup-icon.svg?1435755596');
   background-position: center center;
   -webkit-background-size: contain;
   -moz-background-size: contain;
@@ -4730,12 +4731,12 @@ body {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
-  background-image: url('/images/popup-icon2.png?1435688495');
+  background-image: url('/images/popup-icon2.png?1435755596');
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 28px;
   height: 29px;
-  background-image: none, url('/images/popup-icon2.svg?1435688495');
+  background-image: none, url('/images/popup-icon2.svg?1435755596');
   background-position: center center;
   -webkit-background-size: contain;
   -moz-background-size: contain;
@@ -4746,12 +4747,12 @@ body {
   text-indent: -119988px;
   overflow: hidden;
   text-align: left;
-  background-image: url('/images/popup-icon3.png?1435688495');
+  background-image: url('/images/popup-icon3.png?1435755596');
   background-repeat: no-repeat;
   background-position: 50% 50%;
   width: 35px;
   height: 36px;
-  background-image: none, url('/images/popup-icon3.svg?1435688495');
+  background-image: none, url('/images/popup-icon3.svg?1435755596');
   background-position: center center;
   -webkit-background-size: contain;
   -moz-background-size: contain;

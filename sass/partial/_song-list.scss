@@ -97,7 +97,7 @@
       }
 
       .song-artist {
-        color: #ABABAB;
+        color: rgba(black,.3);
         @include adjust-font-size-to(14px, 1);
       }
     }
@@ -108,7 +108,7 @@
     margin: 0 auto;
 
     .song-item {
-      height: 190px;
+      height: 100px;
       padding-left: 6px;
       @include trailer(3);
       background: none;
@@ -143,11 +143,10 @@
       }
 
       .song-number {
-        @include adjust-font-size-to(65px, 1.75);
+        @include adjust-font-size-to(24px, 1);
         position: absolute;
         top: 0;
         left: 30px;
-
         display: initial;
         vertical-align: initial;
       }
@@ -155,12 +154,13 @@
       .song-info {
         position: absolute;
         top: 0;
-        left: 160px;
+        left: 100px;
 
         .song-title {
           padding-top: 0;
-          @include adjust-font-size-to(32px, 1);
-          margin-bottom: 10px;
+          font-size: 24px;
+          line-height: 1.1;
+          margin-bottom: 3px;
 
           display: block;
           max-width: initial;
@@ -170,7 +170,8 @@
         }
 
         .song-artist {
-          @include adjust-font-size-to(18px, 1);
+          font-size: 13px;
+          line-height: 1.1;
         }
       }
     }

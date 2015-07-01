@@ -92,14 +92,18 @@
       padding: initial;
     }
 
-    %ctrl-button {
-      margin: 24px 0 24px 0;
+    .play-button,
+    .pause-button,
+    .stop-button {
       float: left;
+      margin: -5px 0 0 30px;
+      width: 48px;
+      height: 48px;
     }
 
     .song-wave {
       width: 100%;
-      height: 120px;
+      height: 40px;
       display: block;
       position: relative;
 
@@ -108,7 +112,7 @@
         position: absolute;
         top: 0;
         right: 0;
-        width: calc(100% - 120px);
+        width: calc(100% - 100px);
         height: 100%;
         z-index: 1;
       }
@@ -123,15 +127,10 @@
       position: absolute;
       bottom: 0;
       left: 0;
-
-      %ctrl-button {
-        margin: 24px 25px 24px 52px;
-      }
-
       .song-wave {
         .waveform-preview,
         .waveform {
-          width: calc(100% - 160px);
+          width: calc(100% - 100px);
         }
       }
     }
