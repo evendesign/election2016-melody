@@ -1,4 +1,4 @@
-var $popup400ErrorContent, $popupAlarmContent, $popupErrorContent, $popupLoginContent, $popupLoginErrorContent, $popupSuccessContent, createWaveform, disableVoteButton, getUrlVars, isMobile, nl2br, padLeft, showPopup, showPopupLoading, soundManager, soundTrack, syncWaveform, vote, voteCheck, waveformStringToArray;
+var $popup400ErrorContent, $popupAlarmContent, $popupErrorContent, $popupLoginContent, $popupLoginErrorContent, $popupSuccessContent, createWaveform, getUrlVars, isMobile, nl2br, padLeft, showPopup, showPopupLoading, soundManager, soundTrack, syncWaveform, vote, voteCheck, waveformStringToArray;
 
 SC.initialize({
   client_id: 'd2f7da453051d648ae2f3e9ffbd4f69b'
@@ -183,16 +183,6 @@ showPopupLoading = function() {
     popup.removeClass('on');
   }
   return loading.addClass('on');
-};
-
-disableVoteButton = function(soundcloud_id) {
-  var button;
-
-  button = $('.song-item-' + soundcloud_id + ' .vote-button');
-  if (button.hasClass('done') === false) {
-    button.addClass('done');
-    return button.text('感謝支持！');
-  }
 };
 
 createWaveform = function(id, track_id, waveform, selector) {

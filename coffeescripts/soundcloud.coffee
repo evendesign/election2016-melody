@@ -145,12 +145,6 @@ showPopupLoading = ->
     popup.removeClass 'on'
   loading.addClass 'on'
 
-disableVoteButton = (soundcloud_id) ->
-  button = $('.song-item-'+soundcloud_id+' .vote-button')
-  if button.hasClass('done') is false
-    button.addClass 'done'
-    button.text '感謝支持！'
-
 createWaveform = (id,track_id,waveform,selector) ->
   SC.get '/tracks/'+track_id, (track) ->
     # $(selector+' .play-times').text track.playback_count

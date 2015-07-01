@@ -4063,6 +4063,8 @@ body {
   text-align: center;
   margin-top: 48px;
   display: none;
+  max-width: 980px;
+  margin: 0 auto;
 }
 .no-result-container.on {
   display: block;
@@ -4070,6 +4072,20 @@ body {
 .no-result-container h2 {
   font-size: 20px;
   line-height: 36px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.noresultimage {
+  margin-bottom: 120px;
+  padding-top: 31.64%;
+  background-image: url("/images/finding-img.png");
+  background-image: none, url("/images/finding-img.svg");
+  background-repeat: no-repeat;
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
 }
 
 .song-player-container {

@@ -2,16 +2,41 @@
 # Settings
 #################################
 window.pageName = 'song'
+window.id = undefined
 
 
 #################################
 # Function
 #################################
+checkUserVoted = (facebook_token)->
+  $.ajax
+    type: 'post'
+    dataType: 'json'
+    cache: false
+    data:
+      facebook_token: facebook_token
+    url: '//api.staging.iing.tw/check_user_voted.json'
+    success: (response) ->
+      for id in response.data
+        if id is window.id
+          disableVoteButton()
+
+disableVoteButton =  ->
+  button = $('.vote-button')
+  if button.hasClass('done') is false
+    button.addClass 'done'
+    button.text '感謝支持！'
 
 
 #################################
 # Document events
 #################################
+$(document).on 'fbload', ->
+  FB.getLoginStatus (response) ->
+    xx response
+    if response.status is 'connected'
+      checkUserVoted response.authResponse.accessToken
+
 $ ->
   xx window.getVars
   if parseInt(window.getVars['autoplay']) is 1
@@ -23,9 +48,9 @@ $ ->
   explode = url.split('/')
   song_no = explode[4]
   if typeof song_no isnt 'undefined' and parseInt(song_no) > 0
-    id = parseInt(song_no)
+    window.id = parseInt(song_no)
 
-    $.getJSON '//api.staging.iing.tw/soundclouds/'+id+'.json?token=8888', (item) ->
+    $.getJSON '//api.staging.iing.tw/soundclouds/'+window.id+'.json?token=8888', (item) ->
       xx item
       $('.song-title').text item.title
       $('.song-artist').text item.author_name

@@ -1,4 +1,4 @@
-var $songItem, checkUserVoted, countdown, currentTime, songFilter;
+var $songItem, checkUserVoted, countdown, currentTime, disableVoteButton, songFilter;
 
 window.pageName = 'list';
 
@@ -41,6 +41,16 @@ checkUserVoted = function(facebook_token) {
       return _results;
     }
   });
+};
+
+disableVoteButton = function(soundcloud_id) {
+  var button;
+
+  button = $('.song-item-' + soundcloud_id + ' .vote-button');
+  if (button.hasClass('done') === false) {
+    button.addClass('done');
+    return button.text('感謝支持！');
+  }
 };
 
 $songItem = function(item, display) {

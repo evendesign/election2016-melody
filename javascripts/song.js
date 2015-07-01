@@ -1,7 +1,57 @@
+var checkUserVoted, disableVoteButton;
+
 window.pageName = 'song';
 
+window.id = void 0;
+
+checkUserVoted = function(facebook_token) {
+  return $.ajax({
+    type: 'post',
+    dataType: 'json',
+    cache: false,
+    data: {
+      facebook_token: facebook_token
+    },
+    url: '//api.staging.iing.tw/check_user_voted.json',
+    success: function(response) {
+      var id, _i, _len, _ref, _results;
+
+      _ref = response.data;
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        id = _ref[_i];
+        if (id === window.id) {
+          _results.push(disableVoteButton());
+        } else {
+          _results.push(void 0);
+        }
+      }
+      return _results;
+    }
+  });
+};
+
+disableVoteButton = function() {
+  var button;
+
+  button = $('.vote-button');
+  if (button.hasClass('done') === false) {
+    button.addClass('done');
+    return button.text('感謝支持！');
+  }
+};
+
+$(document).on('fbload', function() {
+  return FB.getLoginStatus(function(response) {
+    xx(response);
+    if (response.status === 'connected') {
+      return checkUserVoted(response.authResponse.accessToken);
+    }
+  });
+});
+
 $(function() {
-  var explode, id, song_no, url;
+  var explode, song_no, url;
 
   xx(window.getVars);
   if (parseInt(window.getVars['autoplay']) === 1) {
@@ -17,8 +67,8 @@ $(function() {
   explode = url.split('/');
   song_no = explode[4];
   if (typeof song_no !== 'undefined' && parseInt(song_no) > 0) {
-    id = parseInt(song_no);
-    return $.getJSON('//api.staging.iing.tw/soundclouds/' + id + '.json?token=8888', function(item) {
+    window.id = parseInt(song_no);
+    return $.getJSON('//api.staging.iing.tw/soundclouds/' + window.id + '.json?token=8888', function(item) {
       var songWaveform, waveform;
 
       xx(item);

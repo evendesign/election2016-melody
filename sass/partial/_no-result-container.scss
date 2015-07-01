@@ -3,6 +3,8 @@
   text-align: center;
   @include leader(2);
   display: none;
+  max-width: 980px;
+  margin: 0 auto;
 
   &.on {
     display: block;
@@ -10,5 +12,16 @@
 
   h2 {
     @include adjust-font-size-to(20px, 1.5);
+    padding-left: 24px;
+    padding-right: 24px;
   }
 }
+.noresultimage {
+  @include trailer(5);
+  padding-top: 31.64%;
+  background-image: url("/images/finding-img.png");
+  background-image: none, url("/images/finding-img.svg");
+  background-repeat: no-repeat;
+  @include background-size(contain);
+}
+

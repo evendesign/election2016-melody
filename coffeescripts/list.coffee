@@ -29,6 +29,12 @@ checkUserVoted = (facebook_token)->
       for id in window.userVoted
         disableVoteButton id
 
+disableVoteButton = (soundcloud_id) ->
+  button = $('.song-item-'+soundcloud_id+' .vote-button')
+  if button.hasClass('done') is false
+    button.addClass 'done'
+    button.text '感謝支持！'
+
 
 #################################
 # Html pattern
