@@ -145,61 +145,66 @@ showPopupLoading = ->
     popup.removeClass 'on'
   loading.addClass 'on'
 
-createWaveform = (id,track_id,waveform,selector) ->
-  SC.get '/tracks/'+track_id, (track) ->
-    # $(selector+' .play-times').text track.playback_count
-    soundTrack[track_id] = track
-    sound = undefined
-    waveform = new Waveform(
-      container: $(selector+' .waveform').get(0)
-      innerColor: 'rgba(0,0,0,.1)'
-      data: waveform
-    )
-    ctx = waveform.context
-    gradient = ctx.createLinearGradient(0, 0, 0, waveform.height)
-    gradient.addColorStop 0.0, '#E4E779'
-    gradient.addColorStop 1.0, '#57C0C7'
+createWaveform = (id,track_id,waveform,selector,autoplay) ->
+  if $(selector+' .waveform canvas').length <= 0
+    SC.get '/tracks/'+track_id, (track) ->
+      # $(selector+' .play-times').text track.playback_count
+      soundTrack[track_id] = track
+      sound = undefined
+      $(selector+' .waveform-preview canvas').remove()
+      waveform = new Waveform(
+        container: $(selector+' .waveform').get(0)
+        innerColor: 'rgba(0,0,0,.1)'
+        data: waveform
+      )
+      ctx = waveform.context
+      gradient = ctx.createLinearGradient(0, 0, 0, waveform.height)
+      gradient.addColorStop 0.0, '#E4E779'
+      gradient.addColorStop 1.0, '#57C0C7'
 
-    waveform.innerColor = (x) ->
-      if sound and x < sound.position / sound.durationEstimate
-        gradient
-      else if sound and x < sound.bytesLoaded / sound.bytesTotal
-        '#D1D1D1'
-      else
-        '#F0F0F0'
+      waveform.innerColor = (x) ->
+        if sound and x < sound.position / sound.durationEstimate
+          gradient
+        else if sound and x < sound.bytesLoaded / sound.bytesTotal
+          'rgba(0,0,0,.2)'
+        else
+          'rgba(0,0,0,.1)'
 
-    SC.stream '/tracks/'+track_id, {
-      whileloading: waveform.redraw
-      whileplaying: waveform.redraw
-      volume: 100
-      useHTML5Audio: true
-      preferFlash: false
-    }, (s) ->
-      $(selector+' .play-button').attr('data-sid',s.sID)
-      sound = s
-      if window.isDesktop
-        if window.autoPlay or window.shuffle
-          xx 'auto play'
-          playSong = (element,sid) ->
-            soundManager.play sid,
-              onplay: ->
-                element.addClass 'pause-button'
-                element.removeClass 'loading'
-                element.removeClass 'play-button'
-              onresume: ->
-                element.addClass 'pause-button'
-                element.removeClass 'loading'
-                element.removeClass 'play-button'
-              onfinish: ->
-                xx 'song finish'
-                if window.autoLoop
-                  playSong(element,sid)
-                else if window.shuffle and window.pageName is 'song'
-                  window.location = $('#nextSong').attr('href') + '?shuffle=1'
-                else
-                  element.addClass 'play-button'
-                  element.removeClass 'pause-button'
-          playSong($('.play-button'), s.sID)
+      SC.stream '/tracks/'+track_id, {
+        whileloading: waveform.redraw
+        whileplaying: waveform.redraw
+        volume: 100
+        useHTML5Audio: true
+        preferFlash: false
+      }, (s) ->
+        $(selector+' .play-button').attr('data-sid',s.sID)
+        sound = s
+        if window.isDesktop
+          if window.autoPlay or window.shuffle or autoplay
+            xx 'auto play'
+            playSong = (element,sid) ->
+              soundManager.play sid,
+                onplay: ->
+                  element.addClass 'pause-button'
+                  element.removeClass 'loading'
+                  element.removeClass 'play-button'
+                onresume: ->
+                  element.addClass 'pause-button'
+                  element.removeClass 'loading'
+                  element.removeClass 'play-button'
+                onfinish: ->
+                  xx 'song finish'
+                  if window.autoLoop
+                    playSong(element,sid)
+                  else if window.shuffle and window.pageName is 'song'
+                    window.location = $('#nextSong').attr('href')
+                  else
+                    element.addClass 'play-button'
+                    element.removeClass 'pause-button'
+            if window.pageName is 'list'
+              playSong($('.play-button.loading'), s.sID)
+            else
+              playSong($('.play-button'), s.sID)
 
 
 syncWaveform = (id,token,data) ->
@@ -214,6 +219,13 @@ syncWaveform = (id,token,data) ->
     url: '//api.iing.tw/sync_waveform.json'
     success: (response) ->
       xx response
+
+getItemById = (array, id) ->
+  i = 0
+  while i < array.length
+    if array[i].id is id
+      return array[i]
+    i++
 
 
 #################################
@@ -258,32 +270,42 @@ $ ->
         return_scopes: true
 
   $('body').delegate '.play-button', 'click', ->
+    $(this).addClass 'loading'
     if soundManager isnt undefined
       soundManager.pauseAll()
       $('.pause-button').addClass 'play-button'
       $('.play-button').removeClass 'pause-button'
 
-    _this = $(this)
-    _this.addClass 'loading'
-    sid = _this.data 'sid'
-
-    playSong = (element,sid) ->
-      soundManager.play sid,
-        onplay: ->
-          element.addClass 'pause-button'
-          element.removeClass 'loading'
-          element.removeClass 'play-button'
-        onresume: ->
-          element.addClass 'pause-button'
-          element.removeClass 'loading'
-          element.removeClass 'play-button'
-        onfinish: ->
-          if window.autoLoop
-            playSong(element,sid)
-          else
-            element.addClass 'play-button'
-            element.removeClass 'pause-button'
-    playSong(_this, sid)
+    if $(this).parents('.song-item').find('.waveform').find('canvas').length <= 0
+      songid = $(this).parents('.song-item').data 'id'
+      trackid = $(this).data 'trackid'
+      if window.pageName is 'list'
+        item = getItemById(window.list, songid)
+        waveform = waveformStringToArray item.waveform
+        createWaveform(songid, trackid, waveform, '.song-item-'+songid, true)
+      else if window.pageName is 'song'
+        waveform = waveformStringToArray window.item.waveform
+        createWaveform(songid, trackid, waveform, '.page', true)
+    else
+      _this = $(this)
+      sid = _this.data 'sid'
+      playSong = (element,sid) ->
+        soundManager.play sid,
+          onplay: ->
+            element.addClass 'pause-button'
+            element.removeClass 'loading'
+            element.removeClass 'play-button'
+          onresume: ->
+            element.addClass 'pause-button'
+            element.removeClass 'loading'
+            element.removeClass 'play-button'
+          onfinish: ->
+            if window.autoLoop
+              playSong(element,sid)
+            else
+              element.addClass 'play-button'
+              element.removeClass 'pause-button'
+      playSong(_this, sid)
 
 
   $('body').delegate '.pause-button', 'click', ->

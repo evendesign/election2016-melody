@@ -29,10 +29,13 @@
     }
 
     .loading & {
-      &.hide {
-        display: block;
-        @include opacity(0);
-      }
+      display: block;
+      @include opacity(0);
+
+      // &.hide {
+      //   display: block;
+      //   @include opacity(0);
+      // }
     }
 
     .searching & {

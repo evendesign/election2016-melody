@@ -2,16 +2,24 @@
   width: 40px;
   height: 40px;
   position: fixed;
-  top: 350px;
+  top: 280px;
   left: calc(50% - 20px);
   z-index: 2000;
 
   .list & {
-    top: 500px;
+    top: 550px;
+  }
+
+  .popup-loading-container & {
+    top: calc(100vh - 20px);
   }
 
   @include at-breakpoint($desktop) {
-    top: 450px;
+    top: 350px;
+
+    .list & {
+      top: 450px;
+    }
   }
 }
 

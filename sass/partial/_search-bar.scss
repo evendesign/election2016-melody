@@ -9,7 +9,7 @@ $search-input-height       : 36px;
   margin: 0 auto;
 
   &.off {
-    display: none;
+    @include opacity(0);
   }
 
   * {

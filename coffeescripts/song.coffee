@@ -3,6 +3,7 @@
 #################################
 window.pageName = 'song'
 window.id = undefined
+window.item = undefined
 
 
 #################################
@@ -52,6 +53,7 @@ $ ->
 
     $.getJSON '//api.iing.tw/soundclouds/'+window.id+'.json?token=8888', (item) ->
       xx item
+      window.item = item
       $('.song-title').text item.title
       $('.song-artist').text item.author_name
       $('.song-number').text padLeft(item.id,3)
@@ -60,36 +62,26 @@ $ ->
       $('.song-waveform-value').val item.waveform
       $('.vote-button').attr('data-id',item.id)
       $('.play-button').attr('data-trackid',item.track_id)
-      $('#nextSong').attr('href','/song/'+item.next_song_id)
+      $('#nextSong').attr('href','/song/'+item.next_song_id+'/?shuffle=1')
       $('.vote-count').text(item.vote_count+' 票')
       $('.fb-share').attr('data-href','https://www.facebook.com/sharer/sharer.php?u=//melody.iing.tw/song/'+item.id)
 
       if item.official_url
         $('.song-intro .song-artist').prepend '<a class="official-link" targe="_blank" href="'+item.official_url+'">Official Link</a>'
 
-      if item.waveform is null
-        SC.get '/tracks/'+item.track_id, (track) ->
-          xx track
-          xx track.waveform_url
-          $.getJSON '//waveformjs.org/w?callback=?', { url: track.waveform_url }, (d) ->
-            xx d
-            syncWaveform(item.id,item.token,d)
-            songWaveform = d
-            waveform = new Waveform(
-              container: $('.waveform-preview').get(0)
-              innerColor: 'rgba(0,0,0,.1)'
-              data: songWaveform
-            )
-      else
-        songWaveform = waveformStringToArray item.waveform
-        waveform = new Waveform(
-          container: $('.waveform-preview').get(0)
-          innerColor: 'rgba(0,0,0,.1)'
-          data: songWaveform
-        )
-      createWaveform(item.id,item.track_id,songWaveform,'.page')
+      songWaveform = waveformStringToArray item.waveform
+      waveform = new Waveform(
+        container: $('.waveform-preview').get(0)
+        innerColor: 'rgba(0,0,0,.1)'
+        data: songWaveform
+      )
+
+      if window.shuffle
+        $('.play-button').addClass 'loading'
+        createWaveform(item.id,item.track_id,songWaveform,'.song-player')
+
       $('.page .spinner').remove()
-      $('.song-player-container').removeClass 'off'
       $('.song-detail').removeClass 'off'
+      $('.song-player-container').removeClass 'off'
       $('.page-bottom-illustrator').removeClass 'off'
 

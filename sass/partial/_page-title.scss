@@ -54,34 +54,7 @@
     padding-bottom: 36px;
   }
 
-  @include at-breakpoint($desktop) {
-    height: 265px;
-    margin-top: 0;
-    padding-bottom: 0;
-
-    .page-title-inner {
-      @include box-sizing(content-box);
-      max-width: 984px;
-      position: relative;
-      text-align: left;
-      background: transparent;
-
-      h1 {
-        @include leader(2);
-        @include adjust-font-size-to(34px);
-        text-align: left;
-        padding: 0;
-        padding-bottom: 16px;
-      }
-      p {
-        @include adjust-font-size-to(16px);
-        br { display: none; }
-      }
-    }
-
-    &.list {
-      background-position: 200% 0%;
-    }
+  @include at-breakpoint($pad) {
 
     &.song {
       height: 150px;
@@ -109,6 +82,29 @@
   }
 
   @include at-breakpoint($desktop) {
+    height: 265px;
+    margin-top: 0;
+    padding-bottom: 0;
+
+    .page-title-inner {
+      @include box-sizing(content-box);
+      max-width: 984px;
+      position: relative;
+      text-align: left;
+      background: transparent;
+
+      h1 {
+        @include leader(2);
+        @include adjust-font-size-to(34px);
+        text-align: left;
+        padding: 0;
+        padding-bottom: 16px;
+      }
+      p {
+        @include adjust-font-size-to(16px);
+        br { display: none; }
+      }
+    }
 
     &.song {
       height: 185px;
