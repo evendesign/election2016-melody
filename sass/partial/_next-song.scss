@@ -1,18 +1,15 @@
-.go-to-list {
-  position: relative;
-  z-index: 10;
-}
 .list-more-song, .next-song, .go-to-list {
   text-align: center;
-  margin: 0 auto rhythm(2) auto;
+  margin: rhythm(2) auto;
 
   .btn {
     position: relative;
-    width: 100%;
-    @include border-radius(0px);
+    width: 80%;
+    max-width: 300px;
+    @include border-radius(3px);
     @include box-sizing(border-box);
     @include adjust-font-size-to(18px, 1);
-    padding: 10px 22px;
+    padding: 12px 24px;
     @include trailer(.5);
     &:after {
       content: "";
@@ -24,12 +21,13 @@
 
   @include at-breakpoint($pad) {
     margin: rhythm(2) auto;
-
-    .btn {
-      width: initial;
-      @include border-radius(3px);
-    }
   }
+}
+
+.go-to-list {
+  position: relative;
+  z-index: 10;
+  margin: rhythm(3) auto rhythm(2);
 }
 
 .list-more-song {

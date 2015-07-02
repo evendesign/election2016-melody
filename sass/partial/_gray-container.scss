@@ -5,20 +5,19 @@
 
   .side-title {
     width: 100%;
-    max-width: 240px;
     height: 48px;
-    margin: 0 auto;
+    margin: rhythm(1.25) -24px rhythm(1);
+    padding: 12px 24px;
     line-height: 48px;
-    text-align: center;
+    text-align: left;
     font-size: 22px;
     font-weight: 900;
-    color: white;
-    @include leader(1.25);
-    @include trailer(1);
-    @include border-radius(35px);
-    @include background(linear-gradient(45deg, #00BC82 0%, #93D877 100%));
+    color: #6bc097;
+    background-color: white;
+
 
     .color-mountain {
+      display: none;
       position: absolute;
       left: 18px;
       top: -32px;
@@ -101,6 +100,12 @@
       }
     }
   }
+  @include at-breakpoint($pad) {
+    .side-title {
+      margin: rhythm(1.25) -48px rhythm(1);
+      padding: 12px 48px;
+    }
+  }
 
   @include at-breakpoint($desktop) {
     float: right;
@@ -110,9 +115,12 @@
     .side-title {
       width: 200px;
       height: 52px;
+      margin: 0;
+      padding: 0;
       line-height: 52px;
       text-align: right;
       font-size: 20px;
+      color: white;
       padding-right: rhythm(.5);
       position: absolute;
       right: calc(100% + 48px);
@@ -121,6 +129,9 @@
       @include border-right-radius(0);
       @include box-sizing(border-box);
       @include leader(0);
+      @include background(linear-gradient(45deg, #00BC82 0%, #93D877 100%));
+
+      .color-mountain { display: block; }
 
       .color-ring { display: block; }
 
