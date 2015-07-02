@@ -11,6 +11,7 @@ window.shuffle = false
 window.isDesktop = true
 window.soundcloudId = undefined
 window.userVoted = []
+window.loadingTime = undefined
 
 
 #################################
@@ -47,6 +48,12 @@ $popup400ErrorContent = ->
   '<i class="icon-error"></i>
   <h2>糟糕，出錯了...</h2>
   <p>請嘗試重新整理頁面</p>
+  <button type="button" class="close-popup">關閉視窗</button>'
+
+$popup429ErrorContent = ->
+  '<i class="icon-error"></i>
+  <h2>目前網路壅塞</h2>
+  <p>請晚一點再來播放</p>
   <button type="button" class="close-popup">關閉視窗</button>'
 
 $popupLoginErrorContent = ->
@@ -123,11 +130,15 @@ vote = (facebook_token,soundcloud_id)->
       if r.message is 'success'
         showPopup $popupSuccessContent(soundcloud_id)
         disableVoteButton(soundcloud_id)
-        $('.song-item-'+soundcloud_id+' .vote-count').text(r.vote_count+' 票')
+        if window.pageName is 'list'
+          $('.song-item-'+soundcloud_id+' .vote-count').text(r.vote_count+' 票')
+        else
+          $('.vote-count').text(r.vote_count+' 票')
       else
         showPopup $popupErrorContent()
 
 showPopup = (html) ->
+  stopLoadingTime()
   popup = $('.popup-container')
   loading = $('.popup-loading-container')
   if popup.hasClass('on') is true
@@ -147,6 +158,7 @@ showPopupLoading = ->
 createWaveform = (id,track_id,waveform,selector,autoplay) ->
   if $(selector+' .waveform canvas').length <= 0
     SC.get '/tracks/'+track_id, (track) ->
+
       xx 'get track success'
       # $(selector+' .play-times').text track.playback_count
       soundTrack[track_id] = track
@@ -177,6 +189,7 @@ createWaveform = (id,track_id,waveform,selector,autoplay) ->
         useHTML5Audio: true
         preferFlash: false
       }, (s) ->
+
         xx 'stream prepared'
         if window.isDesktop is false
           xx 'remove loading'
@@ -188,11 +201,18 @@ createWaveform = (id,track_id,waveform,selector,autoplay) ->
             xx 'auto play starting'
             playSong = (element,sid) ->
               soundManager.play sid,
+                onload: (state) ->
+                  if state is false
+                    showPopup $popup429ErrorContent()
+                    element.addClass 'play-button'
+                    element.removeClass 'pause-button'
                 onplay: ->
+                  xx 'play'
                   element.addClass 'pause-button'
                   element.removeClass 'loading'
                   element.removeClass 'play-button'
                 onresume: ->
+                  xx 'resume'
                   element.addClass 'pause-button'
                   element.removeClass 'loading'
                   element.removeClass 'play-button'
@@ -231,6 +251,22 @@ getItemById = (array, id) ->
       return array[i]
     i++
 
+setLoadingTime = ->
+  window.loadingTime = Date.now()
+  loadingStateCheckInterval = setInterval ->
+    if window.loadingTime is undefined
+      clearInterval(loadingStateCheckInterval)
+    else
+      # xx Date.now() - window.loadingTime
+      if Date.now() - window.loadingTime >= 5000
+        if $('.too-many-people-is-here').hasClass('on') is false
+          $('.too-many-people-is-here').addClass 'on'
+  , 500
+
+stopLoadingTime = ->
+  window.loadingTime = undefined
+  $('.too-many-people-is-here').removeClass 'on'
+
 
 #################################
 # Document events
@@ -249,6 +285,7 @@ $ ->
 
   $('body').delegate '.vote-button', 'click', ->
     xx 'vote button clicked'
+    setLoadingTime()
     soundcloud_id = $(this).data('id')
     showPopupLoading()
     FB.getLoginStatus (response) ->
@@ -300,6 +337,11 @@ $ ->
       sid = _this.data 'sid'
       playSong = (element,sid) ->
         soundManager.play sid,
+          onload: (state) ->
+            if state is false
+              showPopup $popup429ErrorContent()
+              element.addClass 'play-button'
+              element.removeClass 'pause-button'
           onplay: ->
             element.addClass 'pause-button'
             element.removeClass 'loading'

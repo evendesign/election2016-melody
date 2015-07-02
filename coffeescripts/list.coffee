@@ -92,18 +92,19 @@ $(document).on 'fbload', ->
 $ ->
   if window.location.hash isnt ''
     hash  = window.location.hash.toLowerCase()
-    if hash is 'asc'
+    xx hash
+    if hash is '#asc'
       window.hash = 'asc'
-    if hash is 'desc'
+    if hash is '#desc'
       window.hash = 'desc'
-    else if hash is 'ranking'
+    else if hash is '#ranking'
       window.hash = 'ranking'
     else
       window.hash = 'asc'
   else
     window.hash = 'asc'
 
-
+  setLoadingTime()
   $.getJSON '//api.iing.tw/soundclouds.json?token=8888', (r) ->
     r = r.slice().sort (a, b) ->
       return a.id - b.id
@@ -131,9 +132,21 @@ $ ->
         createWaveform(item.id,item.track_id,songWaveform,'.song-item-'+item.id)
       i++
       if i is window.list.length
+        xx window.hash
+        if window.hash is 'asc'
+          $('#listSorting').val(1)
+          tinysort('ul.song-list>li',{data:'id',order:'asc'})
+        else if window.hash is 'desc'
+          $('#listSorting').val(2)
+          tinysort('ul.song-list>li',{data:'id',order:'desc'})
+        else if window.hash is 'ranking'
+          $('#listSorting').val(3)
+          tinysort('ul.song-list>li',{data:'vote',order:'desc'})
+
         $('.search-bar').removeClass 'off'
         $('.song-list').removeClass 'loading'
         $('.page .spinner').remove()
+        stopLoadingTime()
 
   # $('body').delegate '.list-more-song', 'click', ->
   #   i = window.pageNumber * window.perPage
@@ -184,8 +197,11 @@ $ ->
   $('body').delegate '#listSorting', 'change', ->
     value = parseInt($(this).val())
     if value is 1
+      window.location.hash = '#asc'
       tinysort('ul.song-list>li',{data:'id',order:'asc'})
     else if value is 2
+      window.location.hash = '#desc'
       tinysort('ul.song-list>li',{data:'id',order:'desc'})
     else if value is 3
+      window.location.hash = '#ranking'
       tinysort('ul.song-list>li',{data:'vote',order:'desc'})
