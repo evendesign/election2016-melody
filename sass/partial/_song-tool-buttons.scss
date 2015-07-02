@@ -25,7 +25,7 @@
     }
 
     .vote-button {
-      width: 120px;
+      width: 100px;
       background-color: #46B37F;
       @include border-left-radius(6px);
       margin-right: -6px;
@@ -72,7 +72,7 @@
     .vote-count {
       color: white;
       background: #F5463C;
-      padding: 0 20px 0 34px;
+      padding: 0 10px 0 28px;
       @include border-right-radius(6px);
 
       float: left;
@@ -85,7 +85,7 @@
     border: 2px solid #51BE91;
     color: #51BE91;
     line-height: 1;
-    margin: 0 30px;
+    margin: 0 10px 0 30px;
     @include border-radius(6px);
 
     &:hover {
@@ -108,7 +108,7 @@
 
     .fb-share {
       margin: 0;
-      margin-right: 15px;
+      margin-right: 5px;
     }
 
   }
@@ -138,8 +138,13 @@
       * {
         float: left;
       }
+
       .vote-button {
         width: 150px;
+      }
+
+      .vote-count {
+        padding: 0 20px 0 34px;
       }
     }
 

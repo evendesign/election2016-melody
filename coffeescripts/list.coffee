@@ -6,6 +6,7 @@ window.list = []
 window.pageNumber = 1
 window.perPage = 200
 window.append = false
+window.hash = 'asc'
 countdown = Date.now()
 currentTime = Date.now()
 
@@ -61,7 +62,7 @@ $songItem = (item,display) ->
       </a>
     </div>
     <div class="song-player">
-      <button class="play-button" data-trackid="'+item.track_id+'" data-sid=""></button>
+      <button class="play-button" data-id="'+item.id+'" data-trackid="'+item.track_id+'" data-sid=""></button>
       <div class="song-wave">
         <div class="waveform-preview"></div>
         <div class="waveform"></div>
@@ -89,6 +90,20 @@ $(document).on 'fbload', ->
       checkUserVoted response.authResponse.accessToken
 
 $ ->
+  if window.location.hash isnt ''
+    hash  = window.location.hash.toLowerCase()
+    if hash is 'asc'
+      window.hash = 'asc'
+    if hash is 'desc'
+      window.hash = 'desc'
+    else if hash is 'ranking'
+      window.hash = 'ranking'
+    else
+      window.hash = 'asc'
+  else
+    window.hash = 'asc'
+
+
   $.getJSON '//api.iing.tw/soundclouds.json?token=8888', (r) ->
     r = r.slice().sort (a, b) ->
       return a.id - b.id
@@ -111,6 +126,9 @@ $ ->
         innerColor: 'rgba(0,0,0,.1)'
         data: songWaveform
       )
+      if window.isDesktop is false
+        $('.song-item-'+item.id+' .play-button').addClass 'loading'
+        createWaveform(item.id,item.track_id,songWaveform,'.song-item-'+item.id)
       i++
       if i is window.list.length
         $('.search-bar').removeClass 'off'

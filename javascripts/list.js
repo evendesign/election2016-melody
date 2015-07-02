@@ -10,6 +10,8 @@ window.perPage = 200;
 
 window.append = false;
 
+window.hash = 'asc';
+
 countdown = Date.now();
 
 currentTime = Date.now();
@@ -76,7 +78,7 @@ $songItem = function(item, display) {
       </a>\
     </div>\
     <div class="song-player">\
-      <button class="play-button" data-trackid="' + item.track_id + '" data-sid=""></button>\
+      <button class="play-button" data-id="' + item.id + '" data-trackid="' + item.track_id + '" data-sid=""></button>\
       <div class="song-wave">\
         <div class="waveform-preview"></div>\
         <div class="waveform"></div>\
@@ -103,6 +105,23 @@ $(document).on('fbload', function() {
 });
 
 $(function() {
+  var hash;
+
+  if (window.location.hash !== '') {
+    hash = window.location.hash.toLowerCase();
+    if (hash === 'asc') {
+      window.hash = 'asc';
+    }
+    if (hash === 'desc') {
+      window.hash = 'desc';
+    } else if (hash === 'ranking') {
+      window.hash = 'ranking';
+    } else {
+      window.hash = 'asc';
+    }
+  } else {
+    window.hash = 'asc';
+  }
   $.getJSON('//api.iing.tw/soundclouds.json?token=8888', function(r) {
     var display, i, item, songWaveform, waveform, _i, _len, _ref, _results;
 
@@ -129,6 +148,10 @@ $(function() {
         innerColor: 'rgba(0,0,0,.1)',
         data: songWaveform
       });
+      if (window.isDesktop === false) {
+        $('.song-item-' + item.id + ' .play-button').addClass('loading');
+        createWaveform(item.id, item.track_id, songWaveform, '.song-item-' + item.id);
+      }
       i++;
       if (i === window.list.length) {
         $('.search-bar').removeClass('off');

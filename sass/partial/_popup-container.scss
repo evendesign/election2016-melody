@@ -20,11 +20,13 @@
     vertical-align:middle;
 
     .popup-dialog-inner {
-      width: 320px;
+      width: 90%;
+      max-width: 320px;
       background: white;
       border: 6px solid #2BB179;
       padding: rhythm(1) 0;
       margin: 0 auto;
+      @include box-sizing(border-box);
 
       h2 {
         @include adjust-font-size-to(24px, 1);
@@ -74,6 +76,7 @@
     .popup-dialog {
       .popup-dialog-inner {
         width: 400px;
+        max-width: initial;
       }
     }
 

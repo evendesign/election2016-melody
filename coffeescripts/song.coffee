@@ -61,7 +61,7 @@ $ ->
       $('.song-intro p').html nl2br(item.desc)
       $('.song-waveform-value').val item.waveform
       $('.vote-button').attr('data-id',item.id)
-      $('.play-button').attr('data-trackid',item.track_id)
+      $('.play-button').attr('data-id',item.id).attr('data-trackid',item.track_id)
       $('#nextSong').attr('href','/song/'+item.next_song_id+'/?shuffle=1')
       $('.vote-count').text(item.vote_count+' 票')
       $('.fb-share').attr('data-href','https://www.facebook.com/sharer/sharer.php?u=//melody.iing.tw/song/'+item.id)
@@ -76,8 +76,11 @@ $ ->
         data: songWaveform
       )
 
-      if window.shuffle
+      if window.shuffle and window.isDesktop
         $('.play-button').addClass 'loading'
+        createWaveform(item.id,item.track_id,songWaveform,'.song-player')
+
+      if window.isDesktop is false
         createWaveform(item.id,item.track_id,songWaveform,'.song-player')
 
       $('.page .spinner').remove()

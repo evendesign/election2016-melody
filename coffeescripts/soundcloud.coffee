@@ -41,13 +41,12 @@ $popupErrorContent = ->
   '<i class="icon-error"></i>
   <h2>糟糕！投票失敗...</h2>
   <p>請嘗試重新整理頁面</p>
-  <button class="btn btn_primary" type="button">再試一次</button><br>
   <button type="button" class="close-popup">關閉視窗</button>'
 
 $popup400ErrorContent = ->
   '<i class="icon-error"></i>
-  <h2>嘿，投票還沒開始唷...</h2>
-  <p>投票時間 7/2 10:00 ～ 7/6 23:59</p>
+  <h2>糟糕，出錯了...</h2>
+  <p>請嘗試重新整理頁面</p>
   <button type="button" class="close-popup">關閉視窗</button>'
 
 $popupLoginErrorContent = ->
@@ -148,6 +147,7 @@ showPopupLoading = ->
 createWaveform = (id,track_id,waveform,selector,autoplay) ->
   if $(selector+' .waveform canvas').length <= 0
     SC.get '/tracks/'+track_id, (track) ->
+      xx 'get track success'
       # $(selector+' .play-times').text track.playback_count
       soundTrack[track_id] = track
       sound = undefined
@@ -177,11 +177,15 @@ createWaveform = (id,track_id,waveform,selector,autoplay) ->
         useHTML5Audio: true
         preferFlash: false
       }, (s) ->
+        xx 'stream prepared'
+        if window.isDesktop is false
+          xx 'remove loading'
+          $(selector+' .play-button').removeClass 'loading'
         $(selector+' .play-button').attr('data-sid',s.sID)
         sound = s
         if window.isDesktop
           if window.autoPlay or window.shuffle or autoplay
-            xx 'auto play'
+            xx 'auto play starting'
             playSong = (element,sid) ->
               soundManager.play sid,
                 onplay: ->
@@ -233,6 +237,7 @@ getItemById = (array, id) ->
 #################################
 $ ->
   if isMobile()
+    xx 'is mobile'
     window.isDesktop = false
 
   window.getVars = getUrlVars()
@@ -270,15 +275,18 @@ $ ->
         return_scopes: true
 
   $('body').delegate '.play-button', 'click', ->
+    xx 'play'
+    $('.play-button').removeClass 'loading'
     $(this).addClass 'loading'
     if soundManager isnt undefined
       soundManager.pauseAll()
       $('.pause-button').addClass 'play-button'
       $('.play-button').removeClass 'pause-button'
 
-    if $(this).parents('.song-item').find('.waveform').find('canvas').length <= 0
-      songid = $(this).parents('.song-item').data 'id'
-      trackid = $(this).data 'trackid'
+    if $(this).parents('.song-player').find('.waveform').find('canvas').length <= 0
+      xx 'no canvas'
+      xx songid = $(this).data 'id'
+      xx trackid = $(this).data 'trackid'
       if window.pageName is 'list'
         item = getItemById(window.list, songid)
         waveform = waveformStringToArray item.waveform
@@ -287,6 +295,7 @@ $ ->
         waveform = waveformStringToArray window.item.waveform
         createWaveform(songid, trackid, waveform, '.page', true)
     else
+      xx 'canvas exist'
       _this = $(this)
       sid = _this.data 'sid'
       playSong = (element,sid) ->
