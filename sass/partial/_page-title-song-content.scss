@@ -7,24 +7,25 @@
 
   .song-number {
     @include adjust-font-size-to(24px,1);
-    display: inline-block;
+    float: left;
     font-weight: 400;
     color: #ABABAB;
   }
 
   .song-title-container {
+    display: block;
+    margin-left: 48px;
+    overflow: hidden;
 
     .song-title {
       font-weight: 900;
       color: #5C5C5C;
       @include adjust-font-size-to(24px, 1);
-      position: absolute;
-      left: 80px;
-      top: 30px;
     }
 
     .song-artist {
       color: #ABABAB;
+      @include leader(.25);
       @include adjust-font-size-to(14px, 1);
     }
 
@@ -59,7 +60,7 @@
 
       .song-title {
         @include adjust-font-size-to(28px,1);
-        padding-left: 65px;
+        padding-left: 24px;
         margin-bottom: 0;
 
         position: relative;

@@ -56,9 +56,13 @@
     .song-content {
       position: relative;
       float: right;
-      width: 100%;
-      margin-right: -120px;
-      min-height: 100px;
+      width: calc( 100% - 120px );
+      @include trailer(.5);
+
+      a {
+        @include pie-clearfix;
+        display: block;
+      }
 
       a:hover {
         text-decoration: none;
@@ -69,18 +73,17 @@
     }
 
     .song-number {
-      @include adjust-font-size-to(22px, 1.75);
+      @include adjust-font-size-to(22px, 1);
       font-weight: 400;
       color: #ABABAB;
       text-decoration: none;
-      display: inline-block;
       vertical-align: top;
     }
 
     .song-info {
+      display: block;
+      overflow: hidden;
       text-decoration: none;
-      display: inline;
-      max-width: 70%;
 
       * {
         font-weight: 300;
@@ -93,14 +96,10 @@
         margin-bottom: 8px;
 
         display: inline-block;
-        max-width: 50%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
       }
 
       .song-artist {
-        color: rgba(black,.3);
+        color: rgba(black,.7);
         @include adjust-font-size-to(14px, 1);
       }
     }
@@ -111,7 +110,6 @@
     margin: 0 auto;
 
     .song-item {
-      height: 100px;
       padding-left: 6px;
       @include trailer(3);
       background: none;
@@ -146,18 +144,14 @@
       }
 
       .song-number {
+        float: left;
         @include adjust-font-size-to(24px, 1);
-        position: absolute;
-        top: 0;
-        left: 30px;
-        display: initial;
-        vertical-align: initial;
+        display: inline-block;
+        padding: 0 23px 0 34px;
       }
 
       .song-info {
-        position: absolute;
-        top: 0;
-        left: 100px;
+        max-width: 55%;
 
         .song-title {
           padding-top: 0;
