@@ -1,6 +1,19 @@
 .official-link {
+  position: relative;
   display: inline-block;
   margin-right: 3px;
-  @include replace-text-with-svg(icon-facebook);
+  padding-left: 27px;
   vertical-align: bottom;
+  color: $color-gray-dark;
+  &:hover {
+    color: #46B37F;
+    text-decoration: none;
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include replace-text-with-svg(icon-facebook);
+  }
 }

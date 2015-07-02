@@ -56,7 +56,6 @@ $ ->
       xx item
       window.item = item
       $('.song-title').text item.title
-      $('.song-artist').text item.author_name
       $('.song-number').text padLeft(item.id,3)
       $('.song-lyric p').html nl2br(item.lyrics)
       $('.song-intro p').html nl2br(item.desc)
@@ -68,7 +67,9 @@ $ ->
       $('.fb-share').attr('data-href','https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/'+item.id)
 
       if item.official_url
-        $('.song-intro .song-artist').prepend '<a class="official-link" targe="_blank" href="'+item.official_url+'">Official Link</a>'
+        $('.song-intro .song-artist').prepend '<a class="official-link" target="_blank" href="'+item.official_url+'">'+item.author_name+'</a>'
+      else
+        $('.song-artist').text item.author_name
 
       songWaveform = waveformStringToArray item.waveform
       waveform = new Waveform(
