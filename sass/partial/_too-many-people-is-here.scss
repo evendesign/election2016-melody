@@ -1,0 +1,13 @@
+.too-many-people-is-here {
+  position: fixed;
+  z-index: 5000;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  text-align: center;
+  display: none;
+
+  &.on {
+    display: block;
+  }
+}

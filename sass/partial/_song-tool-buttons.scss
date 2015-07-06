@@ -2,7 +2,7 @@
 
   *,
   .vote-button-container * {
-    @include adjust-font-size-to(18px, 1);
+    @include adjust-font-size-to(16px, 1);
     height: 35px;
     line-height: 35px;
     display: inline-block;
@@ -121,6 +121,7 @@
     .song & {
       text-align: left;
       position: absolute;
+      padding: 0 24px;
       bottom: 24px;
       left: 24px;
 
@@ -134,6 +135,7 @@
 
     .vote-button-container {
       float: initial;
+      @include adjust-font-size-to(18px, 1);
 
       * {
         float: left;

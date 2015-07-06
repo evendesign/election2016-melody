@@ -51,11 +51,11 @@ $ ->
   if typeof song_no isnt 'undefined' and parseInt(song_no) > 0
     window.id = parseInt(song_no)
 
+    setLoadingTime()
     $.getJSON '//api.iing.tw/soundclouds/'+window.id+'.json?token=8888', (item) ->
       xx item
       window.item = item
       $('.song-title').text item.title
-      $('.song-artist').text item.author_name
       $('.song-number').text padLeft(item.id,3)
       $('.song-lyric p').html nl2br(item.lyrics)
       $('.song-intro p').html nl2br(item.desc)
@@ -64,10 +64,12 @@ $ ->
       $('.play-button').attr('data-id',item.id).attr('data-trackid',item.track_id)
       $('#nextSong').attr('href','/song/'+item.next_song_id+'/?shuffle=1')
       $('.vote-count').text(item.vote_count+' 票')
-      $('.fb-share').attr('data-href','https://www.facebook.com/sharer/sharer.php?u=//melody.iing.tw/song/'+item.id)
+      $('.fb-share').attr('data-href','https://www.facebook.com/sharer/sharer.php?u=http://melody.iing.tw/song/'+item.id)
 
       if item.official_url
-        $('.song-intro .song-artist').prepend '<a class="official-link" targe="_blank" href="'+item.official_url+'">Official Link</a>'
+        $('.song-intro .song-artist').prepend '<a class="official-link" target="_blank" href="'+item.official_url+'">'+item.author_name+'</a>'
+      else
+        $('.song-artist').text item.author_name
 
       songWaveform = waveformStringToArray item.waveform
       waveform = new Waveform(
@@ -87,4 +89,4 @@ $ ->
       $('.song-detail').removeClass 'off'
       $('.song-player-container').removeClass 'off'
       $('.page-bottom-illustrator').removeClass 'off'
-
+      stopLoadingTime()

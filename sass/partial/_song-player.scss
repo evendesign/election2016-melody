@@ -129,10 +129,7 @@
     }
 
     .song-item & {
-      margin: 0 auto;
-      position: absolute;
-      bottom: 0;
-      left: 0;
+      margin: 18px auto;
       .song-wave {
         .waveform-preview,
         .waveform {
