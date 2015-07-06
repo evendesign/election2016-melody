@@ -326,7 +326,8 @@ $ ->
       xx trackid = $(this).data 'trackid'
       if window.pageName is 'list'
         item = getItemById(window.list, songid)
-        waveform = waveformStringToArray item.waveform
+        waveformItem = getItemById(window.waveform, songid)
+        waveform = waveformStringToArray waveformItem.waveform
         createWaveform(songid, trackid, waveform, '.song-item-'+songid, true)
       else if window.pageName is 'song'
         waveform = waveformStringToArray window.item.waveform
