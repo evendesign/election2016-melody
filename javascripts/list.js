@@ -191,33 +191,46 @@ $(function() {
     return _results;
   });
   appendStateCheckInterval = setInterval(function() {
+    var item, songWaveform, waveform, _i, _len, _ref, _results;
+
     xx('append waiting');
     if (window.appendFinish) {
       clearInterval(appendStateCheckInterval);
-      return $.getJSON('/json/waveform.json', function(r) {
-        var item, songWaveform, waveform, waveformItem, _i, _len, _ref, _results;
+      if (window.isDesktop) {
+        return $.getJSON('/json/waveform.json', function(r) {
+          var item, songWaveform, waveform, waveformItem, _i, _len, _ref, _results;
 
-        window.waveform = r;
-        _ref = window.waveform;
+          window.waveform = r;
+          _ref = window.list;
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            item = _ref[_i];
+            waveformItem = getItemById(window.waveform, item.id);
+            songWaveform = waveformStringToArray(waveformItem.waveform);
+            _results.push(waveform = new Waveform({
+              container: $('.song-item-' + item.id + ' .waveform-preview').get(0),
+              innerColor: 'rgba(0,0,0,.1)',
+              data: songWaveform
+            }));
+          }
+          return _results;
+        });
+      } else {
+        _ref = window.list;
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           item = _ref[_i];
-          waveformItem = getItemById(window.waveform, item.id);
-          songWaveform = waveformStringToArray(waveformItem.waveform);
+          songWaveform = [1, 1, 1, 1, 1];
           waveform = new Waveform({
             container: $('.song-item-' + item.id + ' .waveform-preview').get(0),
             innerColor: 'rgba(0,0,0,.1)',
             data: songWaveform
           });
-          if (window.isDesktop === false) {
-            $('.song-item-' + item.id + ' .play-button').addClass('loading');
-            _results.push(createWaveform(item.id, item.track_id, songWaveform, '.song-item-' + item.id));
-          } else {
-            _results.push(void 0);
-          }
+          $('.song-item-' + item.id + ' .play-button').addClass('loading');
+          _results.push(createWaveform(item.id, item.track_id, songWaveform, '.song-item-' + item.id));
         }
         return _results;
-      });
+      }
     }
   }, 100);
   $('body').delegate('.search-string', 'keydown', function() {

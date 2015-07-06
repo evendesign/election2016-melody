@@ -164,19 +164,27 @@ $ ->
     xx 'append waiting'
     if window.appendFinish
       clearInterval(appendStateCheckInterval)
-      $.getJSON '/json/waveform.json', (r) ->
-        window.waveform = r
-        for item in window.waveform
-          waveformItem = getItemById(window.waveform, item.id)
-          songWaveform = waveformStringToArray waveformItem.waveform
+      if window.isDesktop
+        $.getJSON '/json/waveform.json', (r) ->
+          window.waveform = r
+          for item in window.list
+            waveformItem = getItemById(window.waveform, item.id)
+            songWaveform = waveformStringToArray waveformItem.waveform
+            waveform = new Waveform(
+              container: $('.song-item-'+item.id+' .waveform-preview').get(0)
+              innerColor: 'rgba(0,0,0,.1)'
+              data: songWaveform
+            )
+      else
+        for item in window.list
+          songWaveform = [1,1,1,1,1]
           waveform = new Waveform(
             container: $('.song-item-'+item.id+' .waveform-preview').get(0)
             innerColor: 'rgba(0,0,0,.1)'
             data: songWaveform
           )
-          if window.isDesktop is false
-            $('.song-item-'+item.id+' .play-button').addClass 'loading'
-            createWaveform(item.id,item.track_id,songWaveform,'.song-item-'+item.id)
+          $('.song-item-'+item.id+' .play-button').addClass 'loading'
+          createWaveform(item.id,item.track_id,songWaveform,'.song-item-'+item.id)
   , 100
 
 
