@@ -19,29 +19,29 @@ songFilter = (filter) ->
   $('.song-list').find(".song-string:not(:Contains(" + filter + "))").parents('li').hide()
   $('.song-list').find(".song-string:contains(" + filter + ")").parents('li').show()
 
-checkUserVoted = (facebook_token)->
-  voteStateCheckInterval = setInterval ->
-    xx 'check vote waiting'
-    if window.appendFinish
-      clearInterval(voteStateCheckInterval)
-      $.ajax
-        type: 'post'
-        dataType: 'json'
-        cache: false
-        data:
-          facebook_token: facebook_token
-        url: '//api.iing.tw/check_user_voted.json'
-        success: (response) ->
-          window.userVoted = response.data
-          for id in window.userVoted
-            disableVoteButton id
-  , 100
+# checkUserVoted = (facebook_token)->
+#   voteStateCheckInterval = setInterval ->
+#     xx 'check vote waiting'
+#     if window.appendFinish
+#       clearInterval(voteStateCheckInterval)
+#       $.ajax
+#         type: 'post'
+#         dataType: 'json'
+#         cache: false
+#         data:
+#           facebook_token: facebook_token
+#         url: '//api.iing.tw/check_user_voted.json'
+#         success: (response) ->
+#           window.userVoted = response.data
+#           for id in window.userVoted
+#             disableVoteButton id
+#   , 100
 
-disableVoteButton = (soundcloud_id) ->
-  button = $('.song-item-'+soundcloud_id+' .vote-button')
-  if button.hasClass('done') is false
-    button.addClass 'done'
-    button.text '感謝支持！'
+# disableVoteButton = (soundcloud_id) ->
+#   button = $('.song-item-'+soundcloud_id+' .vote-button')
+#   if button.hasClass('done') is false
+#     button.addClass 'done'
+#     button.text '感謝支持！'
 
 
 #################################
@@ -90,11 +90,11 @@ $songItem = (item,display) ->
 # Document events
 #################################
 
-$(document).on 'fbload', ->
-  FB.getLoginStatus (response) ->
-    xx response
-    if response.status is 'connected'
-      checkUserVoted response.authResponse.accessToken
+# $(document).on 'fbload', ->
+#   FB.getLoginStatus (response) ->
+#     xx response
+#     if response.status is 'connected'
+#       checkUserVoted response.authResponse.accessToken
 
 $ ->
   if window.location.hash isnt ''
@@ -102,7 +102,7 @@ $ ->
     xx hash
     if hash is '#asc'
       window.hash = 'asc'
-    if hash is '#desc'
+    else if hash is '#desc'
       window.hash = 'desc'
     else if hash is '#ranking'
       window.hash = 'ranking'
@@ -112,7 +112,7 @@ $ ->
     window.hash = 'asc'
 
   setLoadingTime()
-  $.getJSON '//api.iing.tw/soundclouds.json?token=8888&no_waveform=true', (r) ->
+  $.getJSON '/json/soundclouds.json', (r) ->
     xx 'api done'
     r = r.slice().sort (a, b) ->
       return a.id - b.id
@@ -128,18 +128,9 @@ $ ->
         display = ''
 
       $('.song-list').append $songItem(item, display)
+      if isDesktop is false
+        $('.song-item-'+item.id+' .play-button').addClass 'loading'
 
-      # xx songWaveform = getItemById(window.waveform, item.id)
-      # xx songWaveform = songWaveform[waveform]
-      # songWaveform = waveformStringToArray songWaveform
-      # waveform = new Waveform(
-      #   container: $('.song-item-'+item.id+' .waveform-preview').get(0)
-      #   innerColor: 'rgba(0,0,0,.1)'
-      #   data: songWaveform
-      # )
-      # if window.isDesktop is false
-      #   $('.song-item-'+item.id+' .play-button').addClass 'loading'
-      #   createWaveform(item.id,item.track_id,songWaveform,'.song-item-'+item.id)
       i++
       if i is window.list.length
         xx window.hash
@@ -183,7 +174,6 @@ $ ->
             innerColor: 'rgba(0,0,0,.1)'
             data: songWaveform
           )
-          $('.song-item-'+item.id+' .play-button').addClass 'loading'
           createWaveform(item.id,item.track_id,songWaveform,'.song-item-'+item.id)
   , 100
 

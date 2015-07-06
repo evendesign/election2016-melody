@@ -42,6 +42,8 @@
     outline: none;
     background-repeat: no-repeat;
     background-size: contain;
+    // background-color: #50B584;
+    // @include border-radius(100%);
   }
   .play-button {
     @extend %ctrl-button;

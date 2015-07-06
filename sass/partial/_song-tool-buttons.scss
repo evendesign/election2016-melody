@@ -67,6 +67,10 @@
           border-color: transparent transparent transparent #EAEAEA;
         }
       }
+
+      .event-close & {
+        display: none;
+      }
     }
 
     .vote-count {
@@ -76,6 +80,11 @@
       @include border-right-radius(6px);
 
       float: left;
+
+      .event-close & {
+        padding: 0 28px;
+        @include border-left-radius(6px);
+      }
     }
   }
 

@@ -2,6 +2,8 @@ var DEBUG, xx;
 
 DEBUG = false;
 
+window.inInterval = false;
+
 xx = function(x) {
   return DEBUG && console.log(x);
 };
