@@ -1,3 +1,40 @@
+.winners {
+  margin: 0 24px;
+  padding: 48px 0;
+  text-align: center;
+  @include adjust-font-size-to(15px);
+
+  ul {
+    @include reset-box-model;
+    @include trailer();
+    list-style: none;
+    font-weight: bold;
+    @include adjust-font-size-to(15px, 1.125);
+    a {
+      color: $color-black;
+      &:hover {
+        color: #57B284;
+        text-decoration: none;
+      }
+    }
+  }
+
+  @include at-breakpoint($desktop) {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 48px 0 96px;
+    &:after {
+      content: "";
+      display: block;
+      margin: 48px auto 0;
+      width: 260px;
+      height: 6px;
+      background-color: #E3EB73;
+      @include border-radius(3px);
+    }
+  }
+}
+
 .song-list {
   position: relative;
   min-height: 100vh;
