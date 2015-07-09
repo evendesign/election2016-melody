@@ -1,8 +1,8 @@
 #################################
 # Settings
 #################################
-# DEBUG = true
-DEBUG = false
+DEBUG = true
+# DEBUG = false
 
 # window.inInterval = true
 window.inInterval = false

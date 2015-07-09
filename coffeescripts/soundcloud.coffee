@@ -12,6 +12,7 @@ window.isDesktop = true
 window.soundcloudId = undefined
 window.userVoted = []
 window.loadingTime = undefined
+window.playcount = 0
 
 
 #################################
@@ -175,9 +176,10 @@ showPopupLoading = ->
 createWaveform = (id,track_id,waveform,selector,autoplay) ->
   if $(selector+' .waveform canvas').length <= 0
     SC.get '/tracks/'+track_id, (track) ->
-
       xx 'get track success'
       # $(selector+' .play-times').text track.playback_count
+      # xx track.playback_count
+      xx window.playcount += parseInt(track.playback_count)
       soundTrack[track_id] = track
       sound = undefined
       $(selector+' .waveform-preview canvas').remove()

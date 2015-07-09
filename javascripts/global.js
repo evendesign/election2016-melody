@@ -1,6 +1,6 @@
 var DEBUG, xx;
 
-DEBUG = false;
+DEBUG = true;
 
 window.inInterval = false;
 

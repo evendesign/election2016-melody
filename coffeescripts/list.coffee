@@ -166,6 +166,7 @@ $ ->
               innerColor: 'rgba(0,0,0,.1)'
               data: songWaveform
             )
+            createWaveform(item.id,item.track_id,songWaveform,'.song-item-'+item.id)
       else
         for item in window.list
           songWaveform = [1,1,1,1,1]

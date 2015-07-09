@@ -24,6 +24,8 @@ window.userVoted = [];
 
 window.loadingTime = void 0;
 
+window.playcount = 0;
+
 $popupLoginContent = function(id) {
   return '<i class="icon-alarm"></i>\
   <h2>請先登入臉書帳號</h2>\
@@ -155,6 +157,7 @@ createWaveform = function(id, track_id, waveform, selector, autoplay) {
       var ctx, gradient, sound;
 
       xx('get track success');
+      xx(window.playcount += parseInt(track.playback_count));
       soundTrack[track_id] = track;
       sound = void 0;
       $(selector + ' .waveform-preview canvas').remove();

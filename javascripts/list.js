@@ -158,11 +158,12 @@ $(function() {
             item = _ref[_i];
             waveformItem = getItemById(window.waveform, item.id);
             songWaveform = waveformStringToArray(waveformItem.waveform);
-            _results.push(waveform = new Waveform({
+            waveform = new Waveform({
               container: $('.song-item-' + item.id + ' .waveform-preview').get(0),
               innerColor: 'rgba(0,0,0,.1)',
               data: songWaveform
-            }));
+            });
+            _results.push(createWaveform(item.id, item.track_id, songWaveform, '.song-item-' + item.id));
           }
           return _results;
         });
