@@ -57,6 +57,14 @@ $header-desktop-height     : 80px;
 
     li {
       margin: 0 12px;
+
+      &.after-interval {
+        display: none;
+
+        .event-close & {
+          display: block;
+        }
+      }
     }
 
     li + li {
@@ -113,9 +121,15 @@ $header-desktop-height     : 80px;
         display: inline-block;
         height: $header-desktop-height;
         line-height: $header-desktop-height;
-        padding-left: rhythm(3);
+        padding-left: rhythm(2);
         &.active a {
           color: #54B584;
+        }
+
+        &.after-interval {
+          .event-close & {
+            display: inline-block;
+          }
         }
       }
 

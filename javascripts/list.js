@@ -1,4 +1,4 @@
-var $songItem, checkUserVoted, countdown, currentTime, disableVoteButton, songFilter;
+var $songItem, countdown, currentTime, songFilter;
 
 window.pageName = 'list';
 
@@ -12,6 +12,10 @@ window.append = false;
 
 window.hash = 'asc';
 
+window.waveform = void 0;
+
+window.appendFinish = false;
+
 countdown = Date.now();
 
 currentTime = Date.now();
@@ -19,40 +23,6 @@ currentTime = Date.now();
 songFilter = function(filter) {
   $('.song-list').find(".song-string:not(:Contains(" + filter + "))").parents('li').hide();
   return $('.song-list').find(".song-string:contains(" + filter + ")").parents('li').show();
-};
-
-checkUserVoted = function(facebook_token) {
-  return $.ajax({
-    type: 'post',
-    dataType: 'json',
-    cache: false,
-    data: {
-      facebook_token: facebook_token
-    },
-    url: '//api.iing.tw/check_user_voted.json',
-    success: function(response) {
-      var id, _i, _len, _ref, _results;
-
-      window.userVoted = response.data;
-      _ref = window.userVoted;
-      _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        id = _ref[_i];
-        _results.push(disableVoteButton(id));
-      }
-      return _results;
-    }
-  });
-};
-
-disableVoteButton = function(soundcloud_id) {
-  var button;
-
-  button = $('.song-item-' + soundcloud_id + ' .vote-button');
-  if (button.hasClass('done') === false) {
-    button.addClass('done');
-    return button.text('感謝支持！');
-  }
 };
 
 $songItem = function(item, display) {
@@ -95,25 +65,15 @@ $songItem = function(item, display) {
   </li>';
 };
 
-$(document).on('fbload', function() {
-  return FB.getLoginStatus(function(response) {
-    xx(response);
-    if (response.status === 'connected') {
-      return checkUserVoted(response.authResponse.accessToken);
-    }
-  });
-});
-
 $(function() {
-  var hash;
+  var appendStateCheckInterval, hash;
 
   if (window.location.hash !== '') {
     hash = window.location.hash.toLowerCase();
     xx(hash);
     if (hash === '#asc') {
       window.hash = 'asc';
-    }
-    if (hash === '#desc') {
+    } else if (hash === '#desc') {
       window.hash = 'desc';
     } else if (hash === '#ranking') {
       window.hash = 'ranking';
@@ -124,9 +84,10 @@ $(function() {
     window.hash = 'asc';
   }
   setLoadingTime();
-  $.getJSON('//api.iing.tw/soundclouds.json?token=8888', function(r) {
-    var display, i, item, songWaveform, waveform, _i, _len, _ref, _results;
+  $.getJSON('/json/soundclouds.json', function(r) {
+    var display, i, item, _i, _len, _ref, _results;
 
+    xx('api done');
     r = r.slice().sort(function(a, b) {
       return a.id - b.id;
     });
@@ -144,15 +105,8 @@ $(function() {
         display = '';
       }
       $('.song-list').append($songItem(item, display));
-      songWaveform = waveformStringToArray(item.waveform);
-      waveform = new Waveform({
-        container: $('.song-item-' + item.id + ' .waveform-preview').get(0),
-        innerColor: 'rgba(0,0,0,.1)',
-        data: songWaveform
-      });
-      if (window.isDesktop === false) {
+      if (isDesktop === false) {
         $('.song-item-' + item.id + ' .play-button').addClass('loading');
-        createWaveform(item.id, item.track_id, songWaveform, '.song-item-' + item.id);
       }
       i++;
       if (i === window.list.length) {
@@ -179,6 +133,7 @@ $(function() {
         $('.search-bar').removeClass('off');
         $('.song-list').removeClass('loading');
         $('.page .spinner').remove();
+        window.appendFinish = true;
         _results.push(stopLoadingTime());
       } else {
         _results.push(void 0);
@@ -186,6 +141,49 @@ $(function() {
     }
     return _results;
   });
+  appendStateCheckInterval = setInterval(function() {
+    var item, songWaveform, waveform, _i, _len, _ref, _results;
+
+    xx('append waiting');
+    if (window.appendFinish) {
+      clearInterval(appendStateCheckInterval);
+      if (window.isDesktop) {
+        return $.getJSON('/json/waveform.json', function(r) {
+          var item, songWaveform, waveform, waveformItem, _i, _len, _ref, _results;
+
+          window.waveform = r;
+          _ref = window.list;
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            item = _ref[_i];
+            waveformItem = getItemById(window.waveform, item.id);
+            songWaveform = waveformStringToArray(waveformItem.waveform);
+            waveform = new Waveform({
+              container: $('.song-item-' + item.id + ' .waveform-preview').get(0),
+              innerColor: 'rgba(0,0,0,.1)',
+              data: songWaveform
+            });
+            _results.push(createWaveform(item.id, item.track_id, songWaveform, '.song-item-' + item.id));
+          }
+          return _results;
+        });
+      } else {
+        _ref = window.list;
+        _results = [];
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          item = _ref[_i];
+          songWaveform = [1, 1, 1, 1, 1];
+          waveform = new Waveform({
+            container: $('.song-item-' + item.id + ' .waveform-preview').get(0),
+            innerColor: 'rgba(0,0,0,.1)',
+            data: songWaveform
+          });
+          _results.push(createWaveform(item.id, item.track_id, songWaveform, '.song-item-' + item.id));
+        }
+        return _results;
+      }
+    }
+  }, 100);
   $('body').delegate('.search-string', 'keydown', function() {
     return countdown = Date.now();
   });

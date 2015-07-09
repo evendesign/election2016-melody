@@ -1,6 +1,8 @@
 var DEBUG, xx;
 
-DEBUG = false;
+DEBUG = true;
+
+window.inInterval = false;
 
 xx = function(x) {
   return DEBUG && console.log(x);

@@ -9,34 +9,34 @@ window.item = undefined
 #################################
 # Function
 #################################
-checkUserVoted = (facebook_token)->
-  $.ajax
-    type: 'post'
-    dataType: 'json'
-    cache: false
-    data:
-      facebook_token: facebook_token
-    url: '//api.iing.tw/check_user_voted.json'
-    success: (response) ->
-      for id in response.data
-        if id is window.id
-          disableVoteButton()
+# checkUserVoted = (facebook_token)->
+#   $.ajax
+#     type: 'post'
+#     dataType: 'json'
+#     cache: false
+#     data:
+#       facebook_token: facebook_token
+#     url: '//api.iing.tw/check_user_voted.json'
+#     success: (response) ->
+#       for id in response.data
+#         if id is window.id
+#           disableVoteButton()
 
-disableVoteButton =  ->
-  button = $('.vote-button')
-  if button.hasClass('done') is false
-    button.addClass 'done'
-    button.text '感謝支持！'
+# disableVoteButton =  ->
+#   button = $('.vote-button')
+#   if button.hasClass('done') is false
+#     button.addClass 'done'
+#     button.text '感謝支持！'
 
 
 #################################
 # Document events
 #################################
-$(document).on 'fbload', ->
-  FB.getLoginStatus (response) ->
-    xx response
-    if response.status is 'connected'
-      checkUserVoted response.authResponse.accessToken
+# $(document).on 'fbload', ->
+#   FB.getLoginStatus (response) ->
+#     xx response
+#     if response.status is 'connected'
+#       checkUserVoted response.authResponse.accessToken
 
 $ ->
   xx window.getVars
