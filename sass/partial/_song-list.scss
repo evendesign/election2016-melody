@@ -1,37 +1,13 @@
 .winners {
   margin: 0 24px;
-  padding: 48px 0;
+  padding: 72px 0;
   text-align: center;
-  @include adjust-font-size-to(15px);
-
-  ul {
-    @include reset-box-model;
-    @include trailer();
-    list-style: none;
-    font-weight: bold;
-    @include adjust-font-size-to(15px, 1.125);
-    a {
-      color: $color-black;
-      &:hover {
-        color: #57B284;
-        text-decoration: none;
-      }
-    }
-  }
+  @include adjust-font-size-to(18px);
 
   @include at-breakpoint($desktop) {
     max-width: 980px;
     margin: 0 auto;
-    padding: 48px 0 96px;
-    &:after {
-      content: "";
-      display: block;
-      margin: 48px auto 0;
-      width: 260px;
-      height: 6px;
-      background-color: #E3EB73;
-      @include border-radius(3px);
-    }
+    @include adjust-font-size-to(21px);
   }
 }
 
@@ -146,6 +122,10 @@
     max-width: 980px;
     margin: 0 auto;
 
+    &.winner {
+      .song-item { margin-bottom: 48px; }
+    }
+
     .song-item {
       padding-left: 6px;
       @include trailer(3);
@@ -182,13 +162,14 @@
 
       .song-number {
         float: left;
+        min-width: 42px;
         @include adjust-font-size-to(24px, 1);
         display: inline-block;
         padding: 0 23px 0 34px;
       }
 
       .song-info {
-        max-width: 55%;
+        max-width: 60%;
 
         .song-title {
           padding-top: 0;

@@ -78,10 +78,10 @@ $ ->
     window.hash = 'ranking'
 
   setLoadingTime()
-  $.getJSON '/json/soundclouds.json', (r) ->
+  $.getJSON '/json/soundclouds.finalround.json', (r) ->
     xx 'api done'
-    r = r.slice().sort (a, b) ->
-      return b.vote_count - a.vote_count
+    # r = r.slice().sort (a, b) ->
+    #   return b.vote_count - a.vote_count
     window.list = r
     window.loading = true
     $('.song-list').addClass 'loading'
@@ -92,6 +92,8 @@ $ ->
       if item.winners
         $('.song-list').append $songItem(j,item)
         j++
+        if j == 10
+          $('.song-list').append('<p class="winners">以及三首由評審推薦入選的歌曲</p>')
       i++
 
       if i is window.list.length
