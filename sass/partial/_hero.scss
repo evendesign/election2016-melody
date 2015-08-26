@@ -34,12 +34,48 @@
     height: 650px; //設 600px 後面線會和文字打架！！
 
     .hero-title {
-      bottom: 127px;
+      bottom: 157px;
       right: 378px;
     }
     .share-button {
-      bottom: 87px;
+      bottom: 117px;
       right: 503px;
+    }
+  }
+}
+
+.pre-order-button {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  @include background(linear-gradient(left, #E4E779, #50B584));
+  border: none;
+  @include border-radius(5px 0 0 5px);
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -24px;
+    border: 24px solid transparent;
+    border-left-color: #50B584;
+    border-right: 0;
+  }
+  &.desktop {
+    display: none;
+  }
+  .go-to-list &.mobile {
+    border-right: 24px solid white;
+    @include border-radius(3px 0 0 3px);
+  }
+  @include at-breakpoint($desktop) {
+    &.mobile { display: none; }
+    &.desktop {
+      display: block;
+      position: absolute;
+      bottom: 60px;
+      right: 455px;
+      padding: 12px 20px 12px 32px;
+      @include adjust-font-size-to(16px);
     }
   }
 }

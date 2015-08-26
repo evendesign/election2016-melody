@@ -39,7 +39,11 @@
     display: none;
 
     .event-close & {
-      display: inline-block;
+      display: block;
+      margin:12px auto;
+      @include at-breakpoint($desktop) {
+        display: inline-block;
+      }
     }
   }
 }

@@ -80,6 +80,19 @@ $header-desktop-height     : 80px;
       color: white;
       &:hover { text-decoration: none; }
     }
+    .pre-order {
+      position: relative;
+      &:before {
+        content: '';
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        margin-left: -96px;
+        width: 37px;
+        height: 37px;
+        background: url(/images/CD-icon.svg) center no-repeat;
+      }
+    }
   }
 
 
@@ -138,6 +151,15 @@ $header-desktop-height     : 80px;
         font-weight: 900;
         @include adjust-font-size-to(18px, 1);
         line-height: $header-desktop-height;
+      }
+
+      .pre-order {
+        padding-left: 84px;
+        &:before {
+          top: 20px;
+          left: 40px;
+          margin-left: 0;
+        }
       }
     }
   }
